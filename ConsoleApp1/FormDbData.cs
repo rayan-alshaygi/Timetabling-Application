@@ -34,8 +34,7 @@ namespace ConsoleApp1
         public int InsertInstructor(string InstructorName)
         {
             int val;
-            TimetableDBDataSetTrialTableAdapters.InstructorsTableAdapter i = new TimetableDBDataSetTrialTableAdapters.InstructorsTableAdapter();
-            return val= i.Insert(InstructorName);
+            return val= insTA.Insert(InstructorName);
             
             //return val = Int32.Parse(insTA.InsertInstructor(InstructorName).ToString());
            // return val = ins.InsertInstructor(InstructorName);

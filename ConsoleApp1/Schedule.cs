@@ -13,22 +13,21 @@ namespace ConsoleApp1
         ScheduleTableAdapter sched = new ScheduleTableAdapter();
         Counts counts = new Counts();
         // Time-space slots, one entry represent one hour in one classroom
-
-        private List<LinkedList<DataRow>> _slots = new List<LinkedList<DataRow>>();
+        
+        private List<LinkedList<TimetableDBDataSet.CourseClassRow>> _slots = new List<LinkedList<TimetableDBDataSet.CourseClassRow>>();
         // Class table for chromosome
         // Used to determine first time-space slot used by class
         private Dictionary<CourseClass, int> _classes = new Dictionary<CourseClass, int>();
         public Schedule()
         {
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
-
-
         }
         public void Algorithm()
-        {
-            // in another class
-            // number of time-space slots
-            int size = (int)_slots.Count;
+        { 
+          
+        // in another class
+        // number of time-space slots
+        int size = (int)_slots.Count;
             DataTable rooms = counts.GetRooms();
 
             // place classes at random position
@@ -37,7 +36,7 @@ namespace ConsoleApp1
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
-            foreach (DataRow courseRow in c.Rows)
+            foreach (TimetableDBDataSet.CourseClassRow courseRow in c.Rows)
             {
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
@@ -51,7 +50,7 @@ namespace ConsoleApp1
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
                 {
-                    if (_slots[pos + i].Count > 1)
+                    if (_slots[pos + i]!=null && _slots[pos + i].Count > 1)
                     {
                         ro = true;
                         break;
@@ -82,9 +81,9 @@ namespace ConsoleApp1
                     for (int j = dur - 1; j >= 0; j--)
                     {
                         // check for overlapping with other classes at same time
-                        LinkedList<DataRow> cl = _slots[t + j];
+                        LinkedList<TimetableDBDataSet.CourseClassRow> cl = _slots[t + j];
                         //for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
-                        foreach (DataRow row in c.Rows)
+                        foreach (TimetableDBDataSet.CourseClassRow row in c.Rows)
                         {
                             if (courseRow != row)
                             {
@@ -121,7 +120,7 @@ namespace ConsoleApp1
         {
             return _classes;
         }
-        public List<LinkedList<DataRow>> GetSlots()
+        public List<LinkedList<TimetableDBDataSet.CourseClassRow>> GetSlots()
         {
             return _slots;
         }

@@ -75,13 +75,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbDivision1 = new System.Windows.Forms.ComboBox();
             this.gbAddCurriculm = new System.Windows.Forms.GroupBox();
+            this.lblCurriculmName = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.btAddCurriculmAs = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblCurriculmName = new System.Windows.Forms.Label();
+            this.generateSchedule = new System.Windows.Forms.Button();
             this.gbAddTeacher.SuspendLayout();
             this.gbAddCourse.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -603,13 +604,30 @@
             this.gbAddCurriculm.Controls.Add(this.label6);
             this.gbAddCurriculm.Controls.Add(this.comboBox2);
             this.gbAddCurriculm.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.gbAddCurriculm.Location = new System.Drawing.Point(433, 242);
+            this.gbAddCurriculm.Location = new System.Drawing.Point(335, 208);
             this.gbAddCurriculm.Name = "gbAddCurriculm";
             this.gbAddCurriculm.Size = new System.Drawing.Size(421, 231);
             this.gbAddCurriculm.TabIndex = 23;
             this.gbAddCurriculm.TabStop = false;
             this.gbAddCurriculm.Text = "add curriculm";
             this.gbAddCurriculm.Enter += new System.EventHandler(this.gbAddCurriculm_Enter);
+            // 
+            // lblCurriculmName
+            // 
+            this.lblCurriculmName.AutoSize = true;
+            this.lblCurriculmName.Font = new System.Drawing.Font("Tahoma", 14F);
+            this.lblCurriculmName.Location = new System.Drawing.Point(54, 38);
+            this.lblCurriculmName.Name = "lblCurriculmName";
+            this.lblCurriculmName.Size = new System.Drawing.Size(57, 23);
+            this.lblCurriculmName.TabIndex = 8;
+            this.lblCurriculmName.Text = "name";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(138, 31);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 30);
+            this.textBox1.TabIndex = 7;
             // 
             // btAddCurriculmAs
             // 
@@ -656,28 +674,22 @@
             this.comboBox2.Size = new System.Drawing.Size(100, 31);
             this.comboBox2.TabIndex = 0;
             // 
-            // textBox1
+            // generateSchedule
             // 
-            this.textBox1.Location = new System.Drawing.Point(138, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 30);
-            this.textBox1.TabIndex = 7;
-            // 
-            // lblCurriculmName
-            // 
-            this.lblCurriculmName.AutoSize = true;
-            this.lblCurriculmName.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.lblCurriculmName.Location = new System.Drawing.Point(54, 38);
-            this.lblCurriculmName.Name = "lblCurriculmName";
-            this.lblCurriculmName.Size = new System.Drawing.Size(57, 23);
-            this.lblCurriculmName.TabIndex = 8;
-            this.lblCurriculmName.Text = "name";
+            this.generateSchedule.Location = new System.Drawing.Point(771, 467);
+            this.generateSchedule.Name = "generateSchedule";
+            this.generateSchedule.Size = new System.Drawing.Size(75, 35);
+            this.generateSchedule.TabIndex = 24;
+            this.generateSchedule.Text = "Generate Schedule";
+            this.generateSchedule.UseVisualStyleBackColor = true;
+            this.generateSchedule.Click += new System.EventHandler(this.generateSchedule_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 529);
+            this.Controls.Add(this.generateSchedule);
             this.Controls.Add(this.gbAddCurriculm);
             this.Controls.Add(this.gbAddDivisionSize);
             this.Controls.Add(this.btAddCurriculum);
@@ -776,5 +788,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label lblCurriculmName;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button generateSchedule;
     }
 }

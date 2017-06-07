@@ -82,7 +82,8 @@ namespace ConsoleApp1
             gbAddTeacher.Visible = false;
             gbMakeSchedule.Location = new Point(391, 222);
             gbMakeSchedule.Size = new System.Drawing.Size(467, 181);
-            cbCourseName.Items.Clear();
+            generateSchedule.Visible = true;
+            /*cbCourseName.Items.Clear();
             DataTable dt = c.ComboCourseName();
             dataGridView4.DataSource = dt;
             if (dataGridView4.Rows.Count > 0)
@@ -94,7 +95,7 @@ namespace ConsoleApp1
             }
             //DataTable dt1 = Counts.RandomNumberList();
             //dataGridView5.DataSource = dt1;
-
+            */
         }
         private void btAddDivisionSize_Click_1(object sender, EventArgs e)
         {
@@ -316,6 +317,12 @@ namespace ConsoleApp1
         private void gbAddCurriculm_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void generateSchedule_Click(object sender, EventArgs e)
+        {
+            Schedule s = new Schedule();
+            s.Algorithm();
         }
     }
 }
