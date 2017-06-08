@@ -36,8 +36,10 @@ namespace ConsoleApp1
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
+            Console.WriteLine("before entering");
             foreach (TimetableDBDataSet.CourseClassRow courseRow in c.Rows)
             {
+                Console.WriteLine("currently working in course"+courseRow["Id"]);
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 restart:
@@ -45,8 +47,11 @@ namespace ConsoleApp1
                 int room = RandomNumbers.NextNumber() % nr;
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
-
+                Console.WriteLine("picked random numbers");
                 // check for room overlapping of classes
+                Console.WriteLine("check for room overlapping of classes");
+                Console.WriteLine("");
+
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
                 {
@@ -58,21 +63,34 @@ namespace ConsoleApp1
                 }
 
                 // on room overlaping
-                if (!ro)
+                if (ro)
                 {
+                    Console.WriteLine("current room overlapped will restart");
                     goto restart;
                 }
                 // does current room have enough seats
-                int roomSeats =Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
-                int classSeats= Int32.Parse(courseRow["numberofstudents"].ToString());
-                if (roomSeats < classSeats)
-                    goto restart;
+                Console.WriteLine("enough seats");
 
+               int roomSeats =Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
+                Console.WriteLine(courseRow["courseId"].ToString());
+               int classSeats= counts.GetCourseStudents( Int32.Parse(courseRow["courseId"].ToString()));
+                if (roomSeats < classSeats)
+                {
+                    Console.WriteLine("not enogh retart");
+                    goto restart;
+                }
                 // does current room have computers if they are required
-                Boolean roomLab = Boolean.Parse(rooms.Rows[room]["lab"].ToString());
-                Boolean classLab = Boolean.Parse(courseRow["lab"].ToString());
+                Console.WriteLine("room"+rooms.Rows[room]["lab"].ToString());
+                Console.WriteLine("course"+courseRow["lab"].ToString());
+                string r = rooms.Rows[room]["lab"].ToString();
+                string tryc = courseRow["lab"].ToString();
+                Boolean roomLab = Convert.ToBoolean(r);//(rooms.Rows[room]["lab"].ToString().ToLower());
+                Boolean classLab = Boolean.Parse(tryc);//Boolean.Parse(courseRow["lab"].ToString());
+                Console.WriteLine("have pcs");
+
                 if (classLab && !roomLab)
                     goto restart;
+                Console.WriteLine("overlapping classes and professors");
 
                 // check overlapping of classes for professors and student groups
                 for (int i = nr, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
