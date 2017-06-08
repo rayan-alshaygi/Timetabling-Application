@@ -14,12 +14,15 @@ namespace ConsoleApp1
         Counts counts = new Counts();
         // Time-space slots, one entry represent one hour in one classroom
         
-        private List<LinkedList<TimetableDBDataSet.CourseClassRow>> _slots = new List<LinkedList<TimetableDBDataSet.CourseClassRow>>();
+        private List<List<DataRow>> _slots = new List<List<DataRow>>();
+        List<DataRow> rayan = new List<DataRow>();
+        List<LinkedList<String>> str = new List<LinkedList<string>>();
         // Class table for chromosome
         // Used to determine first time-space slot used by class
         private Dictionary<CourseClass, int> _classes = new Dictionary<CourseClass, int>();
         public Schedule()
         {
+            str.Resize(10);
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
         }
         public void Algorithm()
@@ -32,12 +35,13 @@ namespace ConsoleApp1
 
             // place classes at random position
             DataTable c = Counts.GetInstance().GetCourseClasses();
-           
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
-            foreach (TimetableDBDataSet.CourseClassRow courseRow in c.Rows)
+            Console.WriteLine("before entering");
+            foreach (DataRow courseRow in c.Rows)
             {
+                Console.WriteLine("currently working in course"+courseRow["Id"]);
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 restart:
@@ -45,8 +49,11 @@ namespace ConsoleApp1
                 int room = RandomNumbers.NextNumber() % nr;
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
-
+                Console.WriteLine("picked random numbers");
                 // check for room overlapping of classes
+                Console.WriteLine("check for room overlapping of classes");
+                Console.WriteLine("");
+
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
                 {
@@ -58,21 +65,34 @@ namespace ConsoleApp1
                 }
 
                 // on room overlaping
-                if (!ro)
+                if (ro)
                 {
+                    Console.WriteLine("current room overlapped will restart");
                     goto restart;
                 }
                 // does current room have enough seats
-                int roomSeats =Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
-                int classSeats= Int32.Parse(courseRow["numberofstudents"].ToString());
-                if (roomSeats < classSeats)
-                    goto restart;
+                Console.WriteLine("enough seats");
 
+               int roomSeats =Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
+                Console.WriteLine(courseRow["courseId"].ToString());
+               int classSeats= counts.GetCourseStudents( Int32.Parse(courseRow["courseId"].ToString()));
+                if (roomSeats < classSeats)
+                {
+                    Console.WriteLine("not enogh retart");
+                    goto restart;
+                }
                 // does current room have computers if they are required
-                Boolean roomLab = Boolean.Parse(rooms.Rows[room]["lab"].ToString());
-                Boolean classLab = Boolean.Parse(courseRow["lab"].ToString());
+                Console.WriteLine("room"+rooms.Rows[room]["lab"].ToString());
+                Console.WriteLine("course"+courseRow["lab"].ToString());
+                string r = rooms.Rows[room]["lab"].ToString();
+                string tryc = courseRow["lab"].ToString();
+                Boolean roomLab = Convert.ToBoolean(r);//(rooms.Rows[room]["lab"].ToString().ToLower());
+                Boolean classLab = Boolean.Parse(tryc);//Boolean.Parse(courseRow["lab"].ToString());
+                Console.WriteLine("have pcs");
+
                 if (classLab && !roomLab)
                     goto restart;
+                Console.WriteLine("overlapping classes and professors");
 
                 // check overlapping of classes for professors and student groups
                 for (int i = nr, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
@@ -81,9 +101,9 @@ namespace ConsoleApp1
                     for (int j = dur - 1; j >= 0; j--)
                     {
                         // check for overlapping with other classes at same time
-                        LinkedList<TimetableDBDataSet.CourseClassRow> cl = _slots[t + j];
+                        List<DataRow> cl = _slots[t + j];
                         //for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
-                        foreach (TimetableDBDataSet.CourseClassRow row in c.Rows)
+                        foreach (DataRow row in c.Rows)
                         {
                             if (courseRow != row)
                             {
@@ -98,14 +118,15 @@ namespace ConsoleApp1
                         }
                     }
                 }
-
-               
+                Console.WriteLine("trying to see what does the the linked list have as default value\n" +str[2]);
+                Console.WriteLine();
                 // fill time-space slots, for each hour of class
+                List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
                 {
-                    _slots[pos + i].AddLast(courseRow);
-                    //_slots.at(pos + i).push_back(*it);
-
+                    l.Add(courseRow);
+                    _slots.Insert((pos + i),l);
+                     
                 }
                 //insert it into the schedule class
                 int classId = Int32.Parse(courseRow["id"].ToString());
@@ -120,7 +141,7 @@ namespace ConsoleApp1
         {
             return _classes;
         }
-        public List<LinkedList<TimetableDBDataSet.CourseClassRow>> GetSlots()
+        public List<List<DataRow>> GetSlots()
         {
             return _slots;
         }
