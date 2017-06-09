@@ -322,7 +322,12 @@ namespace ConsoleApp1
         private void generateSchedule_Click(object sender, EventArgs e)
         {
             Schedule s = new Schedule();
-            s.Algorithm();
+            textBox2.Text= s.Algorithm();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
