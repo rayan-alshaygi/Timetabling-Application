@@ -106,9 +106,22 @@ namespace ConsoleApp1
         public int GetNumberOfRooms() { 
             return (int) room.Count();
         }
-        public DataTable GetRooms()
+        public int GetNumberOfLectureRooms()
         {
-            return room.GetData();
+            return (int)room.CountLectureRooms();
+        }
+        public int GetNumberOfLabRooms()
+        {
+            return (int)room.CountLabRooms();
+        }
+        public DataTable GetLectureRooms()
+        {
+            return room.GetRooms();
+        }
+        
+        public DataTable GetLabRooms()
+        {
+            return room.GetLabRooms();
         }
         // Returns reference to list of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
