@@ -13,7 +13,7 @@ namespace ConsoleApp1
         public const int _WIN32_WINNT = 0x0501; // Change this to the appropriate value to target other versions of Windows.
         public const int _WIN32_WINDOWS = 0x0410; // Change this to the appropriate value to target Windows Me or later.
         public const int _WIN32_IE = 0x0600; // Change this to the appropriate value to target other versions of IE.
-        public const int DAY_HOURS = 12;
+        public const int DAY_HOURS = 10;
         public const int DAYS_NUM = 5;
         public const int IDD_ABOUTBOX = 100;
         public const int IDR_MAINFRAME = 128;
