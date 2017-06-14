@@ -207,7 +207,7 @@ namespace ConsoleApp1
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
-            DataTable rooms = counts.GetRooms();
+            DataTable rooms = Counts.GetRooms();
             foreach (DataRow courseRow in c.Rows)
             {
                 Console.WriteLine("currently working in course" + courseRow["Id"]);
