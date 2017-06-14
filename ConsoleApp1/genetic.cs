@@ -197,17 +197,19 @@ namespace ConsoleApp1
         public ScheduleGenetic MakeNewFromPrototype()
         {
             // number of time-space slots
-            int size = (int)_slots.Count;
-
-            // make new chromosome, copy chromosome setup
-            ScheduleGenetic newChromosome = new ScheduleGenetic(this, true);
+            int size = _slots.Count;
+            DataTable rooms = Counts.GetLectureRooms();
+            DataTable labs = Counts.GetLabRooms();
 
             // place classes at random position
             DataTable c = Counts.GetInstance().GetCourseClasses();
-            int nr = Counts.GetInstance().GetNumberOfRooms();
+            int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+            int nl = Counts.GetInstance().GetNumberOfLabRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
-            DataTable rooms = Counts.GetRooms();
+            Console.WriteLine("before entering");
+            Console.WriteLine(c.Rows.Count);
+            Console.WriteLine(rooms.Rows.Count);
             foreach (DataRow courseRow in c.Rows)
             {
                 Console.WriteLine("currently working in course" + courseRow["Id"]);
@@ -215,7 +217,12 @@ namespace ConsoleApp1
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 restart:
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
-                int room = RandomNumbers.NextNumber() % nr;
+                int room;
+                // determine if it's a lab or a lecture
+                if (Boolean.Parse(courseRow["lab"].ToString()) == false)
+                    room = RandomNumbers.NextNumber() % nr;
+                else
+                    room = RandomNumbers.NextNumber() % nl;
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
                 Console.WriteLine("picked random numbers");
@@ -243,7 +250,7 @@ namespace ConsoleApp1
                 Console.WriteLine("Does it have enough seats");
 
                 int roomSeats = Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
-                int classSeats = Counts.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
+                int classSeats = counts.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
                 if (roomSeats < classSeats)
                 {
                     Console.WriteLine("not enough will retart");
@@ -274,17 +281,23 @@ namespace ConsoleApp1
                         // check for overlapping with other classes at same time
                         List<DataRow> cl = _slots[t + j];
                         //for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
-                        foreach (DataRow row in c.Rows)
+                        if (cl != null)
                         {
-                            if (courseRow != row)
+                            foreach (DataRow row in cl)
                             {
-                                // professor overlaps
-                                if (courseRow["instructorId"] == row["instructorId"])
-                                    goto restart;
+                                if (courseRow != row)
+                                {
+                                    // professor overlaps
+                                    if (courseRow["instructorId"] == row["instructorId"])
+                                        goto restart;
 
-                                // student group overlaps?
-                                //  if (counts.GetCourseCurriculums(Int32.Parse( courseRow["Id"].ToString())) == counts.GetCourseCurriculums(Int32.Parse(row["Id"].ToString())))
-                                //    goto restart;
+                                    // student group overlaps?
+                                    DataTable curClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
+                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
+
+                                    if (curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
+                                        goto restart;
+                                }
                             }
                         }
                     }
@@ -303,12 +316,13 @@ namespace ConsoleApp1
                 int classId = Int32.Parse(courseRow["id"].ToString());
                 int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
                 //0 = sunday and so on
-                String d = ((DayOfWeek)day).ToString(); ;
+                String d = ((DayOfWeek)day).ToString();
+                time = time + 8;
                 sched.Insert(classId, d, time, roomId);
             }
 
-           
-           newChromosome._slots[pos + i].AddLast(it.Current);
+
+            newChromosome._slots[pos + i].AddLast(it.Current);
                 }
 
                 // insert in class table of chromosome
