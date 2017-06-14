@@ -15,7 +15,7 @@ namespace ConsoleApp1
         RoomsTableAdapter room = new RoomsTableAdapter();
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
         CoursesTableAdapter courses = new CoursesTableAdapter();
-    
+
 
         // Global instance
         private static Counts _instance = new Counts();
@@ -47,8 +47,9 @@ namespace ConsoleApp1
             return _instance;
         }
 
-        public int GetCourseStudents(int courseId)   {
-            DataTable dt =courses.GetSizeById(courseId);
+        public int GetCourseStudents(int courseId)
+        {
+            DataTable dt = courses.GetSizeById(courseId);
             Console.WriteLine(Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString()));
             return Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString());
         }
@@ -57,19 +58,19 @@ namespace ConsoleApp1
 
         public int GetNumberOfInstructor()
         {
-           
-            return (int) ins.Count();
+
+            return (int)ins.Count();
         }
 
         // Returns pointer to student group with specified ID
         // If there is no student group with such ID method returns NULL
         public void GetCurriculumById(int id)
         {
-            
+
         }
 
         // Returns number of parsed student groups
-        
+
         public int GetNumberOfCurriculums()
         {
 
@@ -90,7 +91,7 @@ namespace ConsoleApp1
         }
         public int GetNumberOfCourses()
         {
-            return (int) cc.Count();
+            return (int)cc.Count();
         }
 
         // Returns pointer to room with specified ID
@@ -102,13 +103,27 @@ namespace ConsoleApp1
         //}
 
         // Returns number of parsed rooms
-        
-        public int GetNumberOfRooms() { 
-            return (int) room.Count();
-        }
-        public DataTable GetRooms()
+
+        public int GetNumberOfRooms()
         {
-            return room.GetData();
+            return (int)room.Count();
+        }
+        public int GetNumberOfLectureRooms()
+        {
+            return (int)room.CountLectureRooms();
+        }
+        public int GetNumberOfLabRooms()
+        {
+            return (int)room.CountLabRooms();
+        }
+        public DataTable GetLectureRooms()
+        {
+            return room.GetRooms();
+        }
+
+        public DataTable GetLabRooms()
+        {
+            return room.GetLabRooms();
         }
         // Returns reference to list of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
@@ -117,9 +132,9 @@ namespace ConsoleApp1
         {
             DataTable dt = cc.GetData();
             return dt;
-            
+
         }
-       
+
 
         // Returns number of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
@@ -133,26 +148,26 @@ namespace ConsoleApp1
 
 
         // Removes blank characters from beginning and end of string
-    //    private string TrimString(string str)
-    //    {
-    //        CharEnumerator it = new CharEnumerator();
-    //        for (it = str.GetEnumerator(); it.MoveNext() && char.IsWhiteSpace(it.Current);)
-    //        {
-    //            ;
-    //        }
-    //        str = str.Remove(str.GetEnumerator(), it);
-    //        //string.reverse_iterator; rit= new string.reverse_iterator();
+        //    private string TrimString(string str)
+        //    {
+        //        CharEnumerator it = new CharEnumerator();
+        //        for (it = str.GetEnumerator(); it.MoveNext() && char.IsWhiteSpace(it.Current);)
+        //        {
+        //            ;
+        //        }
+        //        str = str.Remove(str.GetEnumerator(), it);
+        //        //string.reverse_iterator; rit= new string.reverse_iterator();
 
-    //        IEnumerable<int> rit = str;
-    //        foreach (var x in enumerableThing.Reverse())
-    //            for (rit.Reverse(); rit != str.rend() && char.IsWhiteSpace(*rit); rit++)
-    //            {
-    //                ;
-    //            }
-    //        str = str.Remove(str.GetEnumerator() + (str.rend() - rit), str.end());
+        //        IEnumerable<int> rit = str;
+        //        foreach (var x in enumerableThing.Reverse())
+        //            for (rit.Reverse(); rit != str.rend() && char.IsWhiteSpace(*rit); rit++)
+        //            {
+        //                ;
+        //            }
+        //        str = str.Remove(str.GetEnumerator() + (str.rend() - rit), str.end());
 
-    //        return str;
-    //    }
+        //        return str;
+        //    }
 
     }
 }
