@@ -479,15 +479,15 @@ namespace ConsoleApp1
         // Calculates fitness value of chromosome
         public void CalculateFitness()
         {
-            //// chromosome's score
-            //int score = 0;
+            // chromosome's score
+            int score = 0;
 
-            //int numberOfRooms = Counts.GetInstance().GetNumberOfRooms();
-            //int daySize = DefineConstants.DAY_HOURS * numberOfRooms;
+            int numberOfRooms = Counts.GetInstance().GetNumberOfRooms();
+            int daySize = DefineConstants.DAY_HOURS * numberOfRooms;
 
-            //int ci = 0;
+            int ci = 0;
 
-            //// check criterias and calculate scores for each class in schedule
+            // check criterias and calculate scores for each class in schedule
             //for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last());  it.MoveNext(), ci += 5)
             //{
             //    // coordinate of time-space slot
@@ -591,8 +591,8 @@ namespace ConsoleApp1
             //    _criteria[ci + 4] = !go;
             //}
 
-            //// calculate fitess value based on score
-            //_fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
+            //calculate fitess value based on score
+            _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
 
         // Returns fitness value of chromosome
@@ -635,7 +635,7 @@ namespace ConsoleApp1
 
 
         // Population of chromosomes
-        private List<Schedule> _chromosomes = new List<Schedule>();
+        private List<ScheduleGenetic> _chromosomes = new List<ScheduleGenetic>();
 
         // Inidicates wheahter chromosome belongs to best chromosome group
         private List<bool> _bestFlags = new List<bool>();
@@ -653,7 +653,7 @@ namespace ConsoleApp1
         private ScheduleObserver _observer;
 
         // Prototype of chromosomes in population
-        private Schedule _prototype;
+        private ScheduleGenetic _prototype;
 
         // Current generation
         private int _currentGeneration;
@@ -722,7 +722,7 @@ namespace ConsoleApp1
         // Initializes genetic algorithm
 
         // Initializes genetic algorithm
-        public Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, Schedule prototype, ScheduleObserver observer)
+        public Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, ScheduleGenetic prototype, ScheduleObserver observer)
         {
             this._replaceByGeneration = replaceByGeneration;
             this._currentBestSize = 0;
@@ -772,7 +772,7 @@ namespace ConsoleApp1
         public void Dispose()
         {
             // clear population by deleting chromosomes
-            for (List<Schedule>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext();)
+            for (List<ScheduleGenetic>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext();)
             {
                 if (!it.Current.Equals(null))
                 {
@@ -808,7 +808,7 @@ namespace ConsoleApp1
 
             // initialize new population with chromosomes randomly built using prototype
             int i = 0;
-            for (List<Schedule>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext(); ++it, ++i)
+            for (List<ScheduleGenetic>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext(); it.MoveNext(), ++i)
             {
                 // remove chromosome from previous execution
                 if (!it.Current.Equals(null))
@@ -834,7 +834,7 @@ namespace ConsoleApp1
                     break;
                 }
 
-                Schedule best = GetBestChromosome();
+                ScheduleGenetic best = GetBestChromosome();
 
                 // algorithm has reached criteria?
                 if (best.GetFitness() >= 1)
