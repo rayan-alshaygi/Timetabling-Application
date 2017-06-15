@@ -125,6 +125,7 @@ namespace ConsoleApp1
         {
             return room.GetLabRooms();
         }
+
         // Returns reference to list of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
         //ORIGINAL LINE: inline const ClassicLinkedList<CourseClass*>& GetCourseClasses() const
