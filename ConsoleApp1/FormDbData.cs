@@ -31,10 +31,10 @@ namespace ConsoleApp1
 
         // create an enum to work with finding null curriculum column
         String[] devisionColumns =new string[6]{"cs","stat","math","mathCS","statCS","IT"};
-        public int InsertInstructor(string InstructorName)
+        public int InsertInstructor(string InstructorName,bool TA)
         {
             int val;
-            return val= insTA.Insert(InstructorName);
+            return val= insTA.Insert(InstructorName,TA);
             
             //return val = Int32.Parse(insTA.InsertInstructor(InstructorName).ToString());
            // return val = ins.InsertInstructor(InstructorName);
@@ -53,17 +53,99 @@ namespace ConsoleApp1
             }
             
         }
+        public int Curriculmcourse(int coid, string[] dv, int y, int ns)
+        {
+            String[] divisionColumns = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
+
+            int id = -1;
+            string expression = "";
+            for (int i = 0; i <= dv.Count(); i++)
+            {
+                expression += dv[i] + "=" + y + "and";
+                for (int j = 0; j <= 5; j++)
+                    if (divisionColumns[j] == dv[i])
+                        divisionColumns = divisionColumns.Where(val => val != dv[i]).ToArray();
+
+
+            }
+            for (int k = 0; k <= divisionColumns.Count(); k++)
+            {
+                if (k != divisionColumns.Count() - 1)
+                    expression += divisionColumns[k] + "=null";
+            }
+
+            DataTable dt = cdTA.GetData();
+            DataRow[] dr = dt.Select(expression);
+
+            id = int.Parse(dr[0].ToString());
+            if (id == -1)
+            {
+                insertCurriculum(coid, y, dv, ns);
+            }
+            string expression2 = "";
+            for (int i = 0; i <= dv.Count(); i++)
+            {
+                if (i != dv.Count() - 1)
+                    expression2 += dv[i] + "=" + y + "and";
+                else
+                    expression2 += dv[i] + "=" + y;
+
+                DataTable dt2 = cdTA.GetCurriculumIdwithWhere(expression2);
+                insertIntoCourseCurriculums(coid, dt2);
+
+
+            }
+            return id;
+        }
         public void InsertCourse(string name, int y, string[] dv)
         {
-            int ns=0;
+            int ns = 0;
             foreach (string x in dv)
-              ns =Int32.Parse( devQA.GetDvSize(x,y).ToString());
-            int currentcoid=Int32.Parse( coursesTA.InsertQuery(name,ns).ToString());
-            //calls a method that checks if there exists  curriculum with this specification
+                ns += getDivisionSize(x, y);
+            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns).ToString());
+            //calls a method that checks if there exists curriculum with this specification
             //and if not create a new one
+            int cid = Curriculmcourse(currentcoid, dv, y, ns);
+
             //then it seraches for all curriculum the have those devisions
             //then inserts them into the courseCurriculum Table
-            insertCurriculum(currentcoid,y,dv,ns);
+        }
+        public void insertRoom(string name, int ns, bool lab)
+        {
+            roomTA.InsertQuery(name, ns, lab);
+        }
+        public int getDivisionSize(string dv, int year)
+        {
+            int size = 0;
+
+            switch (dv.ToLower())
+            {
+                case "cs":
+                    { size = int.Parse(cs.getCSSize(year).ToString()); }
+                    break;
+                case "math":
+                    { size = int.Parse(m.getMathSize(year).ToString()); }
+                    break;
+                case "mathcs":
+                    { size = int.Parse(mc.getMathCSSize(year).ToString()); }
+                    break;
+                case "it":
+                    { size = int.Parse(it.getITSize(year).ToString()); }
+                    break;
+                case "stat":
+                    { size = int.Parse(s.getSTATSize(year).ToString()); }
+                    break;
+                case "statcs":
+                    { size = int.Parse(sc.getStatCSSize(year).ToString()); }
+                    break;
+            }
+
+            return size;
+        }
+        public DataTable comboRoom()
+        {
+            DataTable dt = roomTA.GetData();
+            return dt;
         }
         public void insertCurriculum(int coid, int y, string[] dv, int ns)
         {
@@ -112,15 +194,17 @@ namespace ConsoleApp1
         {
             int ns = 0;
             foreach (string x in dv1)
-                ns = Int32.Parse(devQA.GetDvSize(x, y1).ToString());
+                ns += ns += getDivisionSize(x, y1);
             foreach (string x in dv2)
-                ns = Int32.Parse(devQA.GetDvSize(x, y2).ToString());
+                ns += ns += getDivisionSize(x, y2);
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns).ToString());
             //calls a method that checks if there exists  curriculum with this specification
             //and if not create a new one
+            Curriculmcourse(currentcoid, dv1, y1, ns);
+            Curriculmcourse(currentcoid, dv2, y2, ns);
             //then it seraches for all curriculum the have those devisions
             //then inserts them into the courseCurriculum Table
-            insertCurriculum(currentcoid, y1, dv1, y2,dv2,ns);
+
         }
 
         public void insertCurriculum(int coid, int y1, string[] dv1, int y2, string[] dv2, int ns)
@@ -174,10 +258,12 @@ namespace ConsoleApp1
             insertIntoCourseCurriculums(coid, couCurIds);
         }
 
-        public void InsertCourseClass(string name, int ns, int duration, bool lab, String Instructor, String Course)
+        public void InsertCourseClass(string name, int duration, bool lab, String Instructor, String Course)
         {
             int instructorId = getInstructorId(Instructor);
-            DataTable x = coursesTA.GetId(Instructor);
+            int x = int.Parse(coursesTA.GetId(Course).ToString());
+            int ns = int.Parse(coursesTA.GetSize(x).ToString());
+
             int cid = Int32.Parse(x.ToString());
             ccTA.InsertQuery(name, ns, duration, lab, instructorId, cid);
         }
