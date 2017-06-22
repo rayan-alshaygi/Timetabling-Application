@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    const int DAY_HOURS;
-    // Number of days in week
-    const int DAYS_NUM;
-
     public enum AlgorithmState
     {
         AS_USER_STOPED,
@@ -25,21 +21,27 @@ namespace ConsoleApp1
 
 
         // Event that blocks caller until algorithm finishes execution 
-        private event EventHandler _event;
+        //private EventWaitHandle _event;
+        EventWaitHandle _event;
+        //System.IntPtr _event;
 
+
+        //private System.IntPtr _event;
         // Window which displays schedule
         //private CChildView _window;
 
         // Called when algorithm starts execution
         private void BlockEvent()
         {
-            ResetEvent(_event);
+            _event.Reset();
+            //ResetEvent(_event);
         }
 
         // Called when algorithm finishes execution
         private void ReleaseEvent()
         {
-            SetEvent(_event);
+            _event.Set();
+            // SetEvent(_event);
         }
 
 
@@ -47,24 +49,24 @@ namespace ConsoleApp1
         public ScheduleObserver()
         {
             //this._window = null;
-            _event = CreateEvent(null, 1, 0, null);
+            _event = new EventWaitHandle(false, EventResetMode.ManualReset);
         }
 
         // Frees used resources
         public void Dispose()
         {
-            CloseHandle(_event);
+            _event.Close();
         }
 
         // Block caller's thread until algorithm finishes execution
         public void WaitEvent()
         {
-            WaitForSingleObject(_event, INFINITE);
+            _event.WaitOne();
+            // WaitForSingleObject(_event, INFINITE);
         }
 
         // Handles event that is raised when algorithm finds new best chromosome
 
-        // Handles event that is raised when algorithm finds new best chromosome
         public void NewBestChromosome(ScheduleGenetic newChromosome)
         {
             if (_window != null)
@@ -82,8 +84,11 @@ namespace ConsoleApp1
             {
                 _window.SetNewState(newState);
             }
+            //newState != AS_RUNNING ? ReleaseEvent() : BlockEvent();
+            if (newState != AlgorithmState.AS_RUNNING)
+                ReleaseEvent();
+            else BlockEvent();
 
-            newState != ((int)AlgorithmState.AS_RUNNING) != 0 ? ReleaseEvent() : BlockEvent();
         }
 
         // Sets window which displays schedule
@@ -312,7 +317,7 @@ namespace ConsoleApp1
                     newChromosome._slots.Insert((pos + i), l);
 
                 }
-                newChromosome._classes.Add(l, pos);
+                newChromosome._classes.Add(courseRow, pos);
                 //insert it into the schedule class
                 //int classId = Int32.Parse(courseRow["id"].ToString());
                 //int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
@@ -363,23 +368,23 @@ namespace ConsoleApp1
                     }
                 }
             }
-            Dictionary < DataRow, int>.Enumerator it1 =_classes.GetEnumerator();
+            Dictionary<DataRow, int>.Enumerator it1 = _classes.GetEnumerator();
             //Dictionary<DataRow int>.const_iterator  = _classes.begin();
             Dictionary<DataRow, int>.Enumerator it2 = parent2._classes.GetEnumerator();
             // Dictionary<CourseClass*, int>.const_iterator it2 = parent2._classes.begin();
 
             // make new code by combining parent codes
             bool first = RandomNumbers.NextNumber() % 2 == 0;
-            for (int j= 0; j < size; j++)
+            for (int j = 0; j < size; j++)
             {
                 if (first)
                 {
                     // insert class from first parent into new chromosome's calss table
-                    n._classes.Add(it1.Current.Key,it1.Current.Value);
+                    n._classes.Add(it1.Current.Key, it1.Current.Value);
                     // all time-space slots of class are copied
                     for (int i = Int32.Parse(it1.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots[it1.Current.Value+i].Add(it1.Current.Key);
+                        n._slots[it1.Current.Value + i].Add(it1.Current.Key);
                     }
                 }
                 else
@@ -387,8 +392,8 @@ namespace ConsoleApp1
                     // insert class from second parent into new chromosome's calss table
                     n._classes.Add(it2.Current.Key, it2.Current.Value);
                     // all time-space slots of class are copied
-                    for (int i = Int32.Parse(it2.Current.Key["duration"].ToString())-1; i>=0;i--)
-                    { 
+                    for (int i = Int32.Parse(it2.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
+                    {
                         n._slots[it2.Current.Value + i].Add(it2.Current.Key);
                     }
                 }
@@ -453,9 +458,9 @@ namespace ConsoleApp1
                 {
                     // remove class hour from current time-space slot
                     List<DataRow> cl = _slots[pos1 + i];
-                    foreach(DataRow r in cl)
+                    foreach (DataRow r in cl)
                     {
-                        
+
                         if (r == cc1)
                         {
                             cl.Remove(r);
@@ -662,13 +667,15 @@ namespace ConsoleApp1
         private AlgorithmState _state;
 
         // Synchronization of algorithm's state
-        private CCriticalSection _stateSect = new CCriticalSection();
+        public static object _stateSect = new Object();
+        // private CCriticalSection _stateSect = new CCriticalSection();
 
         // Pointer to global instance of algorithm
         private static Algorithm _instance = null;
 
         // Synchronization of creation and destruction of global instance
-        private static CCriticalSection _instanceSect = new CCriticalSection();
+        public static object _instanceSect = new Object();
+        // private static CCriticalSection _instanceSect = new CCriticalSection();
 
 
         // Returns reference to global instance of algorithm
@@ -678,15 +685,17 @@ namespace ConsoleApp1
         // Synchronization of creation and destruction of global instance
 
         // Returns reference to global instance of algorithm
+        private static Semaphore @lock;
         public static Algorithm GetInstance()
         {
-            CSingleLock @lock = new CSingleLock(_instanceSect, 1);
 
+            @lock = new Semaphore(1, 1);
+            // CSingleLock @lock = new CSingleLock(_instanceSect, 1);
             // global instance doesn't exist?
             if (_instance == null)
             {
                 // set seed for random generator
-                RandomNumbers.Seed(GetTickCount());
+                RandomNumbers.Seed((int)DateTime.Now.Ticks);
 
                 // make prototype of chromosomes
                 ScheduleGenetic prototype = new ScheduleGenetic(2, 2, 80, 3);
@@ -703,19 +712,15 @@ namespace ConsoleApp1
         // Frees memory used by gloval instance
         public static void FreeInstance()
         {
-            CSingleLock @lock = new CSingleLock(_instanceSect, 1);
-
+            //CSingleLock @lock = new CSingleLock(_instanceSect, 1);
+            @lock = new Semaphore(1, 1);
             // free memory used by global instance if it exists
             if (_instance != null)
             {
-                if (_instance._prototype != null)
-                    _instance._prototype.Dispose();
-                if (_instance._observer != null)
-                    _instance._observer.Dispose();
-                if (_instance != null)
-                    _instance.Dispose();
-
+                _instance._prototype = null;
+                _instance._observer.Dispose();
                 _instance = null;
+
             }
         }
 
@@ -729,7 +734,8 @@ namespace ConsoleApp1
             this._prototype = prototype;
             this._observer = observer;
             this._currentGeneration = 0;
-            this._state = new AlgorithmState(AlgorithmState.AS_USER_STOPED);
+            this._state = new AlgorithmState();
+            this._state = AlgorithmState.AS_USER_STOPED;
             // there should be at least 2 chromosomes in population
             if (numberOfChromosomes < 2)
             {
@@ -766,36 +772,21 @@ namespace ConsoleApp1
             }
         }
 
-        // Frees used resources
-
-        // Frees used resources
-        public void Dispose()
-        {
-            // clear population by deleting chromosomes
-            for (List<ScheduleGenetic>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext();)
-            {
-                if (!it.Current.Equals(null))
-                {
-                    it.Current = null;
-                }
-            }
-        }
-
         // Starts and executes algorithm
         public void Start()
         {
             if (_prototype == null)
                 return;
 
-            CSingleLock @lock = new CSingleLock(_stateSect, 1);
-
+            //CSingleLock @lock = new CSingleLock(_stateSect, 1);
+            @lock = new Semaphore(1, 1);
             // do not run already running algorithm
             if (_state == AlgorithmState.AS_RUNNING)
                 return;
 
             _state = AlgorithmState.AS_RUNNING;
 
-            @lock.Unlock();
+            @lock.Release();
 
             if (_observer != null)
             {
@@ -807,30 +798,33 @@ namespace ConsoleApp1
             ClearBest();
 
             // initialize new population with chromosomes randomly built using prototype
-            int i = 0;
-            for (List<ScheduleGenetic>.Enumerator it = _chromosomes.GetEnumerator(); it.MoveNext(); it.MoveNext(), ++i)
+            int z = 0;
+            List<ScheduleGenetic> it = _chromosomes.ToList();
+            for(int i =0;i<it.Count;i++)
             {
                 // remove chromosome from previous execution
-                if (!it.Current.Equals(null))
+               if(!it[i].Equals(null))
                 {
-                    it.Current = null;
+                    it[i] = null;
                 }
 
                 // add new chromosome to population
-                it.Current = _prototype.MakeNewFromPrototype();
-                AddToBest(i);
+                it[i] = _prototype.MakeNewFromPrototype();
+                z = ++i;
+                AddToBest(z);
             }
 
             _currentGeneration = 0;
 
             while (true)
             {
-                @lock.Lock();
-
+                // @lock.Lock();
+                @lock.WaitOne();
                 // user has stopped execution?
                 if (_state != AlgorithmState.AS_RUNNING)
                 {
-                    @lock.Unlock();
+                    //@lock.Unlock();
+                    @lock.Release();
                     break;
                 }
 
@@ -840,14 +834,16 @@ namespace ConsoleApp1
                 if (best.GetFitness() >= 1)
                 {
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
-                    @lock.Unlock();
+                    //@lock.Unlock();
+                    @lock.Release();
                     break;
                 }
 
-                @lock.Unlock();
+                //@lock.Unlock();
+                @lock.Release();
 
                 // produce offepsing
-                List<Schedule> offspring = new List<Schedule>();
+                List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
                 offspring.Resize(_replaceByGeneration);
                 for (int j = 0; j < _replaceByGeneration; j++)
                 {
@@ -873,7 +869,7 @@ namespace ConsoleApp1
 
                     // replace chromosomes
                     if (_chromosomes[ci] != null)
-                        _chromosomes[ci].Dispose();
+                        _chromosomes[ci] = null;
                     _chromosomes[ci] = offspring[j];
 
                     // try to add new chromosomes in best chromosome group
@@ -902,14 +898,16 @@ namespace ConsoleApp1
         // Stops execution of algoruthm
         public void Stop()
         {
-            CSingleLock @lock = new CSingleLock(_stateSect, 1);
+            // CSingleLock @lock = new CSingleLock(_stateSect, 1);
+            @lock = new Semaphore(1, 1);
 
             if (_state == AlgorithmState.AS_RUNNING)
             {
                 _state = AlgorithmState.AS_USER_STOPED;
             }
 
-            @lock.Unlock();
+            //@lock.Unlock();
+            @lock.Release();
         }
 
         // Returns pointer to best chromosomes in population
