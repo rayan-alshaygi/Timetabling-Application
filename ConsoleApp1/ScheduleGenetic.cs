@@ -28,7 +28,7 @@ namespace ConsoleApp1
 
         //private System.IntPtr _event;
         // Window which displays schedule
-        //private CChildView _window;
+        private ChildView _window;
 
         // Called when algorithm starts execution
         private void BlockEvent()
@@ -92,10 +92,10 @@ namespace ConsoleApp1
         }
 
         // Sets window which displays schedule
-        //public void SetWindow(CChildView window)
-        //{
-        //    _window = window;
-        //}
+        public void SetWindow(ChildView window)
+        {
+            _window = window;
+        }
 
     }
 
