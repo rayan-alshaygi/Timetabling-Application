@@ -397,13 +397,16 @@ namespace ConsoleApp1
 
             int numberOfRooms = Counts.GetInstance().GetNumberOfRooms();
             int daySize = DefineConstants.DAY_HOURS * numberOfRooms;
+            Counts counts = new Counts(); 
+            DataTable rooms = counts.GetLectureRooms();
+            DataTable labs = counts.GetLabRooms();
 
             int ci = 0;
 
             // check criterias and calculate scores for each class in schedule
             for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last()); it.MoveNext(), ci += 5)
             {
-                    // coordinate of time-space slot
+                // coordinate of time-space slot
                 int p = it.Current.Value;
                 int day = p / daySize;
                 int time = p % daySize;
@@ -434,20 +437,22 @@ namespace ConsoleApp1
                 DataRow cc = it.Current.Key;
                 DataRow r = Counts.GetInstance().GetRoomById(room);
                 int roomSeats = Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
-                int classSeats = Counts.GetInstance.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
+                int classSeats = counts.GetCourseStudents(Int32.Parse(cc["courseId"].ToString()));
                 if (roomSeats < classSeats)
                 {
                 }
-                
+
                 // does current room have enough seats
-                _criteria[ci + 1] = r.GetNumberOfSeats() >= cc.GetNumberOfSeats();
+                _criteria[ci + 1] = roomSeats >= classSeats;
                 if (_criteria[ci + 1])
                 {
                     score++;
                 }
 
                 // does current room have computers if they are required
-                _criteria[ci + 2] = !cc.IsLabRequired() || (cc.IsLabRequired() && r.IsLab());
+                Boolean roomLab = Convert.ToBoolean(rooms.Rows[room]["lab"].ToString().ToLower());
+                Boolean classLab = Boolean.Parse(cc["lab"].ToString());
+                _criteria[ci + 2] = classLab || (classLab && roomLab);
                 if (_criteria[ci + 2])
                 {
                     score++;
@@ -459,57 +464,100 @@ namespace ConsoleApp1
                 for (int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
                 {
                     // for each hour of class
-                    for (int i = dur - 1; i >= 0; i--)
+                    for (int j = dur - 1; i >= 0; i--)
                     {
                         // check for overlapping with other classes at same time
-                        LinkedList<CourseClass> cl = _slots[t + i];
+                        List<DataRow> cl = _slots[t + j];
                         //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                        for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it != cl.end(); it++)
+                        if (cl != null)
                         {
-                            //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                            if (cc != it)
+                            foreach (DataRow row in cl)
                             {
-                                // professor overlaps?
                                 //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                                if (!po && cc.ProfessorOverlaps(*it))
+                                if (cc != row)
                                 {
-                                    po = true;
-                                }
+                                    // professor overlaps?
+                                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
+                                    if (cc["instructorId"] == row["instructorId"])
+                                    {
+                                        po = true;
+                                    }
 
-                                // student group overlaps?
-                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                                if (!go && cc.GroupsOverlap(*it))
-                                {
-                                    go = true;
-                                }
+                                    // student group overlaps?
+                                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
 
-                                // both type of overlapping? no need to check more
-                                if (po && go)
-                                {
-                                    goto total_overlap;
+                                    DataTable curClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(cc["courseId"].ToString()));
+                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
+
+                                    if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
+                                    {
+                                        go = true;
+                                    }
+
+                                    // both type of overlapping? no need to check more
+                                    if (po && go)
+                                    {
+                                        goto total_overlap;
+                                    }
                                 }
                             }
                         }
                     }
+
+                    total_overlap:
+
+                    // professors have no overlaping classes?
+                    if (!po)
+                    {
+                        score++;
+                    }
+                    _criteria[ci + 3] = !po;
+
+                    // student groups has no overlaping classes?
+                    if (!go)
+                    {
+                        score++;
+                    }
+                    _criteria[ci + 4] = !go;
                 }
-
-                total_overlap:
-
-                // professors have no overlaping classes?
-                if (!po)
+                // instructors preferred time
+                DataTable dt = counts.GetInstructorPreferredTime(Int32.Parse(cc["instructorId"].ToString()));
+                bool insPrefTime = false;
+                foreach (DataRow t in dt.Rows)
                 {
-                    score++;
+                    int pDay = Int32.Parse(t["day"].ToString();
+                    int pTimeBegin = Int32.Parse(t["timeStart"].ToString());
+                    int pTimeEnd = Int32.Parse(t["timeEnd"].ToString());
+                    if (day == pDay && time >= pTimeBegin && time <= pTimeEnd)
+                        insPrefTime = true;
                 }
-                _criteria[ci + 3] = !po;
+                if (insPrefTime)
+                    score++;
 
-                // student groups has no overlaping classes?
-                if (!go)
+                //preferred room for lecture
+                bool pr = false;
+                if (cc["preferredRoom"] == null)
+                    pr = true;
+                else
+                    if (cc["preferredRoom"] == cc["roomId"])
+                        pr = true;
+                if (pr) score++;
+
+                //Lab and Lecture morning or evening sessions
+                bool monorev = false;
+                if (Boolean.Parse(cc["lab"].ToString()))
                 {
-                    score++;
+                    if (time >= 12)
+                        monorev = true;
                 }
-                _criteria[ci + 4] = !go;
+                else
+                {
+                    if (time < 12)
+                        monorev = true;
+                }
+                if (monorev) score++;
             }
-
+      
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
