@@ -95,14 +95,14 @@ namespace ConsoleApp1
 
         // Returns pointer to room with specified ID
         // If there is no room with such ID method returns NULL
-        //public Room GetRoomById(int id)
-        //{
-        //    Dictionary<int, Room*>.iterator it = _rooms.find(id);
-        //    return it != _rooms.end() ? it.second : null;
-        //}
+        public Room GetRoomById(int id)
+        {
+            
+            return it != _rooms.end() ? it.second : null;
+        }
 
         // Returns number of parsed rooms
-        
+
         public int GetNumberOfRooms() { 
             return (int) room.Count();
         }

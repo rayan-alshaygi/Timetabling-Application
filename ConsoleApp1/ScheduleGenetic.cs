@@ -21,34 +21,27 @@ namespace ConsoleApp1
 
 
         // Event that blocks caller until algorithm finishes execution 
-        //private EventWaitHandle _event;
         EventWaitHandle _event;
-        //System.IntPtr _event;
 
-
-        //private System.IntPtr _event;
         // Window which displays schedule
         private ChildView _window;
 
         // Called when algorithm starts execution
         private void BlockEvent()
         {
-            _event.Reset();
-            //ResetEvent(_event);
         }
 
         // Called when algorithm finishes execution
         private void ReleaseEvent()
         {
             _event.Set();
-            // SetEvent(_event);
         }
 
 
         // Initializes observer
         public ScheduleObserver()
         {
-            //this._window = null;
+            this._window = null;
             _event = new EventWaitHandle(false, EventResetMode.ManualReset);
         }
 
@@ -62,7 +55,6 @@ namespace ConsoleApp1
         public void WaitEvent()
         {
             _event.WaitOne();
-            // WaitForSingleObject(_event, INFINITE);
         }
 
         // Handles event that is raised when algorithm finds new best chromosome
@@ -134,8 +126,6 @@ namespace ConsoleApp1
 
 
         // Initializes chromosomes with configuration block (setup of chromosome)
-
-        // Initializes chromosomes with configuration block (setup of chromosome)
         public ScheduleGenetic(int numberOfCrossoverPoints, int mutationSize, int crossoverProbability, int mutationProbability)
         {
             this._mutationSize = mutationSize;
@@ -149,8 +139,6 @@ namespace ConsoleApp1
             // reserve space for flags of class requirements
             _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 5);
         }
-
-        // Copy constructor
 
         // Copy constructor
         public ScheduleGenetic(ScheduleGenetic c, bool setupOnly)
@@ -221,7 +209,6 @@ namespace ConsoleApp1
                 Console.WriteLine("currently working in course" + courseRow["Id"]);
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
-                restart:
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int room;
                 // determine if it's a lab or a lecture
@@ -232,83 +219,7 @@ namespace ConsoleApp1
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
                 Console.WriteLine("picked random numbers");
-                // check for room overlapping of classes
-                Console.WriteLine("check for room overlapping of classes");
-                Console.WriteLine("");
-
-                bool ro = false;
-                for (int i = dur - 1; i >= 0; i--)
-                {
-                    if (_slots[pos + i] != null && _slots[pos + i].Count > 1)
-                    {
-                        ro = true;
-                        break;
-                    }
-                }
-
-                // on room overlaping
-                if (ro)
-                {
-                    Console.WriteLine("current room overlapped will restart");
-                    goto restart;
-                }
-                // does current room have enough seats
-                Console.WriteLine("Does it have enough seats");
-
-                int roomSeats = Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
-                int classSeats = Counts.GetInstance().GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
-                if (roomSeats < classSeats)
-                {
-                    Console.WriteLine("not enough will retart");
-                    goto restart;
-                }
-                // does current room have computers if they are required
-                Console.WriteLine("room" + rooms.Rows[room]["lab"].ToString());
-                Console.WriteLine("course" + courseRow["lab"].ToString());
-                string r = rooms.Rows[room]["lab"].ToString();
-                string tryc = courseRow["lab"].ToString();
-                Boolean roomLab = Convert.ToBoolean(r);//(rooms.Rows[room]["lab"].ToString().ToLower());
-                Boolean classLab = Boolean.Parse(tryc);//Boolean.Parse(courseRow["lab"].ToString());
-                Console.WriteLine("have pcs");
-
-                if (classLab && !roomLab)
-                {
-                    Console.WriteLine("Requires lab and room doesn't support it");
-                    goto restart;
-                }
-                Console.WriteLine("Check for overlapping classes and professors");
-
-                // check overlapping of classes for professors and student groups
-                for (int i = nr, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
-                {
-                    // for each hour of class
-                    for (int j = dur - 1; j >= 0; j--)
-                    {
-                        // check for overlapping with other classes at same time
-                        List<DataRow> cl = _slots[t + j];
-                        //for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
-                        if (cl != null)
-                        {
-                            foreach (DataRow row in cl)
-                            {
-                                if (courseRow != row)
-                                {
-                                    // professor overlaps
-                                    if (courseRow["instructorId"] == row["instructorId"])
-                                        goto restart;
-
-                                    // student group overlaps?
-                                    DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
-                                    DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
-
-                                    if (curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
-                                        goto restart;
-                                }
-                            }
-                        }
-                    }
-                }
-
+   
                 // fill time-space slots, for each hour of class
                 List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
@@ -415,8 +326,6 @@ namespace ConsoleApp1
         }
 
         // Performs mutation on chromosome
-
-        // Performs mutation on chromosome
         public void Mutation()
         {
             // check probability of mutation operation
@@ -481,7 +390,6 @@ namespace ConsoleApp1
 
         // Calculates fitness value of chromosome
 
-        // Calculates fitness value of chromosome
         public void CalculateFitness()
         {
             // chromosome's score
@@ -493,140 +401,138 @@ namespace ConsoleApp1
             int ci = 0;
 
             // check criterias and calculate scores for each class in schedule
-            //for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last());  it.MoveNext(), ci += 5)
-            //{
-            //    // coordinate of time-space slot
-            //    int p = it.Current.Value;
-            //    int day = p / daySize;
-            //    int time = p % daySize;
-            //    int room = time / DefineConstants.DAY_HOURS;
-            //    time = time % DefineConstants.DAY_HOURS;
+            for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last()); it.MoveNext(), ci += 5)
+            {
+                    // coordinate of time-space slot
+                int p = it.Current.Value;
+                int day = p / daySize;
+                int time = p % daySize;
+                int room = time / DefineConstants.DAY_HOURS;
+                time = time % DefineConstants.DAY_HOURS;
 
-            //    int dur = Int32.Parse(it.Current.Key["duration"].ToString()); 
+                int dur = Int32.Parse(it.Current.Key["duration"].ToString());
 
-            //    // check for room overlapping of classes
-            //    bool ro = false;
-            //    for (int i = dur - 1; i >= 0; i--)
-            //    {
-            //        if (_slots[p + i].Count > 1)
-            //        {
-            //            ro = true;
-            //            break;
-            //        }
-            //    }
+                // check for room overlapping of classes
+                bool ro = false;
+                for (int i = dur - 1; i >= 0; i--)
+                {
+                    if (_slots[p + i].Count > 1)
+                    {
+                        ro = true;
+                        break;
+                    }
+                }
 
-            //    // on room overlaping
-            //    if (!ro)
-            //    {
-            //        score++;
-            //    }
+                // on room overlaping
+                if (!ro)
+                {
+                    score++;
+                }
 
-            //    _criteria[ci + 0] = !ro;
+                _criteria[ci + 0] = !ro;
 
-            //    DataRow cc = it.Current.Key;
-            //    Room r = Counts.GetInstance().GetRoomById(room);
-            //    // does current room have enough seats
-            //    _criteria[ci + 1] = r.GetNumberOfSeats() >= cc.GetNumberOfSeats();
-            //    if (_criteria[ci + 1])
-            //    {
-            //        score++;
-            //    }
+                DataRow cc = it.Current.Key;
+                DataRow r = Counts.GetInstance().GetRoomById(room);
+                int roomSeats = Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
+                int classSeats = Counts.GetInstance.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
+                if (roomSeats < classSeats)
+                {
+                }
+                
+                // does current room have enough seats
+                _criteria[ci + 1] = r.GetNumberOfSeats() >= cc.GetNumberOfSeats();
+                if (_criteria[ci + 1])
+                {
+                    score++;
+                }
 
-            //    // does current room have computers if they are required
-            //    _criteria[ci + 2] = !cc.IsLabRequired() || (cc.IsLabRequired() && r.IsLab());
-            //    if (_criteria[ci + 2])
-            //    {
-            //        score++;
-            //    }
+                // does current room have computers if they are required
+                _criteria[ci + 2] = !cc.IsLabRequired() || (cc.IsLabRequired() && r.IsLab());
+                if (_criteria[ci + 2])
+                {
+                    score++;
+                }
 
-            //    bool po = false;
-            //    bool go = false;
-            //    // check overlapping of classes for professors and student groups
-            //    for (int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
-            //    {
-            //        // for each hour of class
-            //        for (int i = dur - 1; i >= 0; i--)
-            //        {
-            //            // check for overlapping with other classes at same time
-            //            LinkedList<CourseClass> cl = _slots[t + i];
-            //            //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-            //            for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it != cl.end(); it++)
-            //            {
-            //                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-            //                if (cc != it)
-            //                {
-            //                    // professor overlaps?
-            //                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-            //                    if (!po && cc.ProfessorOverlaps(*it))
-            //                    {
-            //                        po = true;
-            //                    }
+                bool po = false;
+                bool go = false;
+                // check overlapping of classes for professors and student groups
+                for (int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
+                {
+                    // for each hour of class
+                    for (int i = dur - 1; i >= 0; i--)
+                    {
+                        // check for overlapping with other classes at same time
+                        LinkedList<CourseClass> cl = _slots[t + i];
+                        //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
+                        for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it != cl.end(); it++)
+                        {
+                            //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
+                            if (cc != it)
+                            {
+                                // professor overlaps?
+                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
+                                if (!po && cc.ProfessorOverlaps(*it))
+                                {
+                                    po = true;
+                                }
 
-            //                    // student group overlaps?
-            //                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-            //                    if (!go && cc.GroupsOverlap(*it))
-            //                    {
-            //                        go = true;
-            //                    }
+                                // student group overlaps?
+                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
+                                if (!go && cc.GroupsOverlap(*it))
+                                {
+                                    go = true;
+                                }
 
-            //                    // both type of overlapping? no need to check more
-            //                    if (po && go)
-            //                    {
-            //                        goto total_overlap;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
+                                // both type of overlapping? no need to check more
+                                if (po && go)
+                                {
+                                    goto total_overlap;
+                                }
+                            }
+                        }
+                    }
+                }
 
-            //    total_overlap:
+                total_overlap:
 
-            //    // professors have no overlaping classes?
-            //    if (!po)
-            //    {
-            //        score++;
-            //    }
-            //    _criteria[ci + 3] = !po;
+                // professors have no overlaping classes?
+                if (!po)
+                {
+                    score++;
+                }
+                _criteria[ci + 3] = !po;
 
-            //    // student groups has no overlaping classes?
-            //    if (!go)
-            //    {
-            //        score++;
-            //    }
-            //    _criteria[ci + 4] = !go;
-            //}
+                // student groups has no overlaping classes?
+                if (!go)
+                {
+                    score++;
+                }
+                _criteria[ci + 4] = !go;
+            }
 
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
 
         // Returns fitness value of chromosome
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: float GetFitness() const
         public float GetFitness()
         {
             return _fitness;
         }
 
         // Returns reference to table of classes
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline const hash_map<CourseClass*, int>& GetClasses() const
         public Dictionary<DataRow, int> GetClasses()
         {
             return _classes;
         }
 
         // Returns array of flags of class requiroments satisfaction
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline const ClassicVector<bool>& GetCriteria() const
         public List<bool> GetCriteria()
         {
             return _criteria;
         }
 
         // Return reference to array of time-space slots
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline const ClassicVector<ClassicLinkedList<CourseClass*>>& GetSlots() const
         public List<List<DataRow>> GetSlots()
         {
             return _slots;
@@ -678,19 +584,13 @@ namespace ConsoleApp1
         // private static CCriticalSection _instanceSect = new CCriticalSection();
 
 
-        // Returns reference to global instance of algorithm
-
-        // Pointer to global instance of algorithm
-
         // Synchronization of creation and destruction of global instance
 
-        // Returns reference to global instance of algorithm
         private static Semaphore @lock;
         public static Algorithm GetInstance()
         {
 
             @lock = new Semaphore(1, 1);
-            // CSingleLock @lock = new CSingleLock(_instanceSect, 1);
             // global instance doesn't exist?
             if (_instance == null)
             {
@@ -709,7 +609,6 @@ namespace ConsoleApp1
 
         // Frees memory used by gloval instance
 
-        // Frees memory used by gloval instance
         public static void FreeInstance()
         {
             //CSingleLock @lock = new CSingleLock(_instanceSect, 1);
@@ -723,8 +622,6 @@ namespace ConsoleApp1
 
             }
         }
-
-        // Initializes genetic algorithm
 
         // Initializes genetic algorithm
         public Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, ScheduleGenetic prototype, ScheduleObserver observer)
@@ -818,12 +715,10 @@ namespace ConsoleApp1
 
             while (true)
             {
-                // @lock.Lock();
                 @lock.WaitOne();
                 // user has stopped execution?
                 if (_state != AlgorithmState.AS_RUNNING)
                 {
-                    //@lock.Unlock();
                     @lock.Release();
                     break;
                 }
@@ -834,12 +729,10 @@ namespace ConsoleApp1
                 if (best.GetFitness() >= 1)
                 {
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
-                    //@lock.Unlock();
                     @lock.Release();
                     break;
                 }
 
-                //@lock.Unlock();
                 @lock.Release();
 
                 // produce offepsing
@@ -898,7 +791,6 @@ namespace ConsoleApp1
         // Stops execution of algoruthm
         public void Stop()
         {
-            // CSingleLock @lock = new CSingleLock(_stateSect, 1);
             @lock = new Semaphore(1, 1);
 
             if (_state == AlgorithmState.AS_RUNNING)
@@ -906,7 +798,6 @@ namespace ConsoleApp1
                 _state = AlgorithmState.AS_USER_STOPED;
             }
 
-            //@lock.Unlock();
             @lock.Release();
         }
 
@@ -928,16 +819,12 @@ namespace ConsoleApp1
             return _currentGeneration;
         }
 
-        // Returns pointe to algorithm's observer
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline ScheduleObserver* GetObserver() const
+        // Return to algorithm's observer
         public ScheduleObserver GetObserver()
         {
             return _observer;
         }
 
-
-        // Tries to add chromosomes in best chromosome group
 
         // Tries to add chromosomes in best chromosome group
         private void AddToBest(int chromosomeIndex)
@@ -980,14 +867,10 @@ namespace ConsoleApp1
         }
 
         // Returns TRUE if chromosome belongs to best chromosome group
-
-        // Returns TRUE if chromosome belongs to best chromosome group
         private bool IsInBest(int chromosomeIndex)
         {
             return _bestFlags[chromosomeIndex];
         }
-
-        // Clears best chromosome group
 
         // Clears best chromosome group
         private void ClearBest()
