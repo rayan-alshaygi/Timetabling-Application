@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -43,16 +44,8 @@ namespace ConsoleApp1
             }
 
             _schedule = schedule.MakeCopy(false);
-            //insert it into the schedule class
-            //foreach(DataRow courseRow in _schedule.)
-            //int classId = Int32.Parse(courseRow["id"].ToString());
-            //int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
-            ////0 = sunday and so on
-            //String d = ((DayOfWeek)day).ToString();
-            //time = time + 8;
-            //sched.Insert(classId, d, time, roomId);
 
-            @lock.Release();
+                @lock.Release();
 
         }
 
