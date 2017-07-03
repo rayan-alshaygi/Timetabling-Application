@@ -11,7 +11,7 @@ namespace ConsoleApp1
     class Counts
     {
         InstructorsTableAdapter ins = new InstructorsTableAdapter();
-        InstructorPreferredTimeTableAdapter insTime = new InstructorPreferredTimeTableAdapter():
+        InstructorPreferredTimeTableAdapter insTime = new InstructorPreferredTimeTableAdapter();
         CurriculumTableAdapter cur = new CurriculumTableAdapter();
         RoomsTableAdapter room = new RoomsTableAdapter();
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
@@ -98,6 +98,10 @@ namespace ConsoleApp1
             return (int) cc.Count();
         }
 
+        public DataTable GetClassYandD(int cid)
+        {
+            return cc.GetYDByCourseId(cid);
+        }
         // Returns pointer to room with specified ID
         // If there is no room with such ID method returns NULL
         public DataRow GetRoomById(int id)

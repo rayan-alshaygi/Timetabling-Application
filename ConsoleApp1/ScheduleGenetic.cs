@@ -137,7 +137,8 @@ namespace ConsoleApp1
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
             // reserve space for flags of class requirements
-            _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 5);
+            _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8
+ );
         }
 
         // Copy constructor
@@ -161,7 +162,7 @@ namespace ConsoleApp1
                 _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
                 // reserve space for flags of class requirements
-                _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 5);
+                _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
             }
 
             // copy parameters
@@ -219,7 +220,7 @@ namespace ConsoleApp1
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
                 Console.WriteLine("picked random numbers");
-   
+
                 // fill time-space slots, for each hour of class
                 List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
@@ -397,9 +398,45 @@ namespace ConsoleApp1
 
             int numberOfRooms = Counts.GetInstance().GetNumberOfRooms();
             int daySize = DefineConstants.DAY_HOURS * numberOfRooms;
-            Counts counts = new Counts(); 
+            Counts counts = new Counts();
             DataTable rooms = counts.GetLectureRooms();
             DataTable labs = counts.GetLabRooms();
+
+            //double arrays for each year and devision
+            int[,] fm = new int[5, 5];
+            int[,] fmcs = new int[5, 5];
+            int[,] fs = new int[5, 5];
+            int[,] fscs = new int[5, 5];
+            int[,] fit = new int[5, 5];
+            int[,] fcs = new int[5, 5];
+
+            int[,] sm = new int[5, 5];
+            int[,] smcs = new int[5, 5];
+            int[,] ss = new int[5, 5];
+            int[,] sscs = new int[5, 5];
+            int[,] sit = new int[5, 5];
+            int[,] scs = new int[5, 5];
+
+            int[,] tm = new int[5, 5];
+            int[,] tmcs = new int[5, 5];
+            int[,] ts = new int[5, 5];
+            int[,] tscs = new int[5, 5];
+            int[,] tit = new int[5, 5];
+            int[,] tcs = new int[5, 5];
+
+            int[,] fom = new int[5, 5];
+            int[,] fomcs = new int[5, 5];
+            int[,] fos = new int[5, 5];
+            int[,] foscs = new int[5, 5];
+            int[,] foit = new int[5, 5];
+            int[,] focs = new int[5, 5];
+
+            int[,] fifm = new int[5, 5];
+            int[,] fifmcs = new int[5, 5];
+            int[,] fifs = new int[5, 5];
+            int[,] fifscs = new int[5, 5];
+            int[,] fifit = new int[5, 5];
+            int[,] fifcs = new int[5, 5];
 
             int ci = 0;
 
@@ -426,38 +463,34 @@ namespace ConsoleApp1
                     }
                 }
 
-                // on room overlaping
-                if (!ro)
-                {
-                    score++;
-                }
-
+                // Hard constraint on room not overlaping nothing happens
+                //if (!ro)
+                //    score++;
+                if (ro)
+                    score -= 16;
                 _criteria[ci + 0] = !ro;
 
                 DataRow cc = it.Current.Key;
                 DataRow r = Counts.GetInstance().GetRoomById(room);
                 int roomSeats = Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
                 int classSeats = counts.GetCourseStudents(Int32.Parse(cc["courseId"].ToString()));
-                if (roomSeats < classSeats)
-                {
-                }
 
                 // does current room have enough seats
                 _criteria[ci + 1] = roomSeats >= classSeats;
-                if (_criteria[ci + 1])
-                {
-                    score++;
-                }
-
-                // does current room have computers if they are required
-                Boolean roomLab = Convert.ToBoolean(rooms.Rows[room]["lab"].ToString().ToLower());
+                // Hard constraint when satisfied nothing happens nothing happens
+                //if (_criteria[ci + 1])
+                //    score++;
+                if (!_criteria[ci + 1])
+                    score -= 16;
+                    // does current room have computers if they are required
+                    Boolean roomLab = Convert.ToBoolean(rooms.Rows[room]["lab"].ToString().ToLower());
                 Boolean classLab = Boolean.Parse(cc["lab"].ToString());
                 _criteria[ci + 2] = classLab || (classLab && roomLab);
+                // Hard constraint when satisfied nothing happens nothing happens
+                //if (_criteria[ci + 2])
+                //    score++;
                 if (_criteria[ci + 2])
-                {
-                    score++;
-                }
-
+                    score -= 16;
                 bool po = false;
                 bool go = false;
                 // check overlapping of classes for professors and student groups
@@ -507,17 +540,21 @@ namespace ConsoleApp1
                     total_overlap:
 
                     // professors have no overlaping classes?
-                    if (!po)
-                    {
-                        score++;
-                    }
+
+                    // Hard constraint when satisfied nothing happens nothing happens
+                    //if (!po)
+                    //    score++;
+
+                    if (po)
+                        score -= 16;
                     _criteria[ci + 3] = !po;
 
                     // student groups has no overlaping classes?
-                    if (!go)
-                    {
-                        score++;
-                    }
+                    // Hard constraint when satisfied nothing happens nothing happens
+                    //if (!go)
+                    //    score++;
+                    if (go)
+                        score -= 16;
                     _criteria[ci + 4] = !go;
                 }
                 // instructors preferred time
@@ -525,7 +562,7 @@ namespace ConsoleApp1
                 bool insPrefTime = false;
                 foreach (DataRow t in dt.Rows)
                 {
-                    int pDay = Int32.Parse(t["day"].ToString();
+                    int pDay = Int32.Parse(t["day"].ToString());
                     int pTimeBegin = Int32.Parse(t["timeStart"].ToString());
                     int pTimeEnd = Int32.Parse(t["timeEnd"].ToString());
                     if (day == pDay && time >= pTimeBegin && time <= pTimeEnd)
@@ -533,6 +570,7 @@ namespace ConsoleApp1
                 }
                 if (insPrefTime)
                     score++;
+                _criteria[ci + 5] = insPrefTime;
 
                 //preferred room for lecture
                 bool pr = false;
@@ -540,8 +578,9 @@ namespace ConsoleApp1
                     pr = true;
                 else
                     if (cc["preferredRoom"] == cc["roomId"])
-                        pr = true;
+                    pr = true;
                 if (pr) score++;
+                _criteria[ci + 6] = pr;
 
                 //Lab and Lecture morning or evening sessions
                 bool monorev = false;
@@ -556,12 +595,175 @@ namespace ConsoleApp1
                         monorev = true;
                 }
                 if (monorev) score++;
+                _criteria[ci + 7] = monorev;
+                //To know the max hours per day and if a specific group have a day off
+                // they must be grouped, insert the data in arrays
+                int h;
+                if (cc["lab"].ToString() == null)
+                    h = 1;
+                else h = 2;
+                DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
+                foreach (DataRow row in yd.Rows)
+                {
+                    if (Int32.Parse(row["year"].ToString()) == 1)
+                    {
+                        if (row["Devision"].ToString().ToLower() == "cs")
+                            fcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "math")
+                            fm[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                            fmcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "stat")
+                            fs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "statcs")
+                            fscs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "it")
+                            fit[day, time] = h;
+                    }
+                    if (Int32.Parse(row["year"].ToString()) == 2)
+                    {
+                        if (row["Devision"].ToString().ToLower() == "cs")
+                            scs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "math")
+                            sm[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                            smcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "stat")
+                            ss[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "statcs")
+                            sscs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "it")
+                            sit[day, time] = h;
+                    }
+                    if (Int32.Parse(row["year"].ToString()) == 3)
+                    {
+                        if (row["Devision"].ToString().ToLower() == "cs")
+                            tcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "math")
+                            tm[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                            tmcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "stat")
+                            ts[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "statcs")
+                            tscs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "it")
+                            tit[day, time] = h;
+                    }
+                    if (Int32.Parse(row["year"].ToString()) == 4)
+                    {
+                        if (row["Devision"].ToString().ToLower() == "cs")
+                            focs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "math")
+                            fom[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                            fomcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "stat")
+                            fos[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "statcs")
+                            foscs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "it")
+                            foit[day, time] = h;
+                    }
+                    if (Int32.Parse(row["year"].ToString()) == 5)
+                    {
+                        if (row["Devision"].ToString().ToLower() == "cs")
+                            fifcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "math")
+                            fifm[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                            fifmcs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "stat")
+                            fifs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "statcs")
+                            fifscs[day, time] = h;
+                        if (row["Devision"].ToString().ToLower() == "it")
+                            fifit[day, time] = h;
+                    }
+                }
+
             }
-      
+
+            //then call a function and send it all the years and devisions
+            //then for each devision of a year whom don't have an off day
+            //or consecutive hours more than 6 increment the score
+            List<int[,]> data = new List<int[,]> { fm, fmcs, fs, fit, fcs, sm, smcs, ss, sit, scs, tm, tmcs, ts, tit, tcs, fom, fomcs, fos, foit, focs, fifm, fifmcs, fifs, fifit, fifcs };
+            score += CheckPref(data);
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
+        private int CheckPref(List<int[,]> allData)
+        {
+            int score = 0;
+            foreach (int[,] yd in allData)
+            {
+                score += CheckSoftPref(yd);
+            }
+            return score;
+        }
+        //see if the they have a day off + see the maximum hours they are working in
+        private int CheckSoftPref(int[,] yd)
+        {
+            //work here get the day off preferences for each year
 
+            //work here see if the lab and days on same day or not;
+            int score = 0;
+            int consectiveHours = 0;
+            bool consHours = false;
+            bool[] days = new bool[7];
+            bool prefDayOff = false;
+            bool dayOff = false;
+            //calculate the number of lectures and labs in a single day
+            int numOfLectures = 0;
+            int numOfLabs = 0;
+            for (int d = 0; d <= 4; d++)
+            {
+
+                for (int t = 0; t <= 4; t++)
+                {
+                    //1 for lectures
+                    if (yd[d, t] == 1)
+                    {
+                        consectiveHours += 2;
+                        days[d] = true;
+                        numOfLectures++;
+                    }
+                    if (yd[d, t] != 0)
+                    {
+                        consectiveHours += 2;
+                        days[d] = true;
+                        numOfLabs++;
+                    }
+                }
+                if (consectiveHours >= 6)
+                    consHours = true;
+                //work if day have both
+                if (numOfLectures != 0 && numOfLabs != 0)
+                    score++;
+            }
+            //off day
+            if (days.Contains(false))
+            {
+                dayOff = true;
+                //get the indexes of all off days if any 
+                var result = Enumerable.Range(0, days.Count()).Where(i => days[i] == false).ToList();
+                //check if the off day is the preferred one or not !
+                //if(result.Contains(integer index of the preffered day))  prefDayOff=true; ;
+            }
+
+            bool[] hoursDays = new bool[] { consHours, dayOff, prefDayOff };
+            //consecetive hourse
+            if (consHours == true)
+                score++;
+            //checkForOffDay
+            if (dayOff == false)
+                score++;
+            //check if the day off is the preferred day
+            if (prefDayOff == false)
+                score++;
+
+            return score;
+        }
         // Returns fitness value of chromosome
         public float GetFitness()
         {
@@ -745,10 +947,10 @@ namespace ConsoleApp1
             // initialize new population with chromosomes randomly built using prototype
             int z = 0;
             List<ScheduleGenetic> it = _chromosomes.ToList();
-            for(int i =0;i<it.Count;i++)
+            for (int i = 0; i < it.Count; i++)
             {
                 // remove chromosome from previous execution
-               if(!it[i].Equals(null))
+                if (!it[i].Equals(null))
                 {
                     it[i] = null;
                 }
@@ -773,7 +975,7 @@ namespace ConsoleApp1
 
                 ScheduleGenetic best = GetBestChromosome();
 
-                // algorithm has reached criteria?
+                // work algorithm has reached criteria?
                 if (best.GetFitness() >= 1)
                 {
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
