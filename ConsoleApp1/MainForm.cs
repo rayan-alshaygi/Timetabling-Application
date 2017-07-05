@@ -104,7 +104,13 @@ namespace ConsoleApp1
             {
                 cbDivision1.Items.Add((dt.Columns[i].ColumnName).ToString());
             }
-            
+            DataTable dt2 = c.comboRoom();
+
+            for (int i = 1; i < dt.Columns.Count; i++)
+            {
+                cbRooms.Items.Add((dt2.Columns[i].ColumnName).ToString());
+            }
+
         }
         private void btAddCurriculum_Click(object sender, EventArgs e)
         {
@@ -331,6 +337,9 @@ namespace ConsoleApp1
             gbAddRoom.Size = new System.Drawing.Size(467, 181);
         }
 
-      
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

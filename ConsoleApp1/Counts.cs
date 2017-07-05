@@ -48,9 +48,9 @@ namespace ConsoleApp1
         }
 
         public int GetCourseStudents(int courseId)   {
-            DataTable dt =courses.GetSizeById(courseId);
-            Console.WriteLine(Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString()));
-            return Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString());
+          int size= int.Parse(courses.GetSize(courseId).ToString());
+            Console.WriteLine(size);
+            return size;
         }
 
         // Returns number of parsed Instructor

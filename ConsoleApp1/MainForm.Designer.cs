@@ -93,6 +93,8 @@
             this.btAddRoomAS = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbRoomName = new System.Windows.Forms.TextBox();
+            this.lblPRooms = new System.Windows.Forms.Label();
+            this.cbRooms = new System.Windows.Forms.ComboBox();
             this.gbAddTeacher.SuspendLayout();
             this.gbAddCourse.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -239,9 +241,9 @@
             this.gbAddCourse.Controls.Add(this.tbCourseName);
             this.gbAddCourse.Controls.Add(this.btAddCourseAC);
             this.gbAddCourse.Controls.Add(this.lblCourseName);
-            this.gbAddCourse.Location = new System.Drawing.Point(724, 18);
+            this.gbAddCourse.Location = new System.Drawing.Point(710, 12);
             this.gbAddCourse.Name = "gbAddCourse";
-            this.gbAddCourse.Size = new System.Drawing.Size(74, 51);
+            this.gbAddCourse.Size = new System.Drawing.Size(79, 59);
             this.gbAddCourse.TabIndex = 16;
             this.gbAddCourse.TabStop = false;
             this.gbAddCourse.Text = "Add Course";
@@ -555,6 +557,8 @@
             // 
             // gbAddDivisionSize
             // 
+            this.gbAddDivisionSize.Controls.Add(this.cbRooms);
+            this.gbAddDivisionSize.Controls.Add(this.lblPRooms);
             this.gbAddDivisionSize.Controls.Add(this.btAddDivisioSizeAD);
             this.gbAddDivisionSize.Controls.Add(this.label3);
             this.gbAddDivisionSize.Controls.Add(this.tbDivisionSize);
@@ -565,7 +569,7 @@
             this.gbAddDivisionSize.Font = new System.Drawing.Font("Tahoma", 14F);
             this.gbAddDivisionSize.Location = new System.Drawing.Point(546, 24);
             this.gbAddDivisionSize.Name = "gbAddDivisionSize";
-            this.gbAddDivisionSize.Size = new System.Drawing.Size(94, 45);
+            this.gbAddDivisionSize.Size = new System.Drawing.Size(458, 314);
             this.gbAddDivisionSize.TabIndex = 22;
             this.gbAddDivisionSize.TabStop = false;
             this.gbAddDivisionSize.Text = "add division size";
@@ -592,7 +596,7 @@
             // 
             // tbDivisionSize
             // 
-            this.tbDivisionSize.Location = new System.Drawing.Point(134, 148);
+            this.tbDivisionSize.Location = new System.Drawing.Point(136, 148);
             this.tbDivisionSize.Name = "tbDivisionSize";
             this.tbDivisionSize.Size = new System.Drawing.Size(121, 30);
             this.tbDivisionSize.TabIndex = 4;
@@ -602,7 +606,7 @@
             // cbYear1
             // 
             this.cbYear1.FormattingEnabled = true;
-            this.cbYear1.Location = new System.Drawing.Point(134, 97);
+            this.cbYear1.Location = new System.Drawing.Point(137, 99);
             this.cbYear1.Name = "cbYear1";
             this.cbYear1.Size = new System.Drawing.Size(121, 31);
             this.cbYear1.TabIndex = 3;
@@ -631,7 +635,7 @@
             // cbDivision1
             // 
             this.cbDivision1.FormattingEnabled = true;
-            this.cbDivision1.Location = new System.Drawing.Point(131, 45);
+            this.cbDivision1.Location = new System.Drawing.Point(137, 46);
             this.cbDivision1.Name = "cbDivision1";
             this.cbDivision1.Size = new System.Drawing.Size(124, 31);
             this.cbDivision1.TabIndex = 0;
@@ -792,6 +796,24 @@
             this.tbRoomName.Size = new System.Drawing.Size(100, 20);
             this.tbRoomName.TabIndex = 0;
             // 
+            // lblPRooms
+            // 
+            this.lblPRooms.AutoSize = true;
+            this.lblPRooms.Location = new System.Drawing.Point(-4, 216);
+            this.lblPRooms.Name = "lblPRooms";
+            this.lblPRooms.Size = new System.Drawing.Size(135, 23);
+            this.lblPRooms.TabIndex = 7;
+            this.lblPRooms.Text = "Prefered Room";
+            // 
+            // cbRooms
+            // 
+            this.cbRooms.FormattingEnabled = true;
+            this.cbRooms.Location = new System.Drawing.Point(137, 208);
+            this.cbRooms.Name = "cbRooms";
+            this.cbRooms.Size = new System.Drawing.Size(121, 31);
+            this.cbRooms.TabIndex = 8;
+            this.cbRooms.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -910,5 +932,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbRoomName;
         private System.Windows.Forms.CheckBox chBIsTA;
+        private System.Windows.Forms.ComboBox cbRooms;
+        private System.Windows.Forms.Label lblPRooms;
     }
 }

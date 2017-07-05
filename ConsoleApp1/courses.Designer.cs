@@ -385,7 +385,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 505);
+            this.ClientSize = new System.Drawing.Size(575, 505);
             this.Controls.Add(this.tbClassName);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cbLectureInstructor);

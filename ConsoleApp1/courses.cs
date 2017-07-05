@@ -33,6 +33,7 @@ namespace ConsoleApp1
         }
         private void courses_Load(object sender, EventArgs e)
         {
+            
             chbLecture.Checked = true;
             gbOneLevel.Visible = false;
             gbTowLevels.Visible = false;
@@ -93,7 +94,7 @@ namespace ConsoleApp1
                 if (dt.Rows[i].Field<int>(2) != 0)
                     chbLabInstrucctores.Items.Add(dt.Rows[i].Field<string>(1));
             }
-
+           
         }
 
         private void chbTutorialInstructors_SelectedIndexChanged(object sender, EventArgs e)
