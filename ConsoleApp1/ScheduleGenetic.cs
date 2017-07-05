@@ -97,10 +97,6 @@ namespace ConsoleApp1
     public class ScheduleGenetic
     {
 
-        //C++ TO C# CONVERTER TODO TASK: C# has no concept of a 'friend' class:
-        //	friend class ScheduleObserver;
-
-
         // Number of crossover points of parent's class tables
         private int _numberOfCrossoverPoints;
 
@@ -173,11 +169,9 @@ namespace ConsoleApp1
             _mutationProbability = c._mutationProbability;
         }
 
-        // Makes copy ot chromosome
 
-        // Makes copy ot chromosome
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: Schedule* MakeCopy(bool setupOnly) const
+        // Makes copy of chromosome
+
         public ScheduleGenetic MakeCopy(bool setupOnly)
         {
             // make object by calling copy constructor and return smart pointer to new object
@@ -185,10 +179,6 @@ namespace ConsoleApp1
         }
 
         // Makes new chromosome with same setup but with randomly chosen code
-
-        // Makes new chromosome with same setup but with randomly chosen code
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: Schedule* MakeNewFromPrototype() const
         public ScheduleGenetic MakeNewFromPrototype()
         {
             // number of time-space slots
@@ -500,23 +490,19 @@ namespace ConsoleApp1
                     {
                         // check for overlapping with other classes at same time
                         List<DataRow> cl = _slots[t + j];
-                        //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
                         if (cl != null)
                         {
                             foreach (DataRow row in cl)
                             {
-                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
                                 if (cc != row)
                                 {
                                     // professor overlaps?
-                                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
                                     if (cc["instructorId"] == row["instructorId"])
                                     {
                                         po = true;
                                     }
 
                                     // student group overlaps?
-                                    //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
 
                                     DataTable curClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(cc["courseId"].ToString()));
                                     DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
@@ -1084,16 +1070,12 @@ public void Stop()
 // Returns pointer to best chromosomes in population
 
 // Returns pointer to best chromosomes in population
-//C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-//ORIGINAL LINE: Schedule* GetBestChromosome() const
 public ScheduleGenetic GetBestChromosome()
 {
     return _chromosomes[_bestChromosomes[0]];
 }
 
 // Returns current generation
-//C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-//ORIGINAL LINE: inline int GetCurrentGeneration() const
 public int GetCurrentGeneration()
 {
     return _currentGeneration;

@@ -22,23 +22,6 @@ namespace ConsoleApp1
         // Global instance
         private static Counts _instance = new Counts();
 
-        // Parsed Instructors
-        private Dictionary<int, Instructor> _Instructors = new Dictionary<int, Instructor>();
-
-        // Parsed student groups
-        private Dictionary<int, Curriculum> _curriculum = new Dictionary<int, Curriculum>();
-
-        // Parsed courses
-        private Dictionary<int, Course> _courses = new Dictionary<int, Course>();
-
-        // Parsed rooms
-        private Dictionary<int, Room> _rooms = new Dictionary<int, Room>();
-
-        // Parsed classes
-        private LinkedList<CourseClass> _courseClasses = new LinkedList<CourseClass>();
-        // Returns reference to global instance
-
-
         internal Dictionary<string, object> GetDict(DataTable dt)
         {
             Dictionary<String, Object> dic = dt.AsEnumerable().ToDictionary(row => row.Field<String>(0), row => row.Field<Object>(1));
@@ -77,14 +60,6 @@ namespace ConsoleApp1
 
             return (int)cur.Count();
         }
-
-        // Returns pointer to course with specified ID
-        // If there is no course with such ID method returns NULL
-        //public Course GetCourseById(int id)
-        //{
-        //    Dictionary<int, Course*>.iterator it = _courses.find(id);
-        //    return it != _courses.end() ? it.second : null;
-        //}
 
         public DataTable GetCourseCurriculums(int id)
         {
@@ -153,8 +128,6 @@ namespace ConsoleApp1
             return room.GetLabRooms();
         }
         // Returns reference to list of parsed classes
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline const ClassicLinkedList<CourseClass*>& GetCourseClasses() const
         public DataTable GetCourseClasses()
         {
             DataTable dt = cc.GetData();
@@ -164,38 +137,11 @@ namespace ConsoleApp1
        
 
         // Returns number of parsed classes
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline int GetNumberOfCourseClasses() const
+    
         public int GetNumberOfCourseClasses()
         {
             return (int) cc.Count();
-           // DataTable dt = _courseClasses.Count();
         }
-
-
-
-
-        // Removes blank characters from beginning and end of string
-    //    private string TrimString(string str)
-    //    {
-    //        CharEnumerator it = new CharEnumerator();
-    //        for (it = str.GetEnumerator(); it.MoveNext() && char.IsWhiteSpace(it.Current);)
-    //        {
-    //            ;
-    //        }
-    //        str = str.Remove(str.GetEnumerator(), it);
-    //        //string.reverse_iterator; rit= new string.reverse_iterator();
-
-    //        IEnumerable<int> rit = str;
-    //        foreach (var x in enumerableThing.Reverse())
-    //            for (rit.Reverse(); rit != str.rend() && char.IsWhiteSpace(*rit); rit++)
-    //            {
-    //                ;
-    //            }
-    //        str = str.Remove(str.GetEnumerator() + (str.rend() - rit), str.end());
-
-    //        return str;
-    //    }
 
     }
 }

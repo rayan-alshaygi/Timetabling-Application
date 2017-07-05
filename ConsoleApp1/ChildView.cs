@@ -118,11 +118,11 @@ namespace ConsoleApp1
 
     }
 }
-        // Schedule chromosome
+    #region Commented area
+    // Schedule chromosome
     /*    public class ScheduleGenetic
         {
 
-            //C++ TO C# CONVERTER TODO TASK: C# has no concept of a 'friend' class:
             //	friend class ScheduleObserver;
 
 
@@ -219,87 +219,90 @@ namespace ConsoleApp1
 
         } }
 */
-        // Genetic algorithm
-     /*   public class Algorithm
-        {
+    // Genetic algorithm
+    /*   public class Algorithm
+       {
 
 
-            // Population of chromosomes
-            private List<Schedule> _chromosomes = new List<Schedule>();
+           // Population of chromosomes
+           private List<Schedule> _chromosomes = new List<Schedule>();
 
-            // Inidicates wheahter chromosome belongs to best chromosome group
-            private List<bool> _bestFlags = new List<bool>();
+           // Inidicates wheahter chromosome belongs to best chromosome group
+           private List<bool> _bestFlags = new List<bool>();
 
-            // Indices of best chromosomes
-            private List<int> _bestChromosomes = new List<int>();
+           // Indices of best chromosomes
+           private List<int> _bestChromosomes = new List<int>();
 
-            // Number of best chromosomes currently saved in best chromosome group
-            private int _currentBestSize;
+           // Number of best chromosomes currently saved in best chromosome group
+           private int _currentBestSize;
 
-            // Number of chromosomes which are replaced in each generation by offspring
-            private int _replaceByGeneration;
+           // Number of chromosomes which are replaced in each generation by offspring
+           private int _replaceByGeneration;
 
-            // Pointer to algorithm observer
-            private ScheduleObserver _observer;
+           // Pointer to algorithm observer
+           private ScheduleObserver _observer;
 
-            // Prototype of chromosomes in population
-            private Schedule _prototype;
+           // Prototype of chromosomes in population
+           private Schedule _prototype;
 
-            // Current generation
-            private int _currentGeneration;
+           // Current generation
+           private int _currentGeneration;
 
-            // State of execution of algorithm
-            private AlgorithmState _state;
+           // State of execution of algorithm
+           private AlgorithmState _state;
 
-            // Synchronization of algorithm's state
-            // private CCriticalSection _stateSect = new CCriticalSection();
-            public static object _StateSect = new Object();
-            // Pointer to global instance of algorithm
-            private static Algorithm _instance;
+           // Synchronization of algorithm's state
+           // private CCriticalSection _stateSect = new CCriticalSection();
+           public static object _StateSect = new Object();
+           // Pointer to global instance of algorithm
+           private static Algorithm _instance;
 
-            // Synchronization of creation and destruction of global instance
-            //private static CCriticalSection _instanceSect = new CCriticalSection();
-            public static object instanceSect = new Object();
+           // Synchronization of creation and destruction of global instance
+           //private static CCriticalSection _instanceSect = new CCriticalSection();
+           public static object instanceSect = new Object();
 
-            // Returns reference to global instance of algorithm
-            //	static Algorithm GetInstance();
+           // Returns reference to global instance of algorithm
+           //	static Algorithm GetInstance();
 
-            // Frees memory used by gloval instance
-            //	static void FreeInstance();
+           // Frees memory used by gloval instance
+           //	static void FreeInstance();
 
-            // Initializes genetic algorithm
-            //	Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, Schedule prototype, ScheduleObserver observer);
+           // Initializes genetic algorithm
+           //	Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, Schedule prototype, ScheduleObserver observer);
 
-            // Frees used resources
-            //	public void Dispose();
+           // Frees used resources
+           //	public void Dispose();
 
-            // Starts and executes algorithm
-            //	void Start();
+           // Starts and executes algorithm
+           //	void Start();
 
-            // Stops execution of algoruthm
-            //	void Stop();
+           // Stops execution of algoruthm
+           //	void Stop();
 
-            // Returns pointer to best chromosomes in population
-            //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-            //ORIGINAL LINE: Schedule* GetBestChromosome() const;
-            //	Schedule GetBestChromosome();
+           // Returns pointer to best chromosomes in population
+           //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
+           //ORIGINAL LINE: Schedule* GetBestChromosome() const;
+           //	Schedule GetBestChromosome();
 
-            // Returns current generation
-            //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-            //ORIGINAL LINE: inline int GetCurrentGeneration() const
-            public int GetCurrentGeneration()
-            {
-                return _currentGeneration;
-            }
+           // Returns current generation
+           //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
+           //ORIGINAL LINE: inline int GetCurrentGeneration() const
+           public int GetCurrentGeneration()
+           {
+               return _currentGeneration;
+           }
 
-            // Returns pointe to algorithm's observer
-            //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-            //ORIGINAL LINE: inline ScheduleObserver* GetObserver() const
-            public ScheduleObserver GetObserver()
-            {
-                return _observer;
-            }
+           // Returns pointe to algorithm's observer
+           //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
+           //ORIGINAL LINE: inline ScheduleObserver* GetObserver() const
+           public ScheduleObserver GetObserver()
+           {
+               return _observer;
+           }
 
-        }
-    */}
+       }
+   */
+}
 
+
+#endregion
