@@ -16,6 +16,7 @@ namespace ConsoleApp1
         RoomsTableAdapter room = new RoomsTableAdapter();
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
         CoursesTableAdapter courses = new CoursesTableAdapter();
+        CourseCurriculumsTableAdapter courseCur = new CourseCurriculumsTableAdapter();
     
 
         // Global instance
@@ -87,7 +88,8 @@ namespace ConsoleApp1
 
         public DataTable GetCourseCurriculums(int id)
         {
-            return cc.GetCourseCurriculums(id);
+
+            return courseCur.GetCourseCurriculums(id);
         }
         public DataTable GetInstructorPreferredTime(int id)
         {
@@ -107,8 +109,22 @@ namespace ConsoleApp1
         public DataRow GetRoomById(int id)
         {
             DataTable dt=room.GetDataById(id);
+            if (dt.Rows.Count!=0)
+            {
+               return dt.Rows[0];
+            }
+            return null;
+        }
 
-            return dt.Rows[0];
+        //return max capicity of a room
+        public int GetRoomMaxCapicityById(int id)
+        {
+            DataTable dt = room.GetDataById(id);
+            if (dt.Rows != null)
+            {
+                return Int32.Parse(dt.Rows[0]["numberofseats"].ToString());
+            }
+            return 0;
         }
 
         // Returns number of parsed rooms
@@ -128,7 +144,10 @@ namespace ConsoleApp1
         {
             return room.GetRooms();
         }
-        
+        public DataTable GetRooms()
+        {
+            return room.GetData();
+        }
         public DataTable GetLabRooms()
         {
             return room.GetLabRooms();
@@ -149,7 +168,8 @@ namespace ConsoleApp1
         //ORIGINAL LINE: inline int GetNumberOfCourseClasses() const
         public int GetNumberOfCourseClasses()
         {
-            return (int)_courseClasses.Count();
+            return (int) cc.Count();
+           // DataTable dt = _courseClasses.Count();
         }
 
 
