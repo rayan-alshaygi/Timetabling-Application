@@ -213,7 +213,8 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     l.Add(courseRow);
-                    newChromosome._slots.Insert((pos + i), l);
+                   newChromosome._slots[(pos + i)]= l;
+                  // newChromosome._slots.Insert((pos + i), l);
 
                 }
                 newChromosome._classes.Add(courseRow, pos);
@@ -245,7 +246,7 @@ namespace ConsoleApp1
 
             // number of classes
             int size = (int)_classes.Count();
-            List<bool> cp = new List<bool>(size);
+            List<bool> cp = new List<bool>(new bool[size]);
 
             // determine crossover point (randomly)
             for (int i = _numberOfCrossoverPoints; i > 0; i--)
@@ -253,17 +254,18 @@ namespace ConsoleApp1
                 while (true)
                 {
                     int p = RandomNumbers.NextNumber() % size;
-                    if (!cp[p])
+                   if (!cp[p])
                     {
                         cp[p] = true;
                         break;
                     }
                 }
             }
-            Dictionary<DataRow, int>.Enumerator it1 = _classes.GetEnumerator();
-            //Dictionary<DataRow int>.const_iterator  = _classes.begin();
-            Dictionary<DataRow, int>.Enumerator it2 = parent2._classes.GetEnumerator();
-            // Dictionary<CourseClass*, int>.const_iterator it2 = parent2._classes.begin();
+            //Dictionary<DataRow, int>.Enumerator it1 = _classes.GetEnumerator();
+
+            ////Dictionary<DataRow int>.const_iterator  = _classes.begin();
+            //Dictionary<DataRow, int>.Enumerator it2 = parent2._classes.GetEnumerator();
+            //// Dictionary<CourseClass*, int>.const_iterator it2 = parent2._classes.begin();
 
             // make new code by combining parent codes
             bool first = RandomNumbers.NextNumber() % 2 == 0;
@@ -272,21 +274,29 @@ namespace ConsoleApp1
                 if (first)
                 {
                     // insert class from first parent into new chromosome's calss table
-                    n._classes.Add(it1.Current.Key, it1.Current.Value);
+                    var it1 = _classes.ElementAt(j);
+                    DataRow cc1 = it1.Key;
+                    List<DataRow> l = new List<DataRow>();
+                    l.Add(cc1);
+                    n._classes.Add(it1.Key, it1.Value);
                     // all time-space slots of class are copied
-                    for (int i = Int32.Parse(it1.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
+                    for (int i = Int32.Parse(it1.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots[it1.Current.Value + i].Add(it1.Current.Key);
+                        n._slots.Insert((it1.Value + i), l);
                     }
                 }
                 else
                 {
+                    var it2 = parent2._classes.ElementAt(j);
+                    DataRow cc2 = it2.Key;
+                    List<DataRow> l = new List<DataRow>();
+                    l.Add(cc2);
                     // insert class from second parent into new chromosome's calss table
-                    n._classes.Add(it2.Current.Key, it2.Current.Value);
+                    n._classes.Add(it2.Key, it2.Value);
                     // all time-space slots of class are copied
-                    for (int i = Int32.Parse(it2.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
+                    for (int i = Int32.Parse(it2.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots[it2.Current.Value + i].Add(it2.Current.Key);
+                        n._slots.Insert((it2.Value + i), l);
                     }
                 }
 
@@ -296,9 +306,39 @@ namespace ConsoleApp1
                     // change soruce chromosome
                     first = !first;
                 }
-                it1.MoveNext();
-                it2.MoveNext();
             }
+            //for (int j = 0; j < size; j++)
+            //{
+            //    if (first)
+            //    {
+            //        // insert class from first parent into new chromosome's calss table
+            //        n._classes.Add(it1.Current.Key, it1.Current.Value);
+            //        // all time-space slots of class are copied
+            //        for (int i = Int32.Parse(it1.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
+            //        {
+            //            n._slots[it1.Current.Value + i].Add(it1.Current.Key);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // insert class from second parent into new chromosome's calss table
+            //        n._classes.Add(it2.Current.Key, it2.Current.Value);
+            //        // all time-space slots of class are copied
+            //        for (int i = Int32.Parse(it2.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
+            //        {
+            //            n._slots[it2.Current.Value + i].Add(it2.Current.Key);
+            //        }
+            //    }
+
+            //    // crossover point
+            //    if (cp[j])
+            //    {
+            //        // change soruce chromosome
+            //        first = !first;
+            //    }
+            //    it1.MoveNext();
+            //    it2.MoveNext();
+            //}
 
             n.CalculateFitness();
 
@@ -325,16 +365,18 @@ namespace ConsoleApp1
                 // select ranom chromosome for movement
                 int mpos = RandomNumbers.NextNumber() % numberOfClasses;
                 int pos1 = 0;
-                Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator();
-                for (; mpos > 0; it.MoveNext(), mpos--)
+                //Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator();
+                int d = 0;
+                // for (; mpos > 0; it.MoveNext(), mpos--)
+                for (; mpos > 0; ++d, mpos--)
                 {
                     ;
                 }
-
                 // current time-space slot used by class
-                pos1 = it.Current.Value;
+                var it = _classes.ElementAt(d);
+                pos1 = it.Value;
 
-                DataRow cc1 = it.Current.Key;
+                DataRow cc1 = it.Key;
 
                 // determine position of class randomly
                 int nr = Counts.GetInstance().GetNumberOfRooms();
@@ -349,7 +391,7 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     // remove class hour from current time-space slot
-                    List<DataRow> cl = _slots[pos1 + i];
+                        List<DataRow> cl = _slots[pos1 + i];
                     foreach (DataRow r in cl)
                     {
 
