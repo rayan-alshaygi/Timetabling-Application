@@ -426,7 +426,7 @@ namespace ConsoleApp1
             //for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last()); it.MoveNext(), ci += 8)
             foreach (KeyValuePair<DataRow, int> it in _classes)
             {
-                
+
                 // coordinate of time-space slot
                 int p = it.Value;
                 int day = p / daySize;
@@ -437,15 +437,15 @@ namespace ConsoleApp1
                 int classRoom = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
 
                 time = time % DefineConstants.DAY_HOURS;
-                Console.WriteLine("current value"+it.Value);
-                Console.WriteLine("current duration " +it.Key["duration"]);
+                Console.WriteLine("current value" + it.Value);
+                Console.WriteLine("current duration " + it.Key["duration"]);
                 int dur = Int32.Parse(it.Key["duration"].ToString());
 
                 // check for room overlapping of classes
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
                 {
-                    if (_slots[p+ i] != null && _slots[p + i].Count > 1)
+                    if (_slots[p + i] != null && _slots[p + i].Count > 1)
                     {
                         ro = true;
                         break;
@@ -819,17 +819,21 @@ namespace ConsoleApp1
         public static object _instanceSect = new Object();
         // private static CCriticalSection _instanceSect = new CCriticalSection();
 
-
         // Synchronization of creation and destruction of global instance
 
-        private static Semaphore @lock;
+        private static SemaphoreSlim @lock;
+        //static Thread @thr;
         public static Algorithm GetInstance()
         {
 
-            @lock = new Semaphore(1, 1);
+            @lock = new SemaphoreSlim(1);
+            //CCriticalSectionSim.LockData();
+            // Thread @thr;
             // global instance doesn't exist?
+            @lock.Wait();
             if (_instance == null)
             {
+                //@thr = new Thread(new delegate() { GetInstance(); });
                 // set seed for random generator
                 RandomNumbers.Seed((int)DateTime.Now.Ticks);
 
@@ -838,6 +842,8 @@ namespace ConsoleApp1
 
                 // make new global instance of algorithm using chromosome prototype
                 _instance = new Algorithm(100, 8, 5, prototype, new ScheduleObserver());
+
+
             }
 
             return _instance;
@@ -848,7 +854,9 @@ namespace ConsoleApp1
         public static void FreeInstance()
         {
             //CSingleLock @lock = new CSingleLock(_instanceSect, 1);
-            @lock = new Semaphore(1, 1);
+            @lock = new SemaphoreSlim(1);
+            @lock.Wait();
+
             // free memory used by global instance if it exists
             if (_instance != null)
             {
@@ -912,7 +920,8 @@ namespace ConsoleApp1
                 return;
 
             //CSingleLock @lock = new CSingleLock(_stateSect, 1);
-            @lock = new Semaphore(1, 1);
+            @lock = new SemaphoreSlim(1);
+            @lock.Wait();
             // do not run already running algorithm
             if (_state == AlgorithmState.AS_RUNNING)
                 return;
@@ -935,30 +944,30 @@ namespace ConsoleApp1
             List<ScheduleGenetic> it = _chromosomes.ToList();
             ScheduleGenetic snew;
             for (int i = 0; i < it.Count; i++)
+            {
+                // remove chromosome from previous execution
+                if (it[i] != null)
                 {
-                    // remove chromosome from previous execution
-                    if (it[i] != null)
+                    if (!it[i].Equals(null))
                     {
-                        if (!it[i].Equals(null))
-                        {
-                            it[i] = null;
-                        }
+                        it[i] = null;
                     }
+                }
 
                 // add new chromosome to population
                 //if population empty inser if into _chromosomes
-                snew =_prototype.MakeNewFromPrototype();
+                snew = _prototype.MakeNewFromPrototype();
                 if (_chromosomes[i] == null)
-                    _chromosomes[i]=snew;
+                    _chromosomes[i] = snew;
                 it[i] = snew;
                 //    it[i] = _prototype.MakeNewFromPrototype();
-                    AddToBest(i);
-                }
+                AddToBest(i);
+            }
             _currentGeneration = 0;
 
             while (true)
             {
-               @lock.WaitOne();
+                @lock.Wait();
                 // user has stopped execution?
                 if (_state != AlgorithmState.AS_RUNNING)
                 {
@@ -994,103 +1003,103 @@ namespace ConsoleApp1
                         time = time + 8;
                         sched.Insert(classId, d, time, roomId);
                     }
-                
+
+                    @lock.Release();
+                    break;
+                }
+
                 @lock.Release();
-                break;
-            }
 
-            @lock.Release();
-
-            // produce offepsing
-            List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
-            offspring.Resize(_replaceByGeneration);
-            for (int j = 0; j < _replaceByGeneration; j++)
-            {
-                // selects parent randomly
-                ScheduleGenetic p1 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
-                ScheduleGenetic p2 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
-
-                offspring[j] = p1.Crossover(p2);
-                offspring[j].Mutation();
-            }
-
-            // replace chromosomes of current operation with offspring
-            for (int j = 0; j < _replaceByGeneration; j++)
-            {
-                int ci;
-                do
+                // produce offepsing
+                List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
+                offspring.Resize(_replaceByGeneration);
+                for (int j = 0; j < _replaceByGeneration; j++)
                 {
-                    // select chromosome for replacement randomly
-                    ci = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
+                    // selects parent randomly
+                    ScheduleGenetic p1 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
+                    ScheduleGenetic p2 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
 
-                    // protect best chromosomes from replacement
-                } while (IsInBest(ci));
+                    offspring[j] = p1.Crossover(p2);
+                    offspring[j].Mutation();
+                }
 
-                // replace chromosomes
-                if (_chromosomes[ci] != null)
-                    _chromosomes[ci] = null;
-                _chromosomes[ci] = offspring[j];
+                // replace chromosomes of current operation with offspring
+                for (int j = 0; j < _replaceByGeneration; j++)
+                {
+                    int ci;
+                    do
+                    {
+                        // select chromosome for replacement randomly
+                        ci = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
 
-                // try to add new chromosomes in best chromosome group
-                AddToBest(ci);
+                        // protect best chromosomes from replacement
+                    } while (IsInBest(ci));
+
+                    // replace chromosomes
+                    if (_chromosomes[ci] != null)
+                        _chromosomes[ci] = null;
+                    _chromosomes[ci] = offspring[j];
+
+                    // try to add new chromosomes in best chromosome group
+                    AddToBest(ci);
+                }
+
+                // algorithm has found new best chromosome
+                if (best != GetBestChromosome() && _observer != null)
+                {
+                    // notify observer
+                    _observer.NewBestChromosome(GetBestChromosome());
+                }
+
+                _currentGeneration++;
             }
-
-            // algorithm has found new best chromosome
-            if (best != GetBestChromosome() && _observer != null)
-            {
-                // notify observer
-                _observer.NewBestChromosome(GetBestChromosome());
-            }
-
-            _currentGeneration++;
-        }
 
             if (_observer != null)
             {
                 // notify observer that execution of algorithm has changed it state
                 _observer.EvolutionStateChanged(_state);
             }
-}
+        }
 
-// Stops execution of algoruthm
+        // Stops execution of algoruthm
 
-// Stops execution of algoruthm
-public void Stop()
-{
-    @lock = new Semaphore(1, 1);
+        // Stops execution of algoruthm
+        public void Stop()
+        {
+            @lock = new SemaphoreSlim(1);
+            @lock.Wait();
+            if (_state == AlgorithmState.AS_RUNNING)
+            {
+                _state = AlgorithmState.AS_USER_STOPED;
+            }
 
-    if (_state == AlgorithmState.AS_RUNNING)
-    {
-        _state = AlgorithmState.AS_USER_STOPED;
-    }
+            @lock.Release();
+        }
 
-    @lock.Release();
-}
+        // Returns pointer to best chromosomes in population
 
-// Returns pointer to best chromosomes in population
+        // Returns pointer to best chromosomes in population
+        public ScheduleGenetic GetBestChromosome()
+        {
+            return _chromosomes[_bestChromosomes[0]];
+        }
 
-// Returns pointer to best chromosomes in population
-public ScheduleGenetic GetBestChromosome()
-{
-    return _chromosomes[_bestChromosomes[0]];
-}
+        // Returns current generation
+        public int GetCurrentGeneration()
+        {
+            return _currentGeneration;
+        }
 
-// Returns current generation
-public int GetCurrentGeneration()
-{
-    return _currentGeneration;
-}
-
-// Return to algorithm's observer
-public ScheduleObserver GetObserver()
-{
-    return _observer;
-}
+        // Return to algorithm's observer
+        public ScheduleObserver GetObserver()
+        {
+            return _observer;
+        }
 
 
-// Tries to add chromosomes in best chromosome group
-private void AddToBest(int chromosomeIndex)
-{
+        // Tries to add chromosomes in best chromosome group
+        private void AddToBest(int chromosomeIndex)
+        {
             //if start up population best is empty
             if (_currentBestSize == 0)
             {
@@ -1136,17 +1145,17 @@ private void AddToBest(int chromosomeIndex)
                     _currentBestSize++;
                 }
             }
-}
+        }
 
-// Returns TRUE if chromosome belongs to best chromosome group
-private bool IsInBest(int chromosomeIndex)
-{
-    return _bestFlags[chromosomeIndex];
-}
+        // Returns TRUE if chromosome belongs to best chromosome group
+        private bool IsInBest(int chromosomeIndex)
+        {
+            return _bestFlags[chromosomeIndex];
+        }
 
-// Clears best chromosome group
-private void ClearBest()
-{
+        // Clears best chromosome group
+        private void ClearBest()
+        {
             if (_bestFlags.Contains(true))
             {
                 for (int i = (int)_bestFlags.Count - 1; i >= 0; --i)
@@ -1155,9 +1164,22 @@ private void ClearBest()
                 }
             }
 
-    _currentBestSize = 0;
-}
+            _currentBestSize = 0;
+        }
 
     }
+
+    //public class CCriticalSectionSim
+    //{
+    //    public static void LockData()
+    //    {
+
+    //    }
+
+    //    public static void UnlockData()
+    //    {
+
+    //    }
+    //}
 
 }
