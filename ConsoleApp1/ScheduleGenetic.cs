@@ -15,7 +15,6 @@ namespace ConsoleApp1
         AS_CRITERIA_STOPPED,
         AS_RUNNING
     }
-
     // Algorithm's observer
     public class ScheduleObserver
     {
@@ -116,7 +115,7 @@ namespace ConsoleApp1
         private List<bool> _criteria = new List<bool>();
 
         // Time-space slots, one entry represent one hour in one classroom
-        private List<List<DataRow>> _slots = new List<List<DataRow>>(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
+        private List<List<DataRow>> _slots = new List<List<DataRow>>(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
         // Class table for chromosome
         // Used to determine first time-space slot used by class
@@ -133,7 +132,8 @@ namespace ConsoleApp1
             this._fitness = 0F;
             // reserve space for time-space slots in chromosomes code
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
-
+           int slotSize= _slots.Count();
+            //_slots = (from i in Enumerable.Range(0, slotSize) select new List<List<DataRow>>());
             // reserve space for flags of class requirements
             _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
         }
@@ -213,7 +213,10 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     l.Add(courseRow);
-                    newChromosome._slots[(pos + i)]= l;
+                    if (newChromosome._slots[(pos + i)]==null)
+                        newChromosome._slots[(pos + i)]=l;
+                    else
+                    newChromosome._slots[(pos + i)].Add(courseRow);
                     // newChromosome._slots.Insert((pos + i), l);
 
                 }
@@ -276,7 +279,10 @@ namespace ConsoleApp1
                     // all time-space slots of class are copied
                     for (int i = Int32.Parse(it1.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots[it1.Value + i] = l;
+                        if (n._slots[it1.Value + i] == null)
+                            n._slots[it1.Value + i] = l;
+                        else
+                            n._slots[it1.Value + i].Add(cc1);
                     }
                 }
                 else
@@ -290,7 +296,11 @@ namespace ConsoleApp1
                     // all time-space slots of class are copied
                     for (int i = Int32.Parse(it2.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots[it2.Value + i] = l;
+                        if (n._slots[it2.Value + i] == null)
+                            n._slots[it2.Value + i] = l;
+                        else
+                            n._slots[it2.Value + i].Add(cc2);
+                        //n._slots[it2.Value + i].AddLast(cc2);
 
                     }
                 }
@@ -347,7 +357,7 @@ namespace ConsoleApp1
                 int randroom = RandomNumbers.NextNumber() % nr;
                 int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
-                int pos2 = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
+                int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
 
                 // move all time-space slots
                 for (int i = dur - 1; i >= 0; i--)
@@ -365,7 +375,15 @@ namespace ConsoleApp1
                     }
 
                     // move class hour to new time-space slot
-                    _slots[pos2 + i].Add(cc1);
+                    if (_slots[pos2 + i] == null)
+                    {
+                        List<DataRow> l = new List<DataRow>();
+                        l.Add(cc1);
+                        _slots[pos2 + i] = l;
+                    }
+                    else
+                        _slots[pos2 + i].Add(cc1);
+                   // _slots[pos2 + i].AddLast(cc1);
                 }
 
                 // change entry of class table to point to new time-space slots
