@@ -116,7 +116,7 @@ namespace ConsoleApp1
         private List<bool> _criteria = new List<bool>();
 
         // Time-space slots, one entry represent one hour in one classroom
-        private List<List<DataRow>> _slots = new List<List<DataRow>>();
+        private List<List<DataRow>> _slots = new List<List<DataRow>>(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
 
         // Class table for chromosome
         // Used to determine first time-space slot used by class
@@ -213,8 +213,8 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     l.Add(courseRow);
-                   newChromosome._slots[(pos + i)]= l;
-                  // newChromosome._slots.Insert((pos + i), l);
+                    newChromosome._slots[(pos + i)]= l;
+                    // newChromosome._slots.Insert((pos + i), l);
 
                 }
                 newChromosome._classes.Add(courseRow, pos);
@@ -248,25 +248,19 @@ namespace ConsoleApp1
             int size = (int)_classes.Count();
             List<bool> cp = new List<bool>(new bool[size]);
 
-            // determine crossover point (randomly)
+            // determine crossover point (randomly) where it's not in the middle of a class time in both parents
             for (int i = _numberOfCrossoverPoints; i > 0; i--)
             {
                 while (true)
                 {
                     int p = RandomNumbers.NextNumber() % size;
-                   if (!cp[p])
+                   if (!cp[p]&&(_classes.ElementAt(p).Equals(null)||_slots[p]==null)&& (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
                     {
                         cp[p] = true;
                         break;
                     }
                 }
             }
-            //Dictionary<DataRow, int>.Enumerator it1 = _classes.GetEnumerator();
-
-            ////Dictionary<DataRow int>.const_iterator  = _classes.begin();
-            //Dictionary<DataRow, int>.Enumerator it2 = parent2._classes.GetEnumerator();
-            //// Dictionary<CourseClass*, int>.const_iterator it2 = parent2._classes.begin();
-
             // make new code by combining parent codes
             bool first = RandomNumbers.NextNumber() % 2 == 0;
             for (int j = 0; j < size; j++)
@@ -282,7 +276,7 @@ namespace ConsoleApp1
                     // all time-space slots of class are copied
                     for (int i = Int32.Parse(it1.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots.Insert((it1.Value + i), l);
+                        n._slots[it1.Value + i] = l;
                     }
                 }
                 else
@@ -296,7 +290,8 @@ namespace ConsoleApp1
                     // all time-space slots of class are copied
                     for (int i = Int32.Parse(it2.Key["duration"].ToString()) - 1; i >= 0; i--)
                     {
-                        n._slots.Insert((it2.Value + i), l);
+                        n._slots[it2.Value + i] = l;
+
                     }
                 }
 
@@ -307,38 +302,6 @@ namespace ConsoleApp1
                     first = !first;
                 }
             }
-            //for (int j = 0; j < size; j++)
-            //{
-            //    if (first)
-            //    {
-            //        // insert class from first parent into new chromosome's calss table
-            //        n._classes.Add(it1.Current.Key, it1.Current.Value);
-            //        // all time-space slots of class are copied
-            //        for (int i = Int32.Parse(it1.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
-            //        {
-            //            n._slots[it1.Current.Value + i].Add(it1.Current.Key);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        // insert class from second parent into new chromosome's calss table
-            //        n._classes.Add(it2.Current.Key, it2.Current.Value);
-            //        // all time-space slots of class are copied
-            //        for (int i = Int32.Parse(it2.Current.Key["duration"].ToString()) - 1; i >= 0; i--)
-            //        {
-            //            n._slots[it2.Current.Value + i].Add(it2.Current.Key);
-            //        }
-            //    }
-
-            //    // crossover point
-            //    if (cp[j])
-            //    {
-            //        // change soruce chromosome
-            //        first = !first;
-            //    }
-            //    it1.MoveNext();
-            //    it2.MoveNext();
-            //}
 
             n.CalculateFitness();
 
@@ -365,7 +328,6 @@ namespace ConsoleApp1
                 // select ranom chromosome for movement
                 int mpos = RandomNumbers.NextNumber() % numberOfClasses;
                 int pos1 = 0;
-                //Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator();
                 int d = 0;
                 // for (; mpos > 0; it.MoveNext(), mpos--)
                 for (; mpos > 0; ++d, mpos--)
@@ -1026,26 +988,28 @@ namespace ConsoleApp1
                     ScheduleTableAdapter sched = new ScheduleTableAdapter();
                     DataTable rooms = counts.GetRooms();
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
-                    for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
-                    {
+                    //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
+                    //{
+                    foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
                         // coordinate of time-space slot
                         int nr = Counts.GetInstance().GetNumberOfLectureRooms();
                         int daySize = DefineConstants.DAY_HOURS * nr;
-                        int p = x.Current.Value;
+                        int p = x.Value;
                         int day = p / daySize;
                         int time = p % daySize;
                         int room = time / DefineConstants.DAY_HOURS;
                         time = time % DefineConstants.DAY_HOURS;
 
-                        int dur = Int32.Parse(x.Current.Key["duration"].ToString());
-                        int classId = Int32.Parse(x.Current.Key["id"].ToString());
+                        
+                        int dur = Int32.Parse(x.Key["duration"].ToString());
+                        int classId = Int32.Parse(x.Key["id"].ToString());
                         int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
                         //0 = sunday and so on
                         String d = ((DayOfWeek)day).ToString();
                         time = time + 8;
                         sched.Insert(classId, d, time, roomId);
                     }
-
+                    Console.Write("done");
                     @lock.Release();
                     break;
                 }
