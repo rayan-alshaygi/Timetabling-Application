@@ -32,23 +32,8 @@ namespace ConsoleApp1
 
         private void btAddCourse_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = true;
-            gbAddStudent.Visible = false;
-            gbMakeSchedule.Visible = false;
-            gbAddTeacher.Visible = false;
-            gbAddCourse.Location = new Point(391, 222);
-            gbAddCourse.Size = new System.Drawing.Size(467, 181);
-            tbCourseName.Text = "";
-            cbdivision.Items.Clear();
-            DataTable dt = c.ComboCourseName();
-            dataGridView1.DataSource = dt;
-            if (dataGridView1.Rows.Count > 0)
-            {
-                for (int index = 0; index < dataGridView1.Rows.Count - 1; index++)
-                {
-                    //cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[0].Value);
-                }
-            }
+            courses course = new courses();
+            course.Show();
         }
 
         private void btAddStudent_Click(object sender, EventArgs e)
@@ -119,7 +104,13 @@ namespace ConsoleApp1
             {
                 cbDivision1.Items.Add((dt.Columns[i].ColumnName).ToString());
             }
-            
+            DataTable dt2 = c.comboRoom();
+
+            for (int i = 1; i < dt.Columns.Count; i++)
+            {
+                cbRooms.Items.Add((dt2.Columns[i].ColumnName).ToString());
+            }
+
         }
         private void btAddCurriculum_Click(object sender, EventArgs e)
         {
@@ -147,9 +138,11 @@ namespace ConsoleApp1
 
         private void btInsertTeacher_Click(object sender, EventArgs e)
         {
-
+            bool TA =false;
+            if (chBIsTA.Checked == true)
+                TA = true;
             string InstructorName = tbInstructorName.Text;
-            int val = c.InsertInstructor(InstructorName);
+            int val = c.InsertInstructor(InstructorName,TA);
             if (val > 0)
             {
                 tbInstructorName.Text = "";
@@ -234,6 +227,7 @@ namespace ConsoleApp1
         {
             gbAddDivisionSize.Visible = false;
             gbAddCurriculm.Visible = false;
+            gbAddRoom.Visible = false;
         }
 
         private void gbAddStudent_Enter(object sender, EventArgs e)
@@ -326,6 +320,24 @@ namespace ConsoleApp1
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      
+             private void btAddRoom_Click(object sender, EventArgs e)
+        {
+            gbAddRoom.Visible = true;
+            gbAddStudent.Visible = false;
+            gbMakeSchedule.Visible = false;
+            gbAddTeacher.Visible = false;
+            gbAddDivisionSize.Visible = false;
+            gbAddCurriculm.Visible = false;
+            gbAddRoom.Location = new Point(391, 222);
+            gbAddRoom.Size = new System.Drawing.Size(467, 181);
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

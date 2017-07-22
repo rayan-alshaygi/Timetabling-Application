@@ -4,11 +4,18 @@
 
     partial class TimetableDBDataSet
     {
+        partial class MathCSDataTable
+        {
+        }
     }
 }
 
 namespace ConsoleApp1.TimetableDBDataSetTableAdapters
 {
+    partial class MathTableAdapter
+    {
+    }
+
     partial class CurriculumDevisionsTableAdapter
     {
     }
