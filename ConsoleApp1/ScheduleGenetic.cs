@@ -1191,6 +1191,7 @@ namespace ConsoleApp1
             _currentBestSize = 0;
         }
 
+
     }
 
     //public class CCriticalSectionSim

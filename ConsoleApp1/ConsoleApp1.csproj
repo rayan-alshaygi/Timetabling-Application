@@ -75,6 +75,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDbData.cs" />
+    <Compile Include="HillClimbing.cs" />
     <Compile Include="ScheduleGenetic.cs" />
     <Compile Include="instructor.cs" />
     <Compile Include="MainForm.cs">
