@@ -11,31 +11,16 @@ namespace ConsoleApp1
     class Counts
     {
         InstructorsTableAdapter ins = new InstructorsTableAdapter();
+        InstructorPreferredTimeTableAdapter insTime = new InstructorPreferredTimeTableAdapter();
         CurriculumTableAdapter cur = new CurriculumTableAdapter();
         RoomsTableAdapter room = new RoomsTableAdapter();
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
         CoursesTableAdapter courses = new CoursesTableAdapter();
+        CourseCurriculumsTableAdapter courseCur = new CourseCurriculumsTableAdapter();
     
 
         // Global instance
         private static Counts _instance = new Counts();
-
-        // Parsed Instructors
-        private Dictionary<int, Instructor> _Instructors = new Dictionary<int, Instructor>();
-
-        // Parsed student groups
-        private Dictionary<int, Curriculum> _curriculum = new Dictionary<int, Curriculum>();
-
-        // Parsed courses
-        private Dictionary<int, Course> _courses = new Dictionary<int, Course>();
-
-        // Parsed rooms
-        private Dictionary<int, Room> _rooms = new Dictionary<int, Room>();
-
-        // Parsed classes
-        private LinkedList<CourseClass> _courseClasses = new LinkedList<CourseClass>();
-        // Returns reference to global instance
-
 
         internal Dictionary<string, object> GetDict(DataTable dt)
         {
@@ -76,33 +61,49 @@ namespace ConsoleApp1
             return (int)cur.Count();
         }
 
-        // Returns pointer to course with specified ID
-        // If there is no course with such ID method returns NULL
-        //public Course GetCourseById(int id)
-        //{
-        //    Dictionary<int, Course*>.iterator it = _courses.find(id);
-        //    return it != _courses.end() ? it.second : null;
-        //}
-
         public DataTable GetCourseCurriculums(int id)
         {
-            return cc.GetCourseCurriculums(id);
+
+            return courseCur.GetCourseCurriculums(id);
+        }
+        public DataTable GetInstructorPreferredTime(int id)
+        {
+            return insTime.GetDataById(id);
         }
         public int GetNumberOfCourses()
         {
             return (int) cc.Count();
         }
 
+        public DataTable GetClassYandD(int cid)
+        {
+            return cc.GetYDByCourseId(cid);
+        }
         // Returns pointer to room with specified ID
         // If there is no room with such ID method returns NULL
-        //public Room GetRoomById(int id)
-        //{
-        //    Dictionary<int, Room*>.iterator it = _rooms.find(id);
-        //    return it != _rooms.end() ? it.second : null;
-        //}
+        public DataRow GetRoomById(int id)
+        {
+            DataTable dt=room.GetDataById(id);
+            if (dt.Rows.Count!=0)
+            {
+               return dt.Rows[0];
+            }
+            return null;
+        }
+
+        //return max capicity of a room
+        public int GetRoomMaxCapicityById(int id)
+        {
+            DataTable dt = room.GetDataById(id);
+            if (dt.Rows != null)
+            {
+                return Int32.Parse(dt.Rows[0]["numberofseats"].ToString());
+            }
+            return 0;
+        }
 
         // Returns number of parsed rooms
-        
+
         public int GetNumberOfRooms() { 
             return (int) room.Count();
         }
@@ -118,14 +119,15 @@ namespace ConsoleApp1
         {
             return room.GetRooms();
         }
-        
+        public DataTable GetRooms()
+        {
+            return room.GetData();
+        }
         public DataTable GetLabRooms()
         {
             return room.GetLabRooms();
         }
         // Returns reference to list of parsed classes
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline const ClassicLinkedList<CourseClass*>& GetCourseClasses() const
         public DataTable GetCourseClasses()
         {
             DataTable dt = cc.GetData();
@@ -135,37 +137,11 @@ namespace ConsoleApp1
        
 
         // Returns number of parsed classes
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline int GetNumberOfCourseClasses() const
+    
         public int GetNumberOfCourseClasses()
         {
-            return (int)_courseClasses.Count();
+            return (int) cc.Count();
         }
-
-
-
-
-        // Removes blank characters from beginning and end of string
-    //    private string TrimString(string str)
-    //    {
-    //        CharEnumerator it = new CharEnumerator();
-    //        for (it = str.GetEnumerator(); it.MoveNext() && char.IsWhiteSpace(it.Current);)
-    //        {
-    //            ;
-    //        }
-    //        str = str.Remove(str.GetEnumerator(), it);
-    //        //string.reverse_iterator; rit= new string.reverse_iterator();
-
-    //        IEnumerable<int> rit = str;
-    //        foreach (var x in enumerableThing.Reverse())
-    //            for (rit.Reverse(); rit != str.rend() && char.IsWhiteSpace(*rit); rit++)
-    //            {
-    //                ;
-    //            }
-    //        str = str.Remove(str.GetEnumerator() + (str.rend() - rit), str.end());
-
-    //        return str;
-    //    }
 
     }
 }

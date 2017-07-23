@@ -54,11 +54,7 @@ namespace ConsoleApp1 {
         
         private CourseCurriculumsDataTable tableCourseCurriculums;
         
-        private InstructorClassDataTable tableInstructorClass;
-        
-        private global::System.Data.DataRelation relationFK_CourseClass_ToTableCourses;
-        
-        private global::System.Data.DataRelation relationFK_CourseClass_ToTableRooms;
+        private InstructorPreferredTimeDataTable tableInstructorPreferredTime;
         
         private global::System.Data.DataRelation relationFK_CurriculumDevisions_ToTableCS;
         
@@ -70,7 +66,7 @@ namespace ConsoleApp1 {
         
         private global::System.Data.DataRelation relationFK_CurriculumDevisions_ToTableStat;
         
-        private global::System.Data.DataRelation relationFK_Schedule_ToTableCourseClass;
+        private global::System.Data.DataRelation relationFK_CurriculumDevisions_ToTableStatCS;
         
         private global::System.Data.DataRelation relationFK_Schedule_ToTableRooms;
         
@@ -80,25 +76,19 @@ namespace ConsoleApp1 {
         
         private global::System.Data.DataRelation relationFK_CurriculumClasses_ToTableCurriculum;
         
-        private global::System.Data.DataRelation relationIT_CurriculumDevisions;
+        private global::System.Data.DataRelation relationFK_CurriculumDevisions_ToTableIT;
         
-        private global::System.Data.DataRelation relationFK_InstructorClass_CourseClass;
+        private global::System.Data.DataRelation relationFK_InstructorPreferredTime_ToTableInstructors;
         
-        private global::System.Data.DataRelation relationFK_InstructorClass_Instructors;
+        private global::System.Data.DataRelation relationFK_CourseClass_ToTableRoomsP;
         
-        private global::System.Data.DataRelation relationFK_Math_ToRooms;
+        private global::System.Data.DataRelation relationFK_Schedule_ToTableCourseClass;
         
-        private global::System.Data.DataRelation relationFK_IT_ToRooms;
+        private global::System.Data.DataRelation relationFK_CourseClass_ToTableRooms;
         
-        private global::System.Data.DataRelation relationFK_MathCS_Rooms;
+        private global::System.Data.DataRelation relationFK_CourseClass_ToTableInstructor;
         
-        private global::System.Data.DataRelation relationFK_STAT_ToRooms;
-        
-        private global::System.Data.DataRelation relationFK_CurriculumDevisions_ToTableStatCS;
-        
-        private global::System.Data.DataRelation relationFK_STATCS_ToRooms;
-        
-        private global::System.Data.DataRelation relationFK_CS_ToRooms;
+        private global::System.Data.DataRelation relationFK_CourseClass_ToTableCourses;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -173,8 +163,8 @@ namespace ConsoleApp1 {
                 if ((ds.Tables["CourseCurriculums"] != null)) {
                     base.Tables.Add(new CourseCurriculumsDataTable(ds.Tables["CourseCurriculums"]));
                 }
-                if ((ds.Tables["InstructorClass"] != null)) {
-                    base.Tables.Add(new InstructorClassDataTable(ds.Tables["InstructorClass"]));
+                if ((ds.Tables["InstructorPreferredTime"] != null)) {
+                    base.Tables.Add(new InstructorPreferredTimeDataTable(ds.Tables["InstructorPreferredTime"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -348,9 +338,9 @@ namespace ConsoleApp1 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public InstructorClassDataTable InstructorClass {
+        public InstructorPreferredTimeDataTable InstructorPreferredTime {
             get {
-                return this.tableInstructorClass;
+                return this.tableInstructorPreferredTime;
             }
         }
         
@@ -466,8 +456,8 @@ namespace ConsoleApp1 {
                 if ((ds.Tables["CourseCurriculums"] != null)) {
                     base.Tables.Add(new CourseCurriculumsDataTable(ds.Tables["CourseCurriculums"]));
                 }
-                if ((ds.Tables["InstructorClass"] != null)) {
-                    base.Tables.Add(new InstructorClassDataTable(ds.Tables["InstructorClass"]));
+                if ((ds.Tables["InstructorPreferredTime"] != null)) {
+                    base.Tables.Add(new InstructorPreferredTimeDataTable(ds.Tables["InstructorPreferredTime"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -592,34 +582,29 @@ namespace ConsoleApp1 {
                     this.tableCourseCurriculums.InitVars();
                 }
             }
-            this.tableInstructorClass = ((InstructorClassDataTable)(base.Tables["InstructorClass"]));
+            this.tableInstructorPreferredTime = ((InstructorPreferredTimeDataTable)(base.Tables["InstructorPreferredTime"]));
             if ((initTable == true)) {
-                if ((this.tableInstructorClass != null)) {
-                    this.tableInstructorClass.InitVars();
+                if ((this.tableInstructorPreferredTime != null)) {
+                    this.tableInstructorPreferredTime.InitVars();
                 }
             }
-            this.relationFK_CourseClass_ToTableCourses = this.Relations["FK_CourseClass_ToTableCourses"];
-            this.relationFK_CourseClass_ToTableRooms = this.Relations["FK_CourseClass_ToTableRooms"];
             this.relationFK_CurriculumDevisions_ToTableCS = this.Relations["FK_CurriculumDevisions_ToTableCS"];
             this.relationFK_CurriculumDevisions_ToTableCurriculum = this.Relations["FK_CurriculumDevisions_ToTableCurriculum"];
             this.relationFK_CurriculumDevisions_ToTableMath = this.Relations["FK_CurriculumDevisions_ToTableMath"];
             this.relationFK_CurriculumDevisions_ToTableMathCS = this.Relations["FK_CurriculumDevisions_ToTableMathCS"];
             this.relationFK_CurriculumDevisions_ToTableStat = this.Relations["FK_CurriculumDevisions_ToTableStat"];
-            this.relationFK_Schedule_ToTableCourseClass = this.Relations["FK_Schedule_ToTableCourseClass"];
+            this.relationFK_CurriculumDevisions_ToTableStatCS = this.Relations["FK_CurriculumDevisions_ToTableStatCS"];
             this.relationFK_Schedule_ToTableRooms = this.Relations["FK_Schedule_ToTableRooms"];
             this.relationFK_CoursesYD_ToTableCourses = this.Relations["FK_CoursesYD_ToTableCourses"];
             this.relationFK_CurriculumClasses_ToTableCourses = this.Relations["FK_CurriculumClasses_ToTableCourses"];
             this.relationFK_CurriculumClasses_ToTableCurriculum = this.Relations["FK_CurriculumClasses_ToTableCurriculum"];
-            this.relationIT_CurriculumDevisions = this.Relations["IT_CurriculumDevisions"];
-            this.relationFK_InstructorClass_CourseClass = this.Relations["FK_InstructorClass_CourseClass"];
-            this.relationFK_InstructorClass_Instructors = this.Relations["FK_InstructorClass_Instructors"];
-            this.relationFK_Math_ToRooms = this.Relations["FK_Math_ToRooms"];
-            this.relationFK_IT_ToRooms = this.Relations["FK_IT_ToRooms"];
-            this.relationFK_MathCS_Rooms = this.Relations["FK_MathCS_Rooms"];
-            this.relationFK_STAT_ToRooms = this.Relations["FK_STAT_ToRooms"];
-            this.relationFK_CurriculumDevisions_ToTableStatCS = this.Relations["FK_CurriculumDevisions_ToTableStatCS"];
-            this.relationFK_STATCS_ToRooms = this.Relations["FK_STATCS_ToRooms"];
-            this.relationFK_CS_ToRooms = this.Relations["FK_CS_ToRooms"];
+            this.relationFK_CurriculumDevisions_ToTableIT = this.Relations["FK_CurriculumDevisions_ToTableIT"];
+            this.relationFK_InstructorPreferredTime_ToTableInstructors = this.Relations["FK_InstructorPreferredTime_ToTableInstructors"];
+            this.relationFK_CourseClass_ToTableRoomsP = this.Relations["FK_CourseClass_ToTableRoomsP"];
+            this.relationFK_Schedule_ToTableCourseClass = this.Relations["FK_Schedule_ToTableCourseClass"];
+            this.relationFK_CourseClass_ToTableRooms = this.Relations["FK_CourseClass_ToTableRooms"];
+            this.relationFK_CourseClass_ToTableInstructor = this.Relations["FK_CourseClass_ToTableInstructor"];
+            this.relationFK_CourseClass_ToTableCourses = this.Relations["FK_CourseClass_ToTableCourses"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -660,16 +645,16 @@ namespace ConsoleApp1 {
             base.Tables.Add(this.tableCoursesYD);
             this.tableCourseCurriculums = new CourseCurriculumsDataTable();
             base.Tables.Add(this.tableCourseCurriculums);
-            this.tableInstructorClass = new InstructorClassDataTable();
-            base.Tables.Add(this.tableInstructorClass);
-            this.relationFK_CourseClass_ToTableCourses = new global::System.Data.DataRelation("FK_CourseClass_ToTableCourses", new global::System.Data.DataColumn[] {
-                        this.tableCourses.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCourseClass.courseIdColumn}, false);
-            this.Relations.Add(this.relationFK_CourseClass_ToTableCourses);
-            this.relationFK_CourseClass_ToTableRooms = new global::System.Data.DataRelation("FK_CourseClass_ToTableRooms", new global::System.Data.DataColumn[] {
-                        this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCourseClass.roomIdColumn}, false);
-            this.Relations.Add(this.relationFK_CourseClass_ToTableRooms);
+            this.tableInstructorPreferredTime = new InstructorPreferredTimeDataTable();
+            base.Tables.Add(this.tableInstructorPreferredTime);
+            global::System.Data.ForeignKeyConstraint fkc;
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_CurriculumDevisions_IT", new global::System.Data.DataColumn[] {
+                        this.tableCurriculumDevisions.ITColumn}, new global::System.Data.DataColumn[] {
+                        this.tableIT.yearColumn});
+            this.tableIT.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             this.relationFK_CurriculumDevisions_ToTableCS = new global::System.Data.DataRelation("FK_CurriculumDevisions_ToTableCS", new global::System.Data.DataColumn[] {
                         this.tableCS.yearColumn}, new global::System.Data.DataColumn[] {
                         this.tableCurriculumDevisions.csColumn}, false);
@@ -690,10 +675,10 @@ namespace ConsoleApp1 {
                         this.tableSTAT.yearColumn}, new global::System.Data.DataColumn[] {
                         this.tableCurriculumDevisions.statColumn}, false);
             this.Relations.Add(this.relationFK_CurriculumDevisions_ToTableStat);
-            this.relationFK_Schedule_ToTableCourseClass = new global::System.Data.DataRelation("FK_Schedule_ToTableCourseClass", new global::System.Data.DataColumn[] {
-                        this.tableCourseClass.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSchedule.courseClassIdColumn}, false);
-            this.Relations.Add(this.relationFK_Schedule_ToTableCourseClass);
+            this.relationFK_CurriculumDevisions_ToTableStatCS = new global::System.Data.DataRelation("FK_CurriculumDevisions_ToTableStatCS", new global::System.Data.DataColumn[] {
+                        this.tableSTATCS.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCurriculumDevisions.statCSColumn}, false);
+            this.Relations.Add(this.relationFK_CurriculumDevisions_ToTableStatCS);
             this.relationFK_Schedule_ToTableRooms = new global::System.Data.DataRelation("FK_Schedule_ToTableRooms", new global::System.Data.DataColumn[] {
                         this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableSchedule.roomIdColumn}, false);
@@ -710,46 +695,34 @@ namespace ConsoleApp1 {
                         this.tableCurriculum.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableCourseCurriculums.curriculumIdColumn}, false);
             this.Relations.Add(this.relationFK_CurriculumClasses_ToTableCurriculum);
-            this.relationIT_CurriculumDevisions = new global::System.Data.DataRelation("IT_CurriculumDevisions", new global::System.Data.DataColumn[] {
+            this.relationFK_CurriculumDevisions_ToTableIT = new global::System.Data.DataRelation("FK_CurriculumDevisions_ToTableIT", new global::System.Data.DataColumn[] {
                         this.tableIT.yearColumn}, new global::System.Data.DataColumn[] {
                         this.tableCurriculumDevisions.ITColumn}, false);
-            this.Relations.Add(this.relationIT_CurriculumDevisions);
-            this.relationFK_InstructorClass_CourseClass = new global::System.Data.DataRelation("FK_InstructorClass_CourseClass", new global::System.Data.DataColumn[] {
-                        this.tableCourseClass.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableInstructorClass.CourseClassIdColumn}, false);
-            this.Relations.Add(this.relationFK_InstructorClass_CourseClass);
-            this.relationFK_InstructorClass_Instructors = new global::System.Data.DataRelation("FK_InstructorClass_Instructors", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK_CurriculumDevisions_ToTableIT);
+            this.relationFK_InstructorPreferredTime_ToTableInstructors = new global::System.Data.DataRelation("FK_InstructorPreferredTime_ToTableInstructors", new global::System.Data.DataColumn[] {
                         this.tableInstructors.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableInstructorClass.InstructorIdColumn}, false);
-            this.Relations.Add(this.relationFK_InstructorClass_Instructors);
-            this.relationFK_Math_ToRooms = new global::System.Data.DataRelation("FK_Math_ToRooms", new global::System.Data.DataColumn[] {
+                        this.tableInstructorPreferredTime.instructorIdColumn}, false);
+            this.Relations.Add(this.relationFK_InstructorPreferredTime_ToTableInstructors);
+            this.relationFK_CourseClass_ToTableRoomsP = new global::System.Data.DataRelation("FK_CourseClass_ToTableRoomsP", new global::System.Data.DataColumn[] {
                         this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableMath.PreferedRoomColumn}, false);
-            this.Relations.Add(this.relationFK_Math_ToRooms);
-            this.relationFK_IT_ToRooms = new global::System.Data.DataRelation("FK_IT_ToRooms", new global::System.Data.DataColumn[] {
+                        this.tableCourseClass.preferredRoomColumn}, false);
+            this.Relations.Add(this.relationFK_CourseClass_ToTableRoomsP);
+            this.relationFK_Schedule_ToTableCourseClass = new global::System.Data.DataRelation("FK_Schedule_ToTableCourseClass", new global::System.Data.DataColumn[] {
+                        this.tableCourseClass.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSchedule.courseClassIdColumn}, false);
+            this.Relations.Add(this.relationFK_Schedule_ToTableCourseClass);
+            this.relationFK_CourseClass_ToTableRooms = new global::System.Data.DataRelation("FK_CourseClass_ToTableRooms", new global::System.Data.DataColumn[] {
                         this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableIT.PreferedRoomColumn}, false);
-            this.Relations.Add(this.relationFK_IT_ToRooms);
-            this.relationFK_MathCS_Rooms = new global::System.Data.DataRelation("FK_MathCS_Rooms", new global::System.Data.DataColumn[] {
-                        this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableMathCS.PreferedRoomColumn}, false);
-            this.Relations.Add(this.relationFK_MathCS_Rooms);
-            this.relationFK_STAT_ToRooms = new global::System.Data.DataRelation("FK_STAT_ToRooms", new global::System.Data.DataColumn[] {
-                        this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSTAT.PreferedRoomColumn}, false);
-            this.Relations.Add(this.relationFK_STAT_ToRooms);
-            this.relationFK_CurriculumDevisions_ToTableStatCS = new global::System.Data.DataRelation("FK_CurriculumDevisions_ToTableStatCS", new global::System.Data.DataColumn[] {
-                        this.tableSTATCS.yearColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCurriculumDevisions.statCSColumn}, false);
-            this.Relations.Add(this.relationFK_CurriculumDevisions_ToTableStatCS);
-            this.relationFK_STATCS_ToRooms = new global::System.Data.DataRelation("FK_STATCS_ToRooms", new global::System.Data.DataColumn[] {
-                        this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSTATCS.PreferedRoomsColumn}, false);
-            this.Relations.Add(this.relationFK_STATCS_ToRooms);
-            this.relationFK_CS_ToRooms = new global::System.Data.DataRelation("FK_CS_ToRooms", new global::System.Data.DataColumn[] {
-                        this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCS.PreferedRoomsColumn}, false);
-            this.Relations.Add(this.relationFK_CS_ToRooms);
+                        this.tableCourseClass.roomIdColumn}, false);
+            this.Relations.Add(this.relationFK_CourseClass_ToTableRooms);
+            this.relationFK_CourseClass_ToTableInstructor = new global::System.Data.DataRelation("FK_CourseClass_ToTableInstructor", new global::System.Data.DataColumn[] {
+                        this.tableInstructors.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCourseClass.instructorIdColumn}, false);
+            this.Relations.Add(this.relationFK_CourseClass_ToTableInstructor);
+            this.relationFK_CourseClass_ToTableCourses = new global::System.Data.DataRelation("FK_CourseClass_ToTableCourses", new global::System.Data.DataColumn[] {
+                        this.tableCourses.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCourseClass.courseIdColumn}, false);
+            this.Relations.Add(this.relationFK_CourseClass_ToTableCourses);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -844,7 +817,7 @@ namespace ConsoleApp1 {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeInstructorClass() {
+        private bool ShouldSerializeInstructorPreferredTime() {
             return false;
         }
         
@@ -949,7 +922,7 @@ namespace ConsoleApp1 {
         public delegate void CourseCurriculumsRowChangeEventHandler(object sender, CourseCurriculumsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void InstructorClassRowChangeEventHandler(object sender, InstructorClassRowChangeEvent e);
+        public delegate void InstructorPreferredTimeRowChangeEventHandler(object sender, InstructorPreferredTimeRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -971,6 +944,8 @@ namespace ConsoleApp1 {
             private global::System.Data.DataColumn columncourseId;
             
             private global::System.Data.DataColumn columnroomId;
+            
+            private global::System.Data.DataColumn columnpreferredRoom;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1063,6 +1038,14 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn preferredRoomColumn {
+                get {
+                    return this.columnpreferredRoom;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1098,21 +1081,28 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow AddCourseClassRow(int Id, string name, int duration, bool lab, int instructorId, CoursesRow parentCoursesRowByFK_CourseClass_ToTableCourses, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRooms) {
+            public CourseClassRow AddCourseClassRow(int Id, string name, int duration, bool lab, InstructorsRow parentInstructorsRowByFK_CourseClass_ToTableInstructor, CoursesRow parentCoursesRowByFK_CourseClass_ToTableCourses, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRooms, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRoomsP) {
                 CourseClassRow rowCourseClassRow = ((CourseClassRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
                         name,
                         duration,
                         lab,
-                        instructorId,
+                        null,
+                        null,
                         null,
                         null};
+                if ((parentInstructorsRowByFK_CourseClass_ToTableInstructor != null)) {
+                    columnValuesArray[4] = parentInstructorsRowByFK_CourseClass_ToTableInstructor[0];
+                }
                 if ((parentCoursesRowByFK_CourseClass_ToTableCourses != null)) {
                     columnValuesArray[5] = parentCoursesRowByFK_CourseClass_ToTableCourses[0];
                 }
                 if ((parentRoomsRowByFK_CourseClass_ToTableRooms != null)) {
                     columnValuesArray[6] = parentRoomsRowByFK_CourseClass_ToTableRooms[0];
+                }
+                if ((parentRoomsRowByFK_CourseClass_ToTableRoomsP != null)) {
+                    columnValuesArray[7] = parentRoomsRowByFK_CourseClass_ToTableRoomsP[0];
                 }
                 rowCourseClassRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCourseClassRow);
@@ -1150,6 +1140,7 @@ namespace ConsoleApp1 {
                 this.columninstructorId = base.Columns["instructorId"];
                 this.columncourseId = base.Columns["courseId"];
                 this.columnroomId = base.Columns["roomId"];
+                this.columnpreferredRoom = base.Columns["preferredRoom"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1169,6 +1160,8 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columncourseId);
                 this.columnroomId = new global::System.Data.DataColumn("roomId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnroomId);
+                this.columnpreferredRoom = new global::System.Data.DataColumn("preferredRoom", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpreferredRoom);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -1604,8 +1597,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRooms;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CSDataTable() {
@@ -1657,14 +1648,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomsColumn {
-                get {
-                    return this.columnPreferedRooms;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1700,15 +1683,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CSRow AddCSRow(int year, int size, RoomsRow parentRoomsRowByFK_CS_ToRooms) {
+            public CSRow AddCSRow(int year, int size) {
                 CSRow rowCSRow = ((CSRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_CS_ToRooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_CS_ToRooms[0];
-                }
+                        size};
                 rowCSRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCSRow);
                 return rowCSRow;
@@ -1740,7 +1719,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRooms = base.Columns["PreferedRooms"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1750,8 +1728,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRooms = new global::System.Data.DataColumn("PreferedRooms", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRooms);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
@@ -2319,7 +2295,7 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CurriculumDevisionsRow AddCurriculumDevisionsRow(CurriculumRow parentCurriculumRowByFK_CurriculumDevisions_ToTableCurriculum, CSRow parentCSRowByFK_CurriculumDevisions_ToTableCS, STATRow parentSTATRowByFK_CurriculumDevisions_ToTableStat, MathRow parentMathRowByFK_CurriculumDevisions_ToTableMath, MathCSRow parentMathCSRowByFK_CurriculumDevisions_ToTableMathCS, STATCSRow parentSTATCSRowByFK_CurriculumDevisions_ToTableStatCS, ITRow parentITRowByIT_CurriculumDevisions) {
+            public CurriculumDevisionsRow AddCurriculumDevisionsRow(CurriculumRow parentCurriculumRowByFK_CurriculumDevisions_ToTableCurriculum, CSRow parentCSRowByFK_CurriculumDevisions_ToTableCS, STATRow parentSTATRowByFK_CurriculumDevisions_ToTableStat, MathRow parentMathRowByFK_CurriculumDevisions_ToTableMath, MathCSRow parentMathCSRowByFK_CurriculumDevisions_ToTableMathCS, STATCSRow parentSTATCSRowByFK_CurriculumDevisions_ToTableStatCS, ITRow parentITRowByFK_CurriculumDevisions_ToTableIT) {
                 CurriculumDevisionsRow rowCurriculumDevisionsRow = ((CurriculumDevisionsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2347,8 +2323,8 @@ namespace ConsoleApp1 {
                 if ((parentSTATCSRowByFK_CurriculumDevisions_ToTableStatCS != null)) {
                     columnValuesArray[5] = parentSTATCSRowByFK_CurriculumDevisions_ToTableStatCS[0];
                 }
-                if ((parentITRowByIT_CurriculumDevisions != null)) {
-                    columnValuesArray[6] = parentITRowByIT_CurriculumDevisions[0];
+                if ((parentITRowByFK_CurriculumDevisions_ToTableIT != null)) {
+                    columnValuesArray[6] = parentITRowByFK_CurriculumDevisions_ToTableIT[0];
                 }
                 rowCurriculumDevisionsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCurriculumDevisionsRow);
@@ -2398,7 +2374,10 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnstatCS);
                 this.columnIT = new global::System.Data.DataColumn("IT", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIT);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnIT}, false));
                 this.columncurriculumId.AllowDBNull = false;
+                this.columnIT.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2536,8 +2515,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnname;
             
-            private global::System.Data.DataColumn columnTA;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public InstructorsDataTable() {
@@ -2589,14 +2566,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TAColumn {
-                get {
-                    return this.columnTA;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2632,12 +2601,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorsRow AddInstructorsRow(int Id, string name, bool TA) {
+            public InstructorsRow AddInstructorsRow(int Id, string name) {
                 InstructorsRow rowInstructorsRow = ((InstructorsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
-                        name,
-                        TA};
+                        name};
                 rowInstructorsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInstructorsRow);
                 return rowInstructorsRow;
@@ -2669,7 +2637,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnname = base.Columns["name"];
-                this.columnTA = base.Columns["TA"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2679,8 +2646,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnId);
                 this.columnname = new global::System.Data.DataColumn("name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnname);
-                this.columnTA = new global::System.Data.DataColumn("TA", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTA);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -2824,8 +2789,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRoom;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ITDataTable() {
@@ -2877,14 +2840,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomColumn {
-                get {
-                    return this.columnPreferedRoom;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2920,15 +2875,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ITRow AddITRow(int year, int size, RoomsRow parentRoomsRowByFK_IT_ToRooms) {
+            public ITRow AddITRow(int year, int size) {
                 ITRow rowITRow = ((ITRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_IT_ToRooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_IT_ToRooms[0];
-                }
+                        size};
                 rowITRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowITRow);
                 return rowITRow;
@@ -2960,7 +2911,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRoom = base.Columns["PreferedRoom"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2970,8 +2920,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRoom = new global::System.Data.DataColumn("PreferedRoom", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRoom);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
@@ -3114,8 +3062,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRoom;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public MathDataTable() {
@@ -3167,14 +3113,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomColumn {
-                get {
-                    return this.columnPreferedRoom;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3210,15 +3148,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MathRow AddMathRow(int year, int size, RoomsRow parentRoomsRowByFK_Math_ToRooms) {
+            public MathRow AddMathRow(int year, int size) {
                 MathRow rowMathRow = ((MathRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_Math_ToRooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_Math_ToRooms[0];
-                }
+                        size};
                 rowMathRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMathRow);
                 return rowMathRow;
@@ -3250,7 +3184,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRoom = base.Columns["PreferedRoom"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3260,8 +3193,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRoom = new global::System.Data.DataColumn("PreferedRoom", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRoom);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
@@ -3404,8 +3335,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRoom;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public MathCSDataTable() {
@@ -3457,14 +3386,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomColumn {
-                get {
-                    return this.columnPreferedRoom;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3500,15 +3421,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MathCSRow AddMathCSRow(int year, int size, RoomsRow parentRoomsRowByFK_MathCS_Rooms) {
+            public MathCSRow AddMathCSRow(int year, int size) {
                 MathCSRow rowMathCSRow = ((MathCSRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_MathCS_Rooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_MathCS_Rooms[0];
-                }
+                        size};
                 rowMathCSRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMathCSRow);
                 return rowMathCSRow;
@@ -3540,7 +3457,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRoom = base.Columns["PreferedRoom"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3550,8 +3466,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRoom = new global::System.Data.DataColumn("PreferedRoom", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRoom);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
@@ -3997,8 +3911,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRoom;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public STATDataTable() {
@@ -4050,14 +3962,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomColumn {
-                get {
-                    return this.columnPreferedRoom;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4093,15 +3997,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public STATRow AddSTATRow(int year, int size, RoomsRow parentRoomsRowByFK_STAT_ToRooms) {
+            public STATRow AddSTATRow(int year, int size) {
                 STATRow rowSTATRow = ((STATRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_STAT_ToRooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_STAT_ToRooms[0];
-                }
+                        size};
                 rowSTATRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSTATRow);
                 return rowSTATRow;
@@ -4133,7 +4033,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRoom = base.Columns["PreferedRoom"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4143,8 +4042,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRoom = new global::System.Data.DataColumn("PreferedRoom", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRoom);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
@@ -4287,8 +4184,6 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnsize;
             
-            private global::System.Data.DataColumn columnPreferedRooms;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public STATCSDataTable() {
@@ -4340,14 +4235,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PreferedRoomsColumn {
-                get {
-                    return this.columnPreferedRooms;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4383,15 +4270,11 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public STATCSRow AddSTATCSRow(int year, int size, RoomsRow parentRoomsRowByFK_STATCS_ToRooms) {
+            public STATCSRow AddSTATCSRow(int year, int size) {
                 STATCSRow rowSTATCSRow = ((STATCSRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         year,
-                        size,
-                        null};
-                if ((parentRoomsRowByFK_STATCS_ToRooms != null)) {
-                    columnValuesArray[2] = parentRoomsRowByFK_STATCS_ToRooms[0];
-                }
+                        size};
                 rowSTATCSRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSTATCSRow);
                 return rowSTATCSRow;
@@ -4423,7 +4306,6 @@ namespace ConsoleApp1 {
             internal void InitVars() {
                 this.columnyear = base.Columns["year"];
                 this.columnsize = base.Columns["size"];
-                this.columnPreferedRooms = base.Columns["PreferedRooms"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4433,13 +4315,10 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnyear);
                 this.columnsize = new global::System.Data.DataColumn("size", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsize);
-                this.columnPreferedRooms = new global::System.Data.DataColumn("PreferedRooms", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPreferedRooms);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnyear}, true));
                 this.columnyear.AllowDBNull = false;
                 this.columnyear.Unique = true;
-                this.columnsize.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5423,16 +5302,20 @@ namespace ConsoleApp1 {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class InstructorClassDataTable : global::System.Data.TypedTableBase<InstructorClassRow> {
+        public partial class InstructorPreferredTimeDataTable : global::System.Data.TypedTableBase<InstructorPreferredTimeRow> {
             
-            private global::System.Data.DataColumn columnInstructorId;
+            private global::System.Data.DataColumn columninstructorId;
             
-            private global::System.Data.DataColumn columnCourseClassId;
+            private global::System.Data.DataColumn columnDay;
+            
+            private global::System.Data.DataColumn columntimeStart;
+            
+            private global::System.Data.DataColumn columntimeEnd;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassDataTable() {
-                this.TableName = "InstructorClass";
+            public InstructorPreferredTimeDataTable() {
+                this.TableName = "InstructorPreferredTime";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -5440,7 +5323,7 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal InstructorClassDataTable(global::System.Data.DataTable table) {
+            internal InstructorPreferredTimeDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -5457,24 +5340,40 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected InstructorClassDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected InstructorPreferredTimeDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn InstructorIdColumn {
+            public global::System.Data.DataColumn instructorIdColumn {
                 get {
-                    return this.columnInstructorId;
+                    return this.columninstructorId;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CourseClassIdColumn {
+            public global::System.Data.DataColumn DayColumn {
                 get {
-                    return this.columnCourseClassId;
+                    return this.columnDay;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn timeStartColumn {
+                get {
+                    return this.columntimeStart;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn timeEndColumn {
+                get {
+                    return this.columntimeEnd;
                 }
             }
             
@@ -5489,52 +5388,51 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow this[int index] {
+            public InstructorPreferredTimeRow this[int index] {
                 get {
-                    return ((InstructorClassRow)(this.Rows[index]));
+                    return ((InstructorPreferredTimeRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event InstructorClassRowChangeEventHandler InstructorClassRowChanging;
+            public event InstructorPreferredTimeRowChangeEventHandler InstructorPreferredTimeRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event InstructorClassRowChangeEventHandler InstructorClassRowChanged;
+            public event InstructorPreferredTimeRowChangeEventHandler InstructorPreferredTimeRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event InstructorClassRowChangeEventHandler InstructorClassRowDeleting;
+            public event InstructorPreferredTimeRowChangeEventHandler InstructorPreferredTimeRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event InstructorClassRowChangeEventHandler InstructorClassRowDeleted;
+            public event InstructorPreferredTimeRowChangeEventHandler InstructorPreferredTimeRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddInstructorClassRow(InstructorClassRow row) {
+            public void AddInstructorPreferredTimeRow(InstructorPreferredTimeRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow AddInstructorClassRow(InstructorsRow parentInstructorsRowByFK_InstructorClass_Instructors, CourseClassRow parentCourseClassRowByFK_InstructorClass_CourseClass) {
-                InstructorClassRow rowInstructorClassRow = ((InstructorClassRow)(this.NewRow()));
+            public InstructorPreferredTimeRow AddInstructorPreferredTimeRow(InstructorsRow parentInstructorsRowByFK_InstructorPreferredTime_ToTableInstructors, int Day, int timeStart, int timeEnd) {
+                InstructorPreferredTimeRow rowInstructorPreferredTimeRow = ((InstructorPreferredTimeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null};
-                if ((parentInstructorsRowByFK_InstructorClass_Instructors != null)) {
-                    columnValuesArray[0] = parentInstructorsRowByFK_InstructorClass_Instructors[0];
+                        Day,
+                        timeStart,
+                        timeEnd};
+                if ((parentInstructorsRowByFK_InstructorPreferredTime_ToTableInstructors != null)) {
+                    columnValuesArray[0] = parentInstructorsRowByFK_InstructorPreferredTime_ToTableInstructors[0];
                 }
-                if ((parentCourseClassRowByFK_InstructorClass_CourseClass != null)) {
-                    columnValuesArray[1] = parentCourseClassRowByFK_InstructorClass_CourseClass[0];
-                }
-                rowInstructorClassRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowInstructorClassRow);
-                return rowInstructorClassRow;
+                rowInstructorPreferredTimeRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowInstructorPreferredTimeRow);
+                return rowInstructorPreferredTimeRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                InstructorClassDataTable cln = ((InstructorClassDataTable)(base.Clone()));
+                InstructorPreferredTimeDataTable cln = ((InstructorPreferredTimeDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -5542,51 +5440,59 @@ namespace ConsoleApp1 {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new InstructorClassDataTable();
+                return new InstructorPreferredTimeDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnInstructorId = base.Columns["InstructorId"];
-                this.columnCourseClassId = base.Columns["CourseClassId"];
+                this.columninstructorId = base.Columns["instructorId"];
+                this.columnDay = base.Columns["Day"];
+                this.columntimeStart = base.Columns["timeStart"];
+                this.columntimeEnd = base.Columns["timeEnd"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnInstructorId = new global::System.Data.DataColumn("InstructorId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnInstructorId);
-                this.columnCourseClassId = new global::System.Data.DataColumn("CourseClassId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCourseClassId);
-                this.columnInstructorId.AllowDBNull = false;
-                this.columnCourseClassId.AllowDBNull = false;
+                this.columninstructorId = new global::System.Data.DataColumn("instructorId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columninstructorId);
+                this.columnDay = new global::System.Data.DataColumn("Day", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDay);
+                this.columntimeStart = new global::System.Data.DataColumn("timeStart", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntimeStart);
+                this.columntimeEnd = new global::System.Data.DataColumn("timeEnd", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntimeEnd);
+                this.columninstructorId.AllowDBNull = false;
+                this.columnDay.AllowDBNull = false;
+                this.columntimeStart.AllowDBNull = false;
+                this.columntimeEnd.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow NewInstructorClassRow() {
-                return ((InstructorClassRow)(this.NewRow()));
+            public InstructorPreferredTimeRow NewInstructorPreferredTimeRow() {
+                return ((InstructorPreferredTimeRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new InstructorClassRow(builder);
+                return new InstructorPreferredTimeRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(InstructorClassRow);
+                return typeof(InstructorPreferredTimeRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.InstructorClassRowChanged != null)) {
-                    this.InstructorClassRowChanged(this, new InstructorClassRowChangeEvent(((InstructorClassRow)(e.Row)), e.Action));
+                if ((this.InstructorPreferredTimeRowChanged != null)) {
+                    this.InstructorPreferredTimeRowChanged(this, new InstructorPreferredTimeRowChangeEvent(((InstructorPreferredTimeRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5594,8 +5500,8 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.InstructorClassRowChanging != null)) {
-                    this.InstructorClassRowChanging(this, new InstructorClassRowChangeEvent(((InstructorClassRow)(e.Row)), e.Action));
+                if ((this.InstructorPreferredTimeRowChanging != null)) {
+                    this.InstructorPreferredTimeRowChanging(this, new InstructorPreferredTimeRowChangeEvent(((InstructorPreferredTimeRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5603,8 +5509,8 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.InstructorClassRowDeleted != null)) {
-                    this.InstructorClassRowDeleted(this, new InstructorClassRowChangeEvent(((InstructorClassRow)(e.Row)), e.Action));
+                if ((this.InstructorPreferredTimeRowDeleted != null)) {
+                    this.InstructorPreferredTimeRowDeleted(this, new InstructorPreferredTimeRowChangeEvent(((InstructorPreferredTimeRow)(e.Row)), e.Action));
                 }
             }
             
@@ -5612,14 +5518,14 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.InstructorClassRowDeleting != null)) {
-                    this.InstructorClassRowDeleting(this, new InstructorClassRowChangeEvent(((InstructorClassRow)(e.Row)), e.Action));
+                if ((this.InstructorPreferredTimeRowDeleting != null)) {
+                    this.InstructorPreferredTimeRowDeleting(this, new InstructorPreferredTimeRowChangeEvent(((InstructorPreferredTimeRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveInstructorClassRow(InstructorClassRow row) {
+            public void RemoveInstructorPreferredTimeRow(InstructorPreferredTimeRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -5646,7 +5552,7 @@ namespace ConsoleApp1 {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "InstructorClassDataTable";
+                attribute2.FixedValue = "InstructorPreferredTimeDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -5790,12 +5696,28 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CoursesRow CoursesRow {
+            public int preferredRoom {
                 get {
-                    return ((CoursesRow)(this.GetParentRow(this.Table.ParentRelations["FK_CourseClass_ToTableCourses"])));
+                    try {
+                        return ((int)(this[this.tableCourseClass.preferredRoomColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'preferredRoom\' in table \'CourseClass\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CourseClass_ToTableCourses"]);
+                    this[this.tableCourseClass.preferredRoomColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public RoomsRow RoomsRowByFK_CourseClass_ToTableRoomsP {
+                get {
+                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CourseClass_ToTableRoomsP"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CourseClass_ToTableRoomsP"]);
                 }
             }
             
@@ -5807,6 +5729,28 @@ namespace ConsoleApp1 {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CourseClass_ToTableRooms"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public InstructorsRow InstructorsRow {
+                get {
+                    return ((InstructorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CourseClass_ToTableInstructor"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CourseClass_ToTableInstructor"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CoursesRow CoursesRow {
+                get {
+                    return ((CoursesRow)(this.GetParentRow(this.Table.ParentRelations["FK_CourseClass_ToTableCourses"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CourseClass_ToTableCourses"]);
                 }
             }
             
@@ -5836,23 +5780,24 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IspreferredRoomNull() {
+                return this.IsNull(this.tableCourseClass.preferredRoomColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetpreferredRoomNull() {
+                this[this.tableCourseClass.preferredRoomColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ScheduleRow[] GetScheduleRows() {
                 if ((this.Table.ChildRelations["FK_Schedule_ToTableCourseClass"] == null)) {
                     return new ScheduleRow[0];
                 }
                 else {
                     return ((ScheduleRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Schedule_ToTableCourseClass"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow[] GetInstructorClassRows() {
-                if ((this.Table.ChildRelations["FK_InstructorClass_CourseClass"] == null)) {
-                    return new InstructorClassRow[0];
-                }
-                else {
-                    return ((InstructorClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InstructorClass_CourseClass"])));
                 }
             }
         }
@@ -5906,17 +5851,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow[] GetCourseClassRows() {
-                if ((this.Table.ChildRelations["FK_CourseClass_ToTableCourses"] == null)) {
-                    return new CourseClassRow[0];
-                }
-                else {
-                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableCourses"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CoursesYDRow[] GetCoursesYDRows() {
                 if ((this.Table.ChildRelations["FK_CoursesYD_ToTableCourses"] == null)) {
                     return new CoursesYDRow[0];
@@ -5934,6 +5868,17 @@ namespace ConsoleApp1 {
                 }
                 else {
                     return ((CourseCurriculumsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumClasses_ToTableCourses"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CourseClassRow[] GetCourseClassRows() {
+                if ((this.Table.ChildRelations["FK_CourseClass_ToTableCourses"] == null)) {
+                    return new CourseClassRow[0];
+                }
+                else {
+                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableCourses"])));
                 }
             }
         }
@@ -5972,45 +5917,6 @@ namespace ConsoleApp1 {
                 set {
                     this[this.tableCS.sizeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRooms {
-                get {
-                    try {
-                        return ((int)(this[this.tableCS.PreferedRoomsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRooms\' in table \'CS\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCS.PreferedRoomsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CS_ToRooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CS_ToRooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomsNull() {
-                return this.IsNull(this.tableCS.PreferedRoomsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomsNull() {
-                this[this.tableCS.PreferedRoomsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6273,23 +6179,23 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ITRow ITRow {
-                get {
-                    return ((ITRow)(this.GetParentRow(this.Table.ParentRelations["IT_CurriculumDevisions"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["IT_CurriculumDevisions"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public STATCSRow STATCSRow {
                 get {
                     return ((STATCSRow)(this.GetParentRow(this.Table.ParentRelations["FK_CurriculumDevisions_ToTableStatCS"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CurriculumDevisions_ToTableStatCS"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ITRow ITRow {
+                get {
+                    return ((ITRow)(this.GetParentRow(this.Table.ParentRelations["FK_CurriculumDevisions_ToTableIT"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CurriculumDevisions_ToTableIT"]);
                 }
             }
             
@@ -6404,40 +6310,23 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool TA {
-                get {
-                    try {
-                        return ((bool)(this[this.tableInstructors.TAColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TA\' in table \'Instructors\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableInstructors.TAColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTANull() {
-                return this.IsNull(this.tableInstructors.TAColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTANull() {
-                this[this.tableInstructors.TAColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow[] GetInstructorClassRows() {
-                if ((this.Table.ChildRelations["FK_InstructorClass_Instructors"] == null)) {
-                    return new InstructorClassRow[0];
+            public InstructorPreferredTimeRow[] GetInstructorPreferredTimeRows() {
+                if ((this.Table.ChildRelations["FK_InstructorPreferredTime_ToTableInstructors"] == null)) {
+                    return new InstructorPreferredTimeRow[0];
                 }
                 else {
-                    return ((InstructorClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InstructorClass_Instructors"])));
+                    return ((InstructorPreferredTimeRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InstructorPreferredTime_ToTableInstructors"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CourseClassRow[] GetCourseClassRows() {
+                if ((this.Table.ChildRelations["FK_CourseClass_ToTableInstructor"] == null)) {
+                    return new CourseClassRow[0];
+                }
+                else {
+                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableInstructor"])));
                 }
             }
         }
@@ -6480,51 +6369,12 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRoom {
-                get {
-                    try {
-                        return ((int)(this[this.tableIT.PreferedRoomColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRoom\' in table \'IT\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIT.PreferedRoomColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_IT_ToRooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_IT_ToRooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomNull() {
-                return this.IsNull(this.tableIT.PreferedRoomColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomNull() {
-                this[this.tableIT.PreferedRoomColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CurriculumDevisionsRow[] GetCurriculumDevisionsRows() {
-                if ((this.Table.ChildRelations["IT_CurriculumDevisions"] == null)) {
+                if ((this.Table.ChildRelations["FK_CurriculumDevisions_ToTableIT"] == null)) {
                     return new CurriculumDevisionsRow[0];
                 }
                 else {
-                    return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["IT_CurriculumDevisions"])));
+                    return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableIT"])));
                 }
             }
         }
@@ -6563,45 +6413,6 @@ namespace ConsoleApp1 {
                 set {
                     this[this.tableMath.sizeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRoom {
-                get {
-                    try {
-                        return ((int)(this[this.tableMath.PreferedRoomColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRoom\' in table \'Math\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableMath.PreferedRoomColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Math_ToRooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Math_ToRooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomNull() {
-                return this.IsNull(this.tableMath.PreferedRoomColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomNull() {
-                this[this.tableMath.PreferedRoomColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6650,45 +6461,6 @@ namespace ConsoleApp1 {
                 set {
                     this[this.tableMathCS.sizeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRoom {
-                get {
-                    try {
-                        return ((int)(this[this.tableMathCS.PreferedRoomColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRoom\' in table \'MathCS\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableMathCS.PreferedRoomColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_MathCS_Rooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_MathCS_Rooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomNull() {
-                return this.IsNull(this.tableMathCS.PreferedRoomColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomNull() {
-                this[this.tableMathCS.PreferedRoomColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6780,17 +6552,6 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow[] GetCourseClassRows() {
-                if ((this.Table.ChildRelations["FK_CourseClass_ToTableRooms"] == null)) {
-                    return new CourseClassRow[0];
-                }
-                else {
-                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableRooms"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ScheduleRow[] GetScheduleRows() {
                 if ((this.Table.ChildRelations["FK_Schedule_ToTableRooms"] == null)) {
                     return new ScheduleRow[0];
@@ -6802,67 +6563,23 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MathRow[] GetMathRows() {
-                if ((this.Table.ChildRelations["FK_Math_ToRooms"] == null)) {
-                    return new MathRow[0];
+            public CourseClassRow[] GetCourseClassRowsByFK_CourseClass_ToTableRoomsP() {
+                if ((this.Table.ChildRelations["FK_CourseClass_ToTableRoomsP"] == null)) {
+                    return new CourseClassRow[0];
                 }
                 else {
-                    return ((MathRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Math_ToRooms"])));
+                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableRoomsP"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ITRow[] GetITRows() {
-                if ((this.Table.ChildRelations["FK_IT_ToRooms"] == null)) {
-                    return new ITRow[0];
+            public CourseClassRow[] GetCourseClassRows() {
+                if ((this.Table.ChildRelations["FK_CourseClass_ToTableRooms"] == null)) {
+                    return new CourseClassRow[0];
                 }
                 else {
-                    return ((ITRow[])(base.GetChildRows(this.Table.ChildRelations["FK_IT_ToRooms"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MathCSRow[] GetMathCSRows() {
-                if ((this.Table.ChildRelations["FK_MathCS_Rooms"] == null)) {
-                    return new MathCSRow[0];
-                }
-                else {
-                    return ((MathCSRow[])(base.GetChildRows(this.Table.ChildRelations["FK_MathCS_Rooms"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public STATRow[] GetSTATRows() {
-                if ((this.Table.ChildRelations["FK_STAT_ToRooms"] == null)) {
-                    return new STATRow[0];
-                }
-                else {
-                    return ((STATRow[])(base.GetChildRows(this.Table.ChildRelations["FK_STAT_ToRooms"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public STATCSRow[] GetSTATCSRows() {
-                if ((this.Table.ChildRelations["FK_STATCS_ToRooms"] == null)) {
-                    return new STATCSRow[0];
-                }
-                else {
-                    return ((STATCSRow[])(base.GetChildRows(this.Table.ChildRelations["FK_STATCS_ToRooms"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CSRow[] GetCSRows() {
-                if ((this.Table.ChildRelations["FK_CS_ToRooms"] == null)) {
-                    return new CSRow[0];
-                }
-                else {
-                    return ((CSRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CS_ToRooms"])));
+                    return ((CourseClassRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CourseClass_ToTableRooms"])));
                 }
             }
         }
@@ -6901,45 +6618,6 @@ namespace ConsoleApp1 {
                 set {
                     this[this.tableSTAT.sizeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRoom {
-                get {
-                    try {
-                        return ((int)(this[this.tableSTAT.PreferedRoomColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRoom\' in table \'STAT\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSTAT.PreferedRoomColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_STAT_ToRooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_STAT_ToRooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomNull() {
-                return this.IsNull(this.tableSTAT.PreferedRoomColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomNull() {
-                this[this.tableSTAT.PreferedRoomColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6983,7 +6661,12 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int size {
                 get {
-                    return ((int)(this[this.tableSTATCS.sizeColumn]));
+                    try {
+                        return ((int)(this[this.tableSTATCS.sizeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'size\' in table \'STATCS\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableSTATCS.sizeColumn] = value;
@@ -6992,41 +6675,14 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int PreferedRooms {
-                get {
-                    try {
-                        return ((int)(this[this.tableSTATCS.PreferedRoomsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PreferedRooms\' in table \'STATCS\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSTATCS.PreferedRoomsColumn] = value;
-                }
+            public bool IssizeNull() {
+                return this.IsNull(this.tableSTATCS.sizeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RoomsRow RoomsRow {
-                get {
-                    return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_STATCS_ToRooms"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_STATCS_ToRooms"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPreferedRoomsNull() {
-                return this.IsNull(this.tableSTATCS.PreferedRoomsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPreferedRoomsNull() {
-                this[this.tableSTATCS.PreferedRoomsColumn] = global::System.Convert.DBNull;
+            public void SetsizeNull() {
+                this[this.tableSTATCS.sizeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7101,23 +6757,23 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow CourseClassRow {
-                get {
-                    return ((CourseClassRow)(this.GetParentRow(this.Table.ParentRelations["FK_Schedule_ToTableCourseClass"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Schedule_ToTableCourseClass"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RoomsRow RoomsRow {
                 get {
                     return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Schedule_ToTableRooms"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Schedule_ToTableRooms"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CourseClassRow CourseClassRow {
+                get {
+                    return ((CourseClassRow)(this.GetParentRow(this.Table.ParentRelations["FK_Schedule_ToTableCourseClass"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Schedule_ToTableCourseClass"]);
                 }
             }
         }
@@ -7243,47 +6899,58 @@ namespace ConsoleApp1 {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class InstructorClassRow : global::System.Data.DataRow {
+        public partial class InstructorPreferredTimeRow : global::System.Data.DataRow {
             
-            private InstructorClassDataTable tableInstructorClass;
+            private InstructorPreferredTimeDataTable tableInstructorPreferredTime;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal InstructorClassRow(global::System.Data.DataRowBuilder rb) : 
+            internal InstructorPreferredTimeRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableInstructorClass = ((InstructorClassDataTable)(this.Table));
+                this.tableInstructorPreferredTime = ((InstructorPreferredTimeDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int InstructorId {
+            public int instructorId {
                 get {
-                    return ((int)(this[this.tableInstructorClass.InstructorIdColumn]));
+                    return ((int)(this[this.tableInstructorPreferredTime.instructorIdColumn]));
                 }
                 set {
-                    this[this.tableInstructorClass.InstructorIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int CourseClassId {
-                get {
-                    return ((int)(this[this.tableInstructorClass.CourseClassIdColumn]));
-                }
-                set {
-                    this[this.tableInstructorClass.CourseClassIdColumn] = value;
+                    this[this.tableInstructorPreferredTime.instructorIdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow CourseClassRow {
+            public int Day {
                 get {
-                    return ((CourseClassRow)(this.GetParentRow(this.Table.ParentRelations["FK_InstructorClass_CourseClass"])));
+                    return ((int)(this[this.tableInstructorPreferredTime.DayColumn]));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_InstructorClass_CourseClass"]);
+                    this[this.tableInstructorPreferredTime.DayColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int timeStart {
+                get {
+                    return ((int)(this[this.tableInstructorPreferredTime.timeStartColumn]));
+                }
+                set {
+                    this[this.tableInstructorPreferredTime.timeStartColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int timeEnd {
+                get {
+                    return ((int)(this[this.tableInstructorPreferredTime.timeEndColumn]));
+                }
+                set {
+                    this[this.tableInstructorPreferredTime.timeEndColumn] = value;
                 }
             }
             
@@ -7291,10 +6958,10 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public InstructorsRow InstructorsRow {
                 get {
-                    return ((InstructorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_InstructorClass_Instructors"])));
+                    return ((InstructorsRow)(this.GetParentRow(this.Table.ParentRelations["FK_InstructorPreferredTime_ToTableInstructors"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_InstructorClass_Instructors"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_InstructorPreferredTime_ToTableInstructors"]);
                 }
             }
         }
@@ -7813,22 +7480,22 @@ namespace ConsoleApp1 {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class InstructorClassRowChangeEvent : global::System.EventArgs {
+        public class InstructorPreferredTimeRowChangeEvent : global::System.EventArgs {
             
-            private InstructorClassRow eventRow;
+            private InstructorPreferredTimeRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRowChangeEvent(InstructorClassRow row, global::System.Data.DataRowAction action) {
+            public InstructorPreferredTimeRowChangeEvent(InstructorPreferredTimeRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public InstructorClassRow Row {
+            public InstructorPreferredTimeRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -7975,10 +7642,11 @@ namespace ConsoleApp1.TimetableDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("instructorId", "instructorId");
             tableMapping.ColumnMappings.Add("courseId", "courseId");
             tableMapping.ColumnMappings.Add("roomId", "roomId");
+            tableMapping.ColumnMappings.Add("preferredRoom", "preferredRoom");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [CourseClass] WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [CourseClass] WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -7988,10 +7656,12 @@ namespace ConsoleApp1.TimetableDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [CourseClass] ([name], [duration], [lab], [instructorId], [courseId], [roomId]) VALUES (@name, @duration, @lab, @instructorId, @courseId, @roomId);
-SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [CourseClass] ([name], [duration], [lab], [instructorId], [courseId], [roomId], [preferredRoom]) VALUES (@name, @duration, @lab, @instructorId, @courseId, @roomId, @preferredRoom);
+SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FROM CourseClass WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7999,10 +7669,11 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@instructorId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "instructorId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [CourseClass] SET [name] = @name, [duration] = @duration, [lab] = @lab, [instructorId] = @instructorId, [courseId] = @courseId, [roomId] = @roomId WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)));
-SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [CourseClass] SET [name] = @name, [duration] = @duration, [lab] = @lab, [instructorId] = @instructorId, [courseId] = @courseId, [roomId] = @roomId, [preferredRoom] = @preferredRoom WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)));
+SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FROM CourseClass WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8010,6 +7681,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@instructorId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "instructorId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_lab", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lab", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -8018,6 +7690,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -8034,7 +7708,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass";
+            this._commandCollection[0].CommandText = "SELECT        Id, name, duration, lab, instructorId, courseId, roomId, preferredR" +
+                "oom\r\nFROM            CourseClass";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
@@ -8048,14 +7723,15 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT        curriculumId\r\nFROM            CurriculumClasses\r\nWHERE        (cour" +
-                "seClassId = @id)";
+            this._commandCollection[3].CommandText = "SELECT Id, courseId, duration, instructorId, lab, name, preferredRoom, roomId FRO" +
+                "M CourseClass";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "courseClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT name FROM CourseClass";
+            this._commandCollection[4].CommandText = "SELECT        courseId, year, Division\r\nFROM            CoursesYD\r\nWHERE        (" +
+                "courseId = @cid)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = "INSERT INTO [dbo].[CourseClass] ([name], [numberofstudents], [duration], [lab], [" +
@@ -8115,9 +7791,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual TimetableDBDataSet.CourseClassDataTable GetCourseCurriculums(int id) {
+        public virtual TimetableDBDataSet.CourseClassDataTable GetCoursesNames() {
             this.Adapter.SelectCommand = this.CommandCollection[3];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
             TimetableDBDataSet.CourseClassDataTable dataTable = new TimetableDBDataSet.CourseClassDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -8127,8 +7802,9 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual TimetableDBDataSet.CourseClassDataTable GetCoursesNames() {
+        public virtual TimetableDBDataSet.CourseClassDataTable GetYDByCourseId(int cid) {
             this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(cid));
             TimetableDBDataSet.CourseClassDataTable dataTable = new TimetableDBDataSet.CourseClassDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -8167,7 +7843,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId) {
+        public virtual int Delete(int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_duration));
             if ((Original_lab.HasValue == true)) {
@@ -8187,6 +7863,14 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             else {
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            if ((Original_preferredRoom.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((int)(Original_preferredRoom.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8208,7 +7892,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId) {
+        public virtual int Insert(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
@@ -8230,6 +7914,12 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
+            if ((preferredRoom.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(preferredRoom.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8250,7 +7940,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, int Id) {
+        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom, int Id) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
@@ -8272,27 +7962,41 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_duration));
+            if ((preferredRoom.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(preferredRoom.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_duration));
             if ((Original_lab.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(Original_lab.Value));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Original_lab.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_instructorId));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_courseId));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_instructorId));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_courseId));
             if ((Original_roomId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_roomId.Value));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_roomId.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Id));
+            if ((Original_preferredRoom.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_preferredRoom.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8313,14 +8017,14 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId) {
-            return this.Update(name, duration, lab, instructorId, courseId, roomId, Original_Id, Original_duration, Original_lab, Original_instructorId, Original_courseId, Original_roomId, Original_Id);
+        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom) {
+            return this.Update(name, duration, lab, instructorId, courseId, roomId, preferredRoom, Original_Id, Original_duration, Original_lab, Original_instructorId, Original_courseId, Original_roomId, Original_preferredRoom, Original_Id);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object Count() {
+        public virtual global::System.Nullable<int> Count() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8338,10 +8042,10 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
+                return new global::System.Nullable<int>();
             }
             else {
-                return ((object)(returnValue));
+                return new global::System.Nullable<int>(((int)(returnValue)));
             }
         }
         
@@ -8564,12 +8268,13 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT Id FROM dbo.Instructors\r\nwhere lower(name)=lower(@name)";
+            this._commandCollection[2].CommandText = "SELECT Id, name, numberOfStudents FROM Courses WHERE (LOWER(name) = LOWER(@name))" +
+                "";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT numberOfStudents FROM Courses WHERE Id =@id";
+            this._commandCollection[3].CommandText = "SELECT        Id, name ,numberOfStudents\r\nFROM            Courses\r\nwhere id=@id";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
@@ -8600,6 +8305,35 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual TimetableDBDataSet.CoursesDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            TimetableDBDataSet.CoursesDataTable dataTable = new TimetableDBDataSet.CoursesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.CoursesDataTable GetId(string name) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((name == null)) {
+                throw new global::System.ArgumentNullException("name");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(name));
+            }
+            TimetableDBDataSet.CoursesDataTable dataTable = new TimetableDBDataSet.CoursesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.CoursesDataTable GetSizeById(int id) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
             TimetableDBDataSet.CoursesDataTable dataTable = new TimetableDBDataSet.CoursesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -8749,69 +8483,6 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             }
             else {
                 return new global::System.Nullable<int>(((int)(returnValue)));
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<int> GetId(string name) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
-            if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
-            }
-            else {
-                command.Parameters[0].Value = ((string)(name));
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<int>();
-            }
-            else {
-                return new global::System.Nullable<int>(((int)(returnValue)));
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object GetSize(int id) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
-            command.Parameters[0].Value = ((int)(id));
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
             }
         }
         
@@ -8975,38 +8646,31 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId FROM CourseClass 
             tableMapping.DataSetTable = "CS";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRooms", "PreferedRooms");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[CS] WHERE (([year] = @Original_year) AND ([size] = @Original_s" +
-                "ize) AND ((@IsNull_PreferedRooms = 1 AND [PreferedRooms] IS NULL) OR ([PreferedR" +
-                "ooms] = @Original_PreferedRooms)))";
+                "ize))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[CS] ([year], [size], [PreferedRooms]) VALUES (@year, @size, @P" +
-                "referedRooms);\r\nSELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[CS] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, size" +
+                " FROM CS WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CS] SET [year] = @year, [size] = @size, [PreferedRooms] = @PreferedRooms WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRooms = 1 AND [PreferedRooms] IS NULL) OR ([PreferedRooms] = @Original_PreferedRooms)));
-SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[CS] SET [year] = @year, [size] = @size WHERE (([year] = @Original_y" +
+                "ear) AND ([size] = @Original_size));\r\nSELECT year, size FROM CS WHERE (year = @y" +
+                "ear)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9019,17 +8683,18 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.CS";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.CS";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getCSSize";
+            this._commandCollection[1].CommandText = "dbo.InsertCSsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "dbo.InsertCSsize";
@@ -9037,13 +8702,6 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "dbo.InsertCSsize";
-            this._commandCollection[3].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9103,17 +8761,9 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
+        public virtual int Delete(int Original_year, int Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRooms.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRooms.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -9134,15 +8784,9 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRooms) {
+        public virtual int Insert(int year, int size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRooms.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRooms.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -9163,25 +8807,11 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRooms, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
+        public virtual int Update(int year, int size, int Original_year, int Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRooms.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRooms.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRooms.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRooms.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_size));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -9202,42 +8832,8 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRooms, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
-            return this.Update(Original_year, size, PreferedRooms, Original_year, Original_size, Original_PreferedRooms);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getCSSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(int size, int Original_year, int Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9245,7 +8841,7 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual object InsertCS(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -9286,7 +8882,7 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual int InsertCSsize(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -9865,7 +9461,7 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        curriculumId\r\nFROM            CurriculumDevisions\r\nwhere @s ;";
+            this._commandCollection[1].CommandText = "SELECT        curriculumId\r\nFROM            CurriculumDevisions\r\nwhere @s + @n;";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("s", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("n", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -10168,34 +9764,25 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             tableMapping.DataSetTable = "Instructors";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("name", "name");
-            tableMapping.ColumnMappings.Add("TA", "TA");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Instructors] WHERE (([Id] = @Original_Id) AND ((@IsNull_TA = 1" +
-                " AND [TA] IS NULL) OR ([TA] = @Original_TA)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Instructors] WHERE (([Id] = @Original_Id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TA", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TA", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Instructors] ([name], [TA]) VALUES (@name, @TA);\r\nSELECT Id, n" +
-                "ame, TA FROM Instructors WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Instructors] ([name]) VALUES (@name);\r\nSELECT Id, name FROM In" +
+                "structors WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TA", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Instructors] SET [name] = @name, [TA] = @TA WHERE (([Id] = @Origina" +
-                "l_Id) AND ((@IsNull_TA = 1 AND [TA] IS NULL) OR ([TA] = @Original_TA)));\r\nSELECT" +
-                " Id, name, TA FROM Instructors WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Instructors] SET [name] = @name WHERE (([Id] = @Original_Id));\r\nSEL" +
+                "ECT Id, name FROM Instructors WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TA", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TA", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TA", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -10212,7 +9799,7 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.Instructors";
+            this._commandCollection[0].CommandText = "SELECT Id, name FROM dbo.Instructors";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
@@ -10220,25 +9807,24 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT Id, TA, name FROM Instructors WHERE (Id = @id)";
+            this._commandCollection[2].CommandText = "SELECT name FROM dbo.Instructors\r\nwhere id=@id;";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT Id, TA, name FROM Instructors";
+            this._commandCollection[3].CommandText = "SELECT name FROM dbo.Instructors";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Id, TA, name FROM Instructors WHERE (LOWER(name) = LOWER(@name))";
+            this._commandCollection[4].CommandText = "SELECT Id FROM dbo.Instructors\r\nwhere lower(name)=lower(@name);";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "dbo.[Insert]";
+            this._commandCollection[5].CommandText = "dbo.InsertInstructor";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Variant, 0, global::System.Data.ParameterDirection.ReturnValue, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TA", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "TA", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10338,16 +9924,8 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, global::System.Nullable<bool> Original_TA) {
+        public virtual int Delete(int Original_Id) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
-            if ((Original_TA.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((bool)(Original_TA.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10368,18 +9946,12 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string name, global::System.Nullable<bool> TA) {
+        public virtual int Insert(string name) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
-            }
-            if ((TA.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(TA.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -10401,29 +9973,15 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, global::System.Nullable<bool> TA, int Original_Id, global::System.Nullable<bool> Original_TA, int Id) {
+        public virtual int Update(string name, int Original_Id, int Id) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
             }
-            if ((TA.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(TA.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_Id));
-            if ((Original_TA.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(Original_TA.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10444,8 +10002,8 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, global::System.Nullable<bool> TA, int Original_Id, global::System.Nullable<bool> Original_TA) {
-            return this.Update(name, TA, Original_Id, Original_TA, Original_Id);
+        public virtual int Update(string name, int Original_Id) {
+            return this.Update(name, Original_Id, Original_Id);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10479,36 +10037,35 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int Insert1(string name, global::System.Nullable<bool> TA) {
+        public virtual object InsertInstructor(string name) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                command.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 command.Parameters[1].Value = ((string)(name));
-            }
-            if ((TA.HasValue == true)) {
-                command.Parameters[2].Value = ((bool)(TA.Value));
-            }
-            else {
-                command.Parameters[2].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            int returnValue;
+            object returnValue;
             try {
-                returnValue = command.ExecuteNonQuery();
+                returnValue = command.ExecuteScalar();
             }
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            return returnValue;
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
     }
     
@@ -10635,38 +10192,31 @@ SELECT year, size, PreferedRooms FROM CS WHERE (year = @year)";
             tableMapping.DataSetTable = "IT";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRoom", "PreferedRoom");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[IT] WHERE (([year] = @Original_year) AND ([size] = @Original_s" +
-                "ize) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedRoo" +
-                "m] = @Original_PreferedRoom)))";
+                "ize))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[IT] ([year], [size], [PreferedRoom]) VALUES (@year, @size, @Pr" +
-                "eferedRoom);\r\nSELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[IT] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, size" +
+                " FROM IT WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[IT] SET [year] = @year, [size] = @size, [PreferedRoom] = @PreferedRoom WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedRoom] = @Original_PreferedRoom)));
-SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[IT] SET [year] = @year, [size] = @size WHERE (([year] = @Original_y" +
+                "ear) AND ([size] = @Original_size));\r\nSELECT year, size FROM IT WHERE (year = @y" +
+                "ear)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10679,24 +10229,18 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT *FROM dbo.IT";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.IT";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getITSize";
+            this._commandCollection[1].CommandText = "dbo.InsertITsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "dbo.InsertITsize";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10756,17 +10300,9 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Delete(int Original_year, int Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10787,15 +10323,9 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRoom) {
+        public virtual int Insert(int year, int size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10816,25 +10346,11 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Update(int year, int size, int Original_year, int Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_size));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -10855,42 +10371,8 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
-            return this.Update(Original_year, size, PreferedRoom, Original_year, Original_size, Original_PreferedRoom);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getITSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(int size, int Original_year, int Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10898,7 +10380,7 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual object InsertIT(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -11058,38 +10540,31 @@ SELECT year, size, PreferedRoom FROM IT WHERE (year = @year)";
             tableMapping.DataSetTable = "Math";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRoom", "PreferedRoom");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Math] WHERE (([year] = @Original_year) AND ([size] = @Original" +
-                "_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedR" +
-                "oom] = @Original_PreferedRoom)))";
+                "_size))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Math] ([year], [size], [PreferedRoom]) VALUES (@year, @size, @" +
-                "PreferedRoom);\r\nSELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Math] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, si" +
+                "ze FROM Math WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Math] SET [year] = @year, [size] = @size, [PreferedRoom] = @PreferedRoom WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedRoom] = @Original_PreferedRoom)));
-SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Math] SET [year] = @year, [size] = @size WHERE (([year] = @Original" +
+                "_year) AND ([size] = @Original_size));\r\nSELECT year, size FROM Math WHERE (year " +
+                "= @year)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11102,24 +10577,18 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.Math";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.Math";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getMathSize";
+            this._commandCollection[1].CommandText = "dbo.InsertMathsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "dbo.InsertMathsize";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11179,17 +10648,9 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Delete(int Original_year, int Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11210,15 +10671,9 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRoom) {
+        public virtual int Insert(int year, int size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11239,25 +10694,11 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Update(int year, int size, int Original_year, int Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_size));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11278,42 +10719,8 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
-            return this.Update(Original_year, size, PreferedRoom, Original_year, Original_size, Original_PreferedRoom);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getMathSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(int size, int Original_year, int Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11321,7 +10728,7 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual object InsertMathsize(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -11481,39 +10888,31 @@ SELECT year, size, PreferedRoom FROM Math WHERE (year = @year)";
             tableMapping.DataSetTable = "MathCS";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRoom", "PreferedRoom");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[MathCS] WHERE (([year] = @Original_year) AND ([size] = @Origin" +
-                "al_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([Prefere" +
-                "dRoom] = @Original_PreferedRoom)))";
+                "al_size))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MathCS] ([year], [size], [PreferedRoom]) VALUES (@year, @size," +
-                " @PreferedRoom);\r\nSELECT year, size, PreferedRoom FROM MathCS WHERE (year = @yea" +
-                "r)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MathCS] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, " +
+                "size FROM MathCS WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[MathCS] SET [year] = @year, [size] = @size, [PreferedRoom] = @PreferedRoom WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedRoom] = @Original_PreferedRoom)));
-SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[MathCS] SET [year] = @year, [size] = @size WHERE (([year] = @Origin" +
+                "al_year) AND ([size] = @Original_size));\r\nSELECT year, size FROM MathCS WHERE (y" +
+                "ear = @year)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11526,24 +10925,18 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.MathCS";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.MathCS";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getMathCSSize";
+            this._commandCollection[1].CommandText = "dbo.InsertMathCSsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "dbo.InsertMathCSsize";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11603,17 +10996,9 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Delete(int Original_year, int Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11634,15 +11019,9 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRoom) {
+        public virtual int Insert(int year, int size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11663,25 +11042,11 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Update(int year, int size, int Original_year, int Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_size));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -11702,42 +11067,8 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
-            return this.Update(Original_year, size, PreferedRoom, Original_year, Original_size, Original_PreferedRoom);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getMathCSSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(int size, int Original_year, int Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11745,7 +11076,7 @@ SELECT year, size, PreferedRoom FROM MathCS WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual int InsertMath(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -11957,28 +11288,25 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT COUNT(*) FROM Rooms\r\nwhere lab=1 ";
+            this._commandCollection[2].CommandText = "SELECT COUNT(*) FROM Rooms\r\nwhere lab=1";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT        COUNT(*) AS Expr1\r\nFROM            Rooms\r\nWHERE        (lab = 0)";
+            this._commandCollection[3].CommandText = "SELECT COUNT(*) FROM Rooms\r\nwhere lab=0";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=1";
+            this._commandCollection[4].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms where id=@id;";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=0";
+            this._commandCollection[5].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=1";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "dbo.InsertQuery";
-            this._commandCollection[6].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numberofseats", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lab", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[6].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=0;";
+            this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12009,8 +11337,20 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual TimetableDBDataSet.RoomsDataTable GetLabRooms() {
+        public virtual TimetableDBDataSet.RoomsDataTable GetDataById(int id) {
             this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
+            TimetableDBDataSet.RoomsDataTable dataTable = new TimetableDBDataSet.RoomsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.RoomsDataTable GetLabRooms() {
+            this.Adapter.SelectCommand = this.CommandCollection[5];
             TimetableDBDataSet.RoomsDataTable dataTable = new TimetableDBDataSet.RoomsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -12021,7 +11361,7 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual TimetableDBDataSet.RoomsDataTable GetRooms() {
-            this.Adapter.SelectCommand = this.CommandCollection[5];
+            this.Adapter.SelectCommand = this.CommandCollection[6];
             TimetableDBDataSet.RoomsDataTable dataTable = new TimetableDBDataSet.RoomsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -12059,7 +11399,7 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object Count() {
+        public virtual global::System.Nullable<int> Count() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -12077,10 +11417,10 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
+                return new global::System.Nullable<int>();
             }
             else {
-                return ((object)(returnValue));
+                return new global::System.Nullable<int>(((int)(returnValue)));
             }
         }
         
@@ -12115,7 +11455,7 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object CountLectureRooms() {
+        public virtual global::System.Nullable<int> CountLectureRooms() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -12133,52 +11473,11 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
+                return new global::System.Nullable<int>();
             }
             else {
-                return ((object)(returnValue));
+                return new global::System.Nullable<int>(((int)(returnValue)));
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int InsertQuery(string name, global::System.Nullable<int> numberofseats, global::System.Nullable<bool> lab) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[6];
-            if ((name == null)) {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                command.Parameters[1].Value = ((string)(name));
-            }
-            if ((numberofseats.HasValue == true)) {
-                command.Parameters[2].Value = ((int)(numberofseats.Value));
-            }
-            else {
-                command.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((lab.HasValue == true)) {
-                command.Parameters[3].Value = ((bool)(lab.Value));
-            }
-            else {
-                command.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
         }
     }
     
@@ -12305,38 +11604,31 @@ SELECT Id, name, numberofseats, lab FROM Rooms WHERE (Id = @Id)";
             tableMapping.DataSetTable = "STAT";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRoom", "PreferedRoom");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[STAT] WHERE (([year] = @Original_year) AND ([size] = @Original" +
-                "_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedR" +
-                "oom] = @Original_PreferedRoom)))";
+                "_size))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[STAT] ([year], [size], [PreferedRoom]) VALUES (@year, @size, @" +
-                "PreferedRoom);\r\nSELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[STAT] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, si" +
+                "ze FROM STAT WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[STAT] SET [year] = @year, [size] = @size, [PreferedRoom] = @PreferedRoom WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRoom = 1 AND [PreferedRoom] IS NULL) OR ([PreferedRoom] = @Original_PreferedRoom)));
-SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[STAT] SET [year] = @year, [size] = @size WHERE (([year] = @Original" +
+                "_year) AND ([size] = @Original_size));\r\nSELECT year, size FROM STAT WHERE (year " +
+                "= @year)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12349,24 +11641,18 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.STAT";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.STAT";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getSTATSize";
+            this._commandCollection[1].CommandText = "dbo.InsertSTATsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "dbo.InsertSTATsize";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12426,17 +11712,9 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Delete(int Original_year, int Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -12457,15 +11735,9 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRoom) {
+        public virtual int Insert(int year, int size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -12486,25 +11758,11 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
+        public virtual int Update(int year, int size, int Original_year, int Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRoom.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_size));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -12525,42 +11783,8 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRoom, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRoom) {
-            return this.Update(Original_year, size, PreferedRoom, Original_year, Original_size, Original_PreferedRoom);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getSTATSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(int size, int Original_year, int Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12568,7 +11792,7 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual object InsertStat(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -12728,39 +11952,33 @@ SELECT year, size, PreferedRoom FROM STAT WHERE (year = @year)";
             tableMapping.DataSetTable = "STATCS";
             tableMapping.ColumnMappings.Add("year", "year");
             tableMapping.ColumnMappings.Add("size", "size");
-            tableMapping.ColumnMappings.Add("PreferedRooms", "PreferedRooms");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[STATCS] WHERE (([year] = @Original_year) AND ([size] = @Origin" +
-                "al_size) AND ((@IsNull_PreferedRooms = 1 AND [PreferedRooms] IS NULL) OR ([Prefe" +
-                "redRooms] = @Original_PreferedRooms)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[STATCS] WHERE (([year] = @Original_year) AND ((@IsNull_size = " +
+                "1 AND [size] IS NULL) OR ([size] = @Original_size)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[STATCS] ([year], [size], [PreferedRooms]) VALUES (@year, @size" +
-                ", @PreferedRooms);\r\nSELECT year, size, PreferedRooms FROM STATCS WHERE (year = @" +
-                "year)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[STATCS] ([year], [size]) VALUES (@year, @size);\r\nSELECT year, " +
+                "size FROM STATCS WHERE (year = @year)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[STATCS] SET [year] = @year, [size] = @size, [PreferedRooms] = @PreferedRooms WHERE (([year] = @Original_year) AND ([size] = @Original_size) AND ((@IsNull_PreferedRooms = 1 AND [PreferedRooms] IS NULL) OR ([PreferedRooms] = @Original_PreferedRooms)));
-SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[STATCS] SET [year] = @year, [size] = @size WHERE (([year] = @Origin" +
+                "al_year) AND ((@IsNull_size = 1 AND [size] IS NULL) OR ([size] = @Original_size)" +
+                "));\r\nSELECT year, size FROM STATCS WHERE (year = @year)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_size", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "size", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PreferedRooms", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PreferedRooms", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12773,24 +11991,18 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT * FROM dbo.STATCS";
+            this._commandCollection[0].CommandText = "SELECT year, size FROM dbo.STATCS";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.getStatCSSize";
+            this._commandCollection[1].CommandText = "dbo.InsertSTATCSsize";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "dbo.InsertSTATCSsize";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12850,16 +12062,15 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
+        public virtual int Delete(int Original_year, global::System.Nullable<int> Original_size) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_year));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_size));
-            if ((Original_PreferedRooms.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PreferedRooms.Value));
+            if ((Original_size.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_size.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -12881,14 +12092,13 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int year, int size, global::System.Nullable<int> PreferedRooms) {
+        public virtual int Insert(int year, global::System.Nullable<int> size) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(year));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRooms.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PreferedRooms.Value));
+            if ((size.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(size.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -12910,24 +12120,22 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int year, int size, global::System.Nullable<int> PreferedRooms, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
+        public virtual int Update(int year, global::System.Nullable<int> size, int Original_year, global::System.Nullable<int> Original_size) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(year));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size));
-            if ((PreferedRooms.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PreferedRooms.Value));
+            if ((size.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(size.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_year));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size));
-            if ((Original_PreferedRooms.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PreferedRooms.Value));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_year));
+            if ((Original_size.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_size.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -12949,42 +12157,8 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int size, global::System.Nullable<int> PreferedRooms, int Original_year, int Original_size, global::System.Nullable<int> Original_PreferedRooms) {
-            return this.Update(Original_year, size, PreferedRooms, Original_year, Original_size, Original_PreferedRooms);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object getStatCSSize(global::System.Nullable<int> year) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((year.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(year.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            object returnValue;
-            try {
-                returnValue = command.ExecuteScalar();
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+        public virtual int Update(global::System.Nullable<int> size, int Original_year, global::System.Nullable<int> Original_size) {
+            return this.Update(Original_year, size, Original_year, Original_size);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12992,7 +12166,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual object InsertStatCS(global::System.Nullable<int> year, global::System.Nullable<int> size) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((year.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(year.Value));
             }
@@ -13633,11 +12807,11 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [CourseCurriculums] ([courseId], [curriculumId]) VALUES (@courseId, @" +
-                "curriculumId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [CourseCurriculums] ([curriculumId], [courseId]) VALUES (@curriculumI" +
+                "d, @courseId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@curriculumId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "curriculumId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13650,11 +12824,16 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        courseId, curriculumId\r\nFROM            CourseCurriculums";
+            this._commandCollection[0].CommandText = "SELECT        curriculumId, courseId\r\nFROM            CourseCurriculums";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT courseId, curriculumId FROM CourseCurriculums WHERE (courseId = @id)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13676,6 +12855,18 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual TimetableDBDataSet.CourseCurriculumsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            TimetableDBDataSet.CourseCurriculumsDataTable dataTable = new TimetableDBDataSet.CourseCurriculumsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.CourseCurriculumsDataTable GetCourseCurriculums(int id) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
             TimetableDBDataSet.CourseCurriculumsDataTable dataTable = new TimetableDBDataSet.CourseCurriculumsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -13714,9 +12905,9 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int courseId, int curriculumId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(courseId));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(curriculumId));
+        public virtual int Insert(int curriculumId, int courseId) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(curriculumId));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(courseId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -13743,7 +12934,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class InstructorClassTableAdapter : global::System.ComponentModel.Component {
+    public partial class InstructorPreferredTimeTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -13757,7 +12948,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public InstructorClassTableAdapter() {
+        public InstructorPreferredTimeTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -13854,17 +13045,21 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "InstructorClass";
-            tableMapping.ColumnMappings.Add("InstructorId", "InstructorId");
-            tableMapping.ColumnMappings.Add("CourseClassId", "CourseClassId");
+            tableMapping.DataSetTable = "InstructorPreferredTime";
+            tableMapping.ColumnMappings.Add("instructorId", "instructorId");
+            tableMapping.ColumnMappings.Add("Day", "Day");
+            tableMapping.ColumnMappings.Add("timeStart", "timeStart");
+            tableMapping.ColumnMappings.Add("timeEnd", "timeEnd");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [InstructorClass] ([InstructorId], [CourseClassId]) VALUES (@Instruct" +
-                "orId, @CourseClassId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [InstructorPreferredTime] ([instructorId], [Day], [timeStart], [timeE" +
+                "nd]) VALUES (@instructorId, @Day, @timeStart, @timeEnd)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@InstructorId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "InstructorId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CourseClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CourseClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@instructorId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "instructorId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Day", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timeStart", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timeStart", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timeEnd", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timeEnd", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13877,33 +13072,26 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        *\r\nFROM            InstructorClass";
+            this._commandCollection[0].CommandText = "SELECT        InstructorPreferredTime.*\r\nFROM            InstructorPreferredTime";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TimetableDBDataSet.InstructorClassDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        InstructorPreferredTime.*\r\nFROM            InstructorPreferredTime\r" +
+                "\nwhere instructorId=@id";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "instructorId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TimetableDBDataSet.InstructorClassDataTable GetData() {
+        public virtual TimetableDBDataSet.InstructorPreferredTimeDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            TimetableDBDataSet.InstructorClassDataTable dataTable = new TimetableDBDataSet.InstructorClassDataTable();
+            TimetableDBDataSet.InstructorPreferredTimeDataTable dataTable = new TimetableDBDataSet.InstructorPreferredTimeDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -13911,7 +13099,19 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TimetableDBDataSet.InstructorClassDataTable dataTable) {
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.InstructorPreferredTimeDataTable GetDataById(int id) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
+            TimetableDBDataSet.InstructorPreferredTimeDataTable dataTable = new TimetableDBDataSet.InstructorPreferredTimeDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(TimetableDBDataSet.InstructorPreferredTimeDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
@@ -13919,7 +13119,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(TimetableDBDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "InstructorClass");
+            return this.Adapter.Update(dataSet, "InstructorPreferredTime");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13941,9 +13141,11 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int InstructorId, int CourseClassId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(InstructorId));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(CourseClassId));
+        public virtual int Insert(int instructorId, int Day, int timeStart, int timeEnd) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(instructorId));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Day));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(timeStart));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(timeEnd));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -14075,7 +13277,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         
         private CourseCurriculumsTableAdapter _courseCurriculumsTableAdapter;
         
-        private InstructorClassTableAdapter _instructorClassTableAdapter;
+        private InstructorPreferredTimeTableAdapter _instructorPreferredTimeTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -14307,12 +13509,12 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public InstructorClassTableAdapter InstructorClassTableAdapter {
+        public InstructorPreferredTimeTableAdapter InstructorPreferredTimeTableAdapter {
             get {
-                return this._instructorClassTableAdapter;
+                return this._instructorPreferredTimeTableAdapter;
             }
             set {
-                this._instructorClassTableAdapter = value;
+                this._instructorPreferredTimeTableAdapter = value;
             }
         }
         
@@ -14395,9 +13597,9 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                             && (this._courseCurriculumsTableAdapter.Connection != null))) {
                     return this._courseCurriculumsTableAdapter.Connection;
                 }
-                if (((this._instructorClassTableAdapter != null) 
-                            && (this._instructorClassTableAdapter.Connection != null))) {
-                    return this._instructorClassTableAdapter.Connection;
+                if (((this._instructorPreferredTimeTableAdapter != null) 
+                            && (this._instructorPreferredTimeTableAdapter.Connection != null))) {
+                    return this._instructorPreferredTimeTableAdapter.Connection;
                 }
                 return null;
             }
@@ -14457,7 +13659,7 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                 if ((this._courseCurriculumsTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._instructorClassTableAdapter != null)) {
+                if ((this._instructorPreferredTimeTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -14471,33 +13673,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateUpdatedRows(TimetableDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._coursesTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._coursesTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._roomsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._roomsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._courseClassTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._courseClassTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._cSTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.CS.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -14513,24 +13688,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._curriculumTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._instructorsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._instructorsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._iTTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._iTTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -14570,12 +13727,57 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._coursesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._coursesTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._curriculumDevisionsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.CurriculumDevisions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._curriculumDevisionsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._instructorsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._instructorsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._roomsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._roomsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._iTTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._iTTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._courseClassTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._courseClassTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -14606,12 +13808,12 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._instructorClassTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.InstructorClass.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._instructorPreferredTimeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.InstructorPreferredTime.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._instructorClassTableAdapter.Update(updatedRows));
+                    result = (result + this._instructorPreferredTimeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -14625,30 +13827,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateInsertedRows(TimetableDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._coursesTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._coursesTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._roomsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._roomsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._courseClassTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._courseClassTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._cSTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.CS.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -14662,22 +13840,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._curriculumTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._instructorsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._instructorsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._iTTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._iTTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -14713,11 +13875,51 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._coursesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._coursesTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._curriculumDevisionsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.CurriculumDevisions.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._curriculumDevisionsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._instructorsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._instructorsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._roomsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._roomsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._iTTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._iTTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._courseClassTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._courseClassTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -14745,11 +13947,11 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._instructorClassTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.InstructorClass.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._instructorPreferredTimeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.InstructorPreferredTime.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._instructorClassTableAdapter.Update(addedRows));
+                    result = (result + this._instructorPreferredTimeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -14763,11 +13965,11 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(TimetableDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._instructorClassTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.InstructorClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._instructorPreferredTimeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.InstructorPreferredTime.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._instructorClassTableAdapter.Update(deletedRows));
+                    result = (result + this._instructorPreferredTimeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -14795,11 +13997,51 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._courseClassTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._courseClassTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._iTTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._iTTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._roomsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._roomsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._instructorsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._instructorsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._curriculumDevisionsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.CurriculumDevisions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._curriculumDevisionsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._coursesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._coursesTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -14835,22 +14077,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._iTTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.IT.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._iTTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._instructorsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Instructors.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._instructorsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._curriculumTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Curriculum.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -14864,30 +14090,6 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._cSTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._courseClassTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.CourseClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._courseClassTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._roomsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Rooms.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._roomsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._coursesTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Courses.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._coursesTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -15005,8 +14207,8 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._instructorClassTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._instructorClassTableAdapter.Connection) == false))) {
+            if (((this._instructorPreferredTimeTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._instructorPreferredTimeTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -15177,13 +14379,13 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                         adaptersWithAcceptChangesDuringUpdate.Add(this._courseCurriculumsTableAdapter.Adapter);
                     }
                 }
-                if ((this._instructorClassTableAdapter != null)) {
-                    revertConnections.Add(this._instructorClassTableAdapter, this._instructorClassTableAdapter.Connection);
-                    this._instructorClassTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._instructorClassTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._instructorClassTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._instructorClassTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._instructorClassTableAdapter.Adapter);
+                if ((this._instructorPreferredTimeTableAdapter != null)) {
+                    revertConnections.Add(this._instructorPreferredTimeTableAdapter, this._instructorPreferredTimeTableAdapter.Connection);
+                    this._instructorPreferredTimeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._instructorPreferredTimeTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._instructorPreferredTimeTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._instructorPreferredTimeTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._instructorPreferredTimeTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -15304,9 +14506,9 @@ SELECT year, size, PreferedRooms FROM STATCS WHERE (year = @year)";
                     this._courseCurriculumsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._courseCurriculumsTableAdapter]));
                     this._courseCurriculumsTableAdapter.Transaction = null;
                 }
-                if ((this._instructorClassTableAdapter != null)) {
-                    this._instructorClassTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._instructorClassTableAdapter]));
-                    this._instructorClassTableAdapter.Transaction = null;
+                if ((this._instructorPreferredTimeTableAdapter != null)) {
+                    this._instructorPreferredTimeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._instructorPreferredTimeTableAdapter]));
+                    this._instructorPreferredTimeTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

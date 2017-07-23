@@ -45,79 +45,79 @@ namespace ConsoleApp1
 
             _schedule = schedule.MakeCopy(false);
 
-            @lock.Release();
+                @lock.Release();
 
         }
 
-        public void SetNewState(AlgorithmState state)
-        {
-            _running = state == AlgorithmState.AS_RUNNING;
-        }
-
-
-
-
-        // Algorithm's observer
-        public class ScheduleObserver
-        {
-
-
-            // Event that blocks caller until algorithm finishes execution 
-            EventWaitHandle _event;
-
-            // Window which displays schedule
-            private ChildView _window;
-
-            // Called when algorithm starts execution
-            private void BlockEvent()
-            {
-                _event.Reset();
-                //ResetEvent(_event);
-            }
-
-            // Called when algorithm finishes execution
-            private void ReleaseEvent()
-            {
-                _event.Set();
-                // SetEvent(_event);
-            }
-
-
-
-            // Initializes observer
-            public ScheduleObserver()
-            {
-                //this._window = null;
-                _event = new EventWaitHandle(false, EventResetMode.ManualReset);
-            }
-
-            // Frees used resources
-            public void Dispose()
-            {
-                _event.Close();
-            }
-
-            // Block caller's thread until algorithm finishes execution
-            public void WaitEvent()
-            {
-                _event.WaitOne();
-                // WaitForSingleObject(_event, INFINITE);
-            }
-
-            // Handles event that is raised when algorithm finds new best chromosome
-            //	void NewBestChromosome(Schedule newChromosome);
-
-            // Handles event that is raised when state of execution of algorithm is changed
-            //	void EvolutionStateChanged(AlgorithmState newState);
-
-            // Sets window which displays schedule
-            public void SetWindow(ChildView window)
-            {
-                _window = window;
-            }
-
-        }
+    public void SetNewState(AlgorithmState state)
+    {
+        _running = state == AlgorithmState.AS_RUNNING;
     }
+
+
+
+
+    // Algorithm's observer
+    public class ScheduleObserver
+    {
+
+
+        // Event that blocks caller until algorithm finishes execution 
+        EventWaitHandle _event;
+
+        // Window which displays schedule
+        private ChildView _window;
+
+        // Called when algorithm starts execution
+        private void BlockEvent()
+        {
+            _event.Reset();
+            //ResetEvent(_event);
+        }
+
+        // Called when algorithm finishes execution
+        private void ReleaseEvent()
+        {
+            _event.Set();
+            // SetEvent(_event);
+        }
+
+
+
+        // Initializes observer
+        public ScheduleObserver()
+        {
+            //this._window = null;
+            _event = new EventWaitHandle(false, EventResetMode.ManualReset);
+        }
+
+        // Frees used resources
+        public void Dispose()
+        {
+            _event.Close();
+        }
+
+        // Block caller's thread until algorithm finishes execution
+        public void WaitEvent()
+        {
+            _event.WaitOne();
+            // WaitForSingleObject(_event, INFINITE);
+        }
+
+        // Handles event that is raised when algorithm finds new best chromosome
+        //	void NewBestChromosome(Schedule newChromosome);
+
+        // Handles event that is raised when state of execution of algorithm is changed
+        //	void EvolutionStateChanged(AlgorithmState newState);
+
+        // Sets window which displays schedule
+        public void SetWindow(ChildView window)
+        {
+            _window = window;
+        }
+
+    }
+}
     #region Commented area
     // Schedule chromosome
     /*    public class ScheduleGenetic

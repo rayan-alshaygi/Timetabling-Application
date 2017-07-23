@@ -315,8 +315,9 @@ namespace ConsoleApp1
 
         private void generateSchedule_Click(object sender, EventArgs e)
         {
-            Schedule s = new Schedule();
-            textBox2.Text= s.Algorithm();
+            //Schedule s = new Schedule();
+            Algorithm.GetInstance().Start();
+            //textBox2.Text= s.Algorithm();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

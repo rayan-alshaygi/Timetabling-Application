@@ -132,7 +132,7 @@ namespace ConsoleApp1
             this._fitness = 0F;
             // reserve space for time-space slots in chromosomes code
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
-            int slotSize = _slots.Count();
+           int slotSize= _slots.Count();
             //_slots = (from i in Enumerable.Range(0, slotSize) select new List<List<DataRow>>());
             // reserve space for flags of class requirements
             _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
@@ -213,10 +213,10 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     l.Add(courseRow);
-                    if (newChromosome._slots[(pos + i)] == null)
-                        newChromosome._slots[(pos + i)] = l;
+                    if (newChromosome._slots[(pos + i)]==null)
+                        newChromosome._slots[(pos + i)]=l;
                     else
-                        newChromosome._slots[(pos + i)].Add(courseRow);
+                    newChromosome._slots[(pos + i)].Add(courseRow);
                     // newChromosome._slots.Insert((pos + i), l);
 
                 }
@@ -257,7 +257,7 @@ namespace ConsoleApp1
                 while (true)
                 {
                     int p = RandomNumbers.NextNumber() % size;
-                    if (!cp[p] && (_classes.ElementAt(p).Equals(null) || _slots[p] == null) && (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
+                   if (!cp[p]&&(_classes.ElementAt(p).Equals(null)||_slots[p]==null)&& (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
                     {
                         cp[p] = true;
                         break;
@@ -363,7 +363,7 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     // remove class hour from current time-space slot
-                    List<DataRow> cl = _slots[pos1 + i];
+                        List<DataRow> cl = _slots[pos1 + i];
                     foreach (DataRow r in cl)
                     {
 
@@ -383,7 +383,7 @@ namespace ConsoleApp1
                     }
                     else
                         _slots[pos2 + i].Add(cc1);
-                    // _slots[pos2 + i].AddLast(cc1);
+                   // _slots[pos2 + i].AddLast(cc1);
                 }
 
                 // change entry of class table to point to new time-space slots
@@ -1008,8 +1008,7 @@ namespace ConsoleApp1
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
                     //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
                     //{
-                    foreach (KeyValuePair<DataRow, int> x in best.GetClasses())
-                    {
+                    foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
                         // coordinate of time-space slot
                         int nr = Counts.GetInstance().GetNumberOfLectureRooms();
                         int daySize = DefineConstants.DAY_HOURS * nr;
@@ -1019,7 +1018,7 @@ namespace ConsoleApp1
                         int room = time / DefineConstants.DAY_HOURS;
                         time = time % DefineConstants.DAY_HOURS;
 
-
+                        
                         int dur = Int32.Parse(x.Key["duration"].ToString());
                         int classId = Int32.Parse(x.Key["id"].ToString());
                         int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
