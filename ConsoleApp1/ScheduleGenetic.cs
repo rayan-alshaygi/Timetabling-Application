@@ -132,8 +132,6 @@ namespace ConsoleApp1
             this._fitness = 0F;
             // reserve space for time-space slots in chromosomes code
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
-           int slotSize= _slots.Count();
-            //_slots = (from i in Enumerable.Range(0, slotSize) select new List<List<DataRow>>());
             // reserve space for flags of class requirements
             _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
         }
@@ -314,7 +312,8 @@ namespace ConsoleApp1
             }
 
             n.CalculateFitness();
-
+            HillClimbing.solve(this);
+            HillClimbing.solve(parent2);
             // return smart pointer to offspring
             return n;
         }
@@ -773,6 +772,50 @@ namespace ConsoleApp1
             return score;
         }
         // Returns fitness value of chromosome
+
+        //get the current timetables and evaluate
+        public void evaluate()
+        {
+
+            ScheduleTableAdapter sched = new ScheduleTableAdapter();
+            DataTable sem = sched.GetData();
+            DataRow classDR;
+            Counts counts = new Counts();
+            foreach (DataRow r in sem.Rows)
+            {
+                int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+                int daySize = DefineConstants.DAY_HOURS * nr;
+                int curClassId = Int32.Parse(r["courseClassId"].ToString());
+                classDR = counts.GetClassById(curClassId);
+                int dur = Int32.Parse(classDR["duration"].ToString());
+                String d = r["day"].ToString();
+                int day = 8;
+                if (Enum.IsDefined(typeof(DayOfWeek), d))
+                {
+                    DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d, true);
+                    day = (int)x;
+                }
+                int pos = day * daySize;
+                int time = pos % daySize;
+                // fill time-space slots, for each hour of class
+                List<DataRow> l = new List<DataRow>();
+                for (int i = dur - 1; i >= 0; i--)
+                {
+                    l.Add(classDR);
+                    if (_slots[(pos + i)] == null)
+                        _slots[(pos + i)] = l;
+                    else
+                        _slots[(pos + i)].Add(classDR);
+                    // newChromosome._slots.Insert((pos + i), l);
+
+                }
+                _classes.Add(classDR, pos);
+            }
+            CalculateFitness();
+            float score= GetFitness();
+            Console.WriteLine("The fitness is " + score);
+
+        }
         public float GetFitness()
         {
             return _fitness;
@@ -1191,20 +1234,7 @@ namespace ConsoleApp1
             _currentBestSize = 0;
         }
 
-
     }
 
-    //public class CCriticalSectionSim
-    //{
-    //    public static void LockData()
-    //    {
-
-    //    }
-
-    //    public static void UnlockData()
-    //    {
-
-    //    }
-    //}
 
 }

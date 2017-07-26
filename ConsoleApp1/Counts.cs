@@ -91,6 +91,16 @@ namespace ConsoleApp1
             return null;
         }
 
+        public DataRow GetClassById(int id)
+        {
+            DataTable dt = cc.GetClassById(id);
+            if (dt.Rows.Count != 0)
+            {
+                return dt.Rows[0];
+            }
+            return null;
+        }
+
         //return max capicity of a room
         public int GetRoomMaxCapicityById(int id)
         {
