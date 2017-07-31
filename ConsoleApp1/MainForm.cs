@@ -20,7 +20,7 @@ namespace ConsoleApp1
 
         private void btAddTeacher_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = false;
+
             gbAddStudent.Visible = false;
             gbMakeSchedule.Visible = false;
             gbAddTeacher.Visible = true;
@@ -32,28 +32,30 @@ namespace ConsoleApp1
 
         private void btAddCourse_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = true;
-            gbAddStudent.Visible = false;
-            gbMakeSchedule.Visible = false;
-            gbAddTeacher.Visible = false;
-            gbAddCourse.Location = new Point(391, 222);
-            gbAddCourse.Size = new System.Drawing.Size(467, 181);
-            tbCourseName.Text = "";
-            cbdivision.Items.Clear();
-            DataTable dt = c.ComboCourseName();
-            dataGridView1.DataSource = dt;
-            if (dataGridView1.Rows.Count > 0)
-            {
-                for (int index = 0; index < dataGridView1.Rows.Count - 1; index++)
-                {
-                    //cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[0].Value);
-                }
-            }
+            //gbAddCourse.Visible = true;
+            //gbAddStudent.Visible = false;
+            //gbMakeSchedule.Visible = false;
+            //gbAddTeacher.Visible = false;
+            // gbAddCourse.Location = new Point(391, 222);
+            // gbAddCourse.Size = new System.Drawing.Size(467, 181);
+            // tbCourseName.Text = "";
+            // cbdivision.Items.Clear();
+            // DataTable dt = c.ComboCourseName();
+            // dataGridView1.DataSource = dt;
+            // if (dataGridView1.Rows.Count > 0)
+            // {
+            //     for (int index = 0; index < dataGridView1.Rows.Count - 1; index++)
+            //     {
+            //cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[0].Value);
+            //     }
+            //  }
+            courses course = new courses();
+            course.Show();
         }
 
         private void btAddStudent_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = false;
+
             gbAddStudent.Visible = true;
             gbMakeSchedule.Visible = false;
             gbAddTeacher.Visible = false;
@@ -73,10 +75,21 @@ namespace ConsoleApp1
             }
 
         }
+        private void btAddRoom_Click(object sender, EventArgs e)
+        {
+            gbAddRoom.Visible = true;
+            gbAddStudent.Visible = false;
+            gbMakeSchedule.Visible = false;
+            gbAddTeacher.Visible = false;
+            gbAddDivisionSize.Visible = false;
+            gbAddCurriculm.Visible = false;
+            gbAddRoom.Location = new Point(391, 222);
+            gbAddRoom.Size = new System.Drawing.Size(467, 181);
+        }
 
         private void btMakeSchedule_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = false;
+
             gbAddStudent.Visible = false;
             gbMakeSchedule.Visible = true;
             gbAddTeacher.Visible = false;
@@ -99,7 +112,7 @@ namespace ConsoleApp1
         }
         private void btAddDivisionSize_Click_1(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = false;
+
             gbAddStudent.Visible = false;
             gbMakeSchedule.Visible = false;
             gbAddTeacher.Visible = false;
@@ -119,11 +132,11 @@ namespace ConsoleApp1
             {
                 cbDivision1.Items.Add((dt.Columns[i].ColumnName).ToString());
             }
-            
+
         }
         private void btAddCurriculum_Click(object sender, EventArgs e)
         {
-            gbAddCourse.Visible = false;
+
             gbAddStudent.Visible = false;
             gbMakeSchedule.Visible = false;
             gbAddTeacher.Visible = false;
@@ -234,12 +247,9 @@ namespace ConsoleApp1
         {
             gbAddDivisionSize.Visible = false;
             gbAddCurriculm.Visible = false;
+            gbAddRoom.Visible = false;
         }
 
-        private void gbAddStudent_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -247,45 +257,6 @@ namespace ConsoleApp1
             F.Show();
         }
 
-        private void gbAddCourse_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblInstructorNameAC_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btAddStudentAS_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void btAddCurriculmn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbDivisionSize_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void tbDivisionSize_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -295,10 +266,7 @@ namespace ConsoleApp1
             }
         }
 
-        private void gbAddTeacher_VisibleChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void btAddDivisioSizeAD_Click(object sender, EventArgs e)
         {
@@ -314,20 +282,33 @@ namespace ConsoleApp1
             }
         }
 
-        private void gbAddCurriculm_Enter(object sender, EventArgs e)
-        {
 
-        }
 
         private void generateSchedule_Click(object sender, EventArgs e)
         {
-            //Schedule s = new Schedule();
-            Algorithm.GetInstance().Start();
-            //textBox2.Text= s.Algorithm();
+            Schedule s = new Schedule();
+            textBox2.Text = s.Algorithm();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+
+
+        private void tbSeats_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (!char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btAddRoomAS_Click(object sender, EventArgs e)
+        {
+            string name = tbRoomName.Text;
+            int seats = int.Parse(tbSeats.Text);
+            bool lab;
+            if (chbLab.Checked) lab = true;
+            else lab = false;
+            lab = true;
+            c.insertRoom(name, seats, lab);
 
         }
     }
