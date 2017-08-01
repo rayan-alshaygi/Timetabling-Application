@@ -247,7 +247,7 @@ namespace ConsoleApp1
         private void btSeeSchedule_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Schedule sc = new Schedule();
+           // Schedule sc = new Schedule();
             //sc.Show();
         }
 
@@ -309,8 +309,11 @@ namespace ConsoleApp1
 
         private void generateSchedule_Click(object sender, EventArgs e)
         {
-            Schedule s = new Schedule();
-            textBox2.Text = s.Algorithm();
+            Algorithm s = Algorithm.GetInstance();
+            //textBox2.Text = s.start();
+            s.Start();
+            s.Stop();
+            Algorithm.FreeInstance();
         }
 
 
