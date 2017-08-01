@@ -132,6 +132,12 @@ namespace ConsoleApp1
             {
                 cbDivision1.Items.Add((dt.Columns[i].ColumnName).ToString());
             }
+            DataTable dt2 = c.combolab();
+
+            for (int i = 1; i < dt.Columns.Count; i++)
+            {
+                cbRooms.Items.Add((dt2.Columns[i].ColumnName).ToString());
+            }
 
         }
         private void btAddCurriculum_Click(object sender, EventArgs e)
@@ -160,9 +166,11 @@ namespace ConsoleApp1
 
         private void btInsertTeacher_Click(object sender, EventArgs e)
         {
-
+            bool TA = false;
+            if (chBIsTA.Checked == true)
+                TA = true;
             string InstructorName = tbInstructorName.Text;
-            int val = c.InsertInstructor(InstructorName);
+            int val = c.InsertInstructor(InstructorName, TA);
             if (val > 0)
             {
                 tbInstructorName.Text = "";
@@ -273,13 +281,28 @@ namespace ConsoleApp1
             int size = Int32.Parse(tbDivisionSize.Text);
             string dvname = cbDivision1.SelectedItem.ToString();
             int year = Int32.Parse(cbYear1.SelectedItem.ToString());
-            int x = c.insertdivisionsize(dvname, year, size);
+            string labroom = cbRooms.SelectedValue.ToString();
+
+            DataTable dt = c.combolab();
+            int roomsize = 0;
+            int roomid = 0;
+            for (int i = 0; i <= dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i].Field<bool>(1).ToString() == labroom)
+                {
+                    roomsize = int.Parse(dt.Rows[i].Field<int>(2).ToString());
+                    roomid = int.Parse(dt.Rows[i].Field<int>(0).ToString());
+                }
+            }
+            int groups = c.sectioning(roomsize, size);
+            int x = c.insertdivisionsize(dvname, year, size, roomid, groups);
             if (x > 0)
             {
                 tbDivisionSize.Text = "";
                 cbDivision1.Text = "";
                 cbYear1.Text = "";
             }
+
         }
 
 

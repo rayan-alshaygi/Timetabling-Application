@@ -36,6 +36,7 @@
             this.btLogout = new System.Windows.Forms.Button();
             this.btAddRoom = new System.Windows.Forms.Button();
             this.gbAddTeacher = new System.Windows.Forms.GroupBox();
+            this.chBIsTA = new System.Windows.Forms.CheckBox();
             this.tbInstructorName = new System.Windows.Forms.TextBox();
             this.lblInstructorName = new System.Windows.Forms.Label();
             this.btInsertTeacher = new System.Windows.Forms.Button();
@@ -62,6 +63,8 @@
             this.btAddDivisionSize = new System.Windows.Forms.Button();
             this.btAddCurriculum = new System.Windows.Forms.Button();
             this.gbAddDivisionSize = new System.Windows.Forms.GroupBox();
+            this.lblPRooms = new System.Windows.Forms.Label();
+            this.cbRooms = new System.Windows.Forms.ComboBox();
             this.btAddDivisioSizeAD = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbDivisionSize = new System.Windows.Forms.TextBox();
@@ -78,12 +81,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.gbAddRoom = new System.Windows.Forms.GroupBox();
+            this.chbLab = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbSeats = new System.Windows.Forms.TextBox();
             this.btAddRoomAS = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbRoomName = new System.Windows.Forms.TextBox();
-            this.chbLab = new System.Windows.Forms.CheckBox();
             this.gbAddTeacher.SuspendLayout();
             this.gbAddStudent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -167,22 +170,33 @@
             // 
             // gbAddTeacher
             // 
+            this.gbAddTeacher.Controls.Add(this.chBIsTA);
             this.gbAddTeacher.Controls.Add(this.tbInstructorName);
             this.gbAddTeacher.Controls.Add(this.lblInstructorName);
             this.gbAddTeacher.Controls.Add(this.btInsertTeacher);
-            this.gbAddTeacher.Location = new System.Drawing.Point(176, 14);
+            this.gbAddTeacher.Location = new System.Drawing.Point(443, 19);
             this.gbAddTeacher.Name = "gbAddTeacher";
-            this.gbAddTeacher.Size = new System.Drawing.Size(80, 64);
+            this.gbAddTeacher.Size = new System.Drawing.Size(101, 46);
             this.gbAddTeacher.TabIndex = 7;
             this.gbAddTeacher.TabStop = false;
             this.gbAddTeacher.Text = "Add Teacher";
             this.gbAddTeacher.Visible = false;
             // 
+            // chBIsTA
+            // 
+            this.chBIsTA.AutoSize = true;
+            this.chBIsTA.Location = new System.Drawing.Point(142, 88);
+            this.chBIsTA.Name = "chBIsTA";
+            this.chBIsTA.Size = new System.Drawing.Size(40, 17);
+            this.chBIsTA.TabIndex = 17;
+            this.chBIsTA.Text = "TA";
+            this.chBIsTA.UseVisualStyleBackColor = true;
+            // 
             // tbInstructorName
             // 
             this.tbInstructorName.BackColor = System.Drawing.Color.White;
             this.tbInstructorName.ForeColor = System.Drawing.Color.Black;
-            this.tbInstructorName.Location = new System.Drawing.Point(142, 61);
+            this.tbInstructorName.Location = new System.Drawing.Point(142, 46);
             this.tbInstructorName.Name = "tbInstructorName";
             this.tbInstructorName.Size = new System.Drawing.Size(215, 20);
             this.tbInstructorName.TabIndex = 15;
@@ -191,7 +205,7 @@
             // 
             this.lblInstructorName.AutoSize = true;
             this.lblInstructorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstructorName.Location = new System.Drawing.Point(19, 64);
+            this.lblInstructorName.Location = new System.Drawing.Point(19, 46);
             this.lblInstructorName.Name = "lblInstructorName";
             this.lblInstructorName.Size = new System.Drawing.Size(117, 15);
             this.lblInstructorName.TabIndex = 14;
@@ -217,9 +231,9 @@
             this.gbAddStudent.Controls.Add(this.lblSelectYearAs);
             this.gbAddStudent.Controls.Add(this.lblDivisionAS);
             this.gbAddStudent.Controls.Add(this.CBSelectDivision);
-            this.gbAddStudent.Location = new System.Drawing.Point(583, 18);
+            this.gbAddStudent.Location = new System.Drawing.Point(602, 26);
             this.gbAddStudent.Name = "gbAddStudent";
-            this.gbAddStudent.Size = new System.Drawing.Size(96, 51);
+            this.gbAddStudent.Size = new System.Drawing.Size(77, 39);
             this.gbAddStudent.TabIndex = 17;
             this.gbAddStudent.TabStop = false;
             this.gbAddStudent.Text = "Add Student";
@@ -450,6 +464,8 @@
             // 
             // gbAddDivisionSize
             // 
+            this.gbAddDivisionSize.Controls.Add(this.lblPRooms);
+            this.gbAddDivisionSize.Controls.Add(this.cbRooms);
             this.gbAddDivisionSize.Controls.Add(this.btAddDivisioSizeAD);
             this.gbAddDivisionSize.Controls.Add(this.label3);
             this.gbAddDivisionSize.Controls.Add(this.tbDivisionSize);
@@ -458,16 +474,33 @@
             this.gbAddDivisionSize.Controls.Add(this.label1);
             this.gbAddDivisionSize.Controls.Add(this.cbDivision1);
             this.gbAddDivisionSize.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.gbAddDivisionSize.Location = new System.Drawing.Point(448, 24);
+            this.gbAddDivisionSize.Location = new System.Drawing.Point(439, 184);
             this.gbAddDivisionSize.Name = "gbAddDivisionSize";
-            this.gbAddDivisionSize.Size = new System.Drawing.Size(97, 45);
+            this.gbAddDivisionSize.Size = new System.Drawing.Size(422, 255);
             this.gbAddDivisionSize.TabIndex = 22;
             this.gbAddDivisionSize.TabStop = false;
             this.gbAddDivisionSize.Text = "add division size";
             // 
+            // lblPRooms
+            // 
+            this.lblPRooms.AutoSize = true;
+            this.lblPRooms.Location = new System.Drawing.Point(6, 200);
+            this.lblPRooms.Name = "lblPRooms";
+            this.lblPRooms.Size = new System.Drawing.Size(166, 23);
+            this.lblPRooms.TabIndex = 9;
+            this.lblPRooms.Text = "Prefered lab Room";
+            // 
+            // cbRooms
+            // 
+            this.cbRooms.FormattingEnabled = true;
+            this.cbRooms.Location = new System.Drawing.Point(181, 192);
+            this.cbRooms.Name = "cbRooms";
+            this.cbRooms.Size = new System.Drawing.Size(121, 31);
+            this.cbRooms.TabIndex = 10;
+            // 
             // btAddDivisioSizeAD
             // 
-            this.btAddDivisioSizeAD.Location = new System.Drawing.Point(287, 95);
+            this.btAddDivisioSizeAD.Location = new System.Drawing.Point(334, 95);
             this.btAddDivisioSizeAD.Name = "btAddDivisioSizeAD";
             this.btAddDivisioSizeAD.Size = new System.Drawing.Size(75, 41);
             this.btAddDivisioSizeAD.TabIndex = 6;
@@ -487,7 +520,7 @@
             // 
             // tbDivisionSize
             // 
-            this.tbDivisionSize.Location = new System.Drawing.Point(134, 148);
+            this.tbDivisionSize.Location = new System.Drawing.Point(181, 145);
             this.tbDivisionSize.Name = "tbDivisionSize";
             this.tbDivisionSize.Size = new System.Drawing.Size(121, 30);
             this.tbDivisionSize.TabIndex = 4;
@@ -496,7 +529,7 @@
             // cbYear1
             // 
             this.cbYear1.FormattingEnabled = true;
-            this.cbYear1.Location = new System.Drawing.Point(134, 97);
+            this.cbYear1.Location = new System.Drawing.Point(181, 101);
             this.cbYear1.Name = "cbYear1";
             this.cbYear1.Size = new System.Drawing.Size(121, 31);
             this.cbYear1.TabIndex = 3;
@@ -524,7 +557,7 @@
             // cbDivision1
             // 
             this.cbDivision1.FormattingEnabled = true;
-            this.cbDivision1.Location = new System.Drawing.Point(131, 45);
+            this.cbDivision1.Location = new System.Drawing.Point(178, 43);
             this.cbDivision1.Name = "cbDivision1";
             this.cbDivision1.Size = new System.Drawing.Size(124, 31);
             this.cbDivision1.TabIndex = 0;
@@ -616,19 +649,29 @@
             this.gbAddRoom.Controls.Add(this.btAddRoomAS);
             this.gbAddRoom.Controls.Add(this.label4);
             this.gbAddRoom.Controls.Add(this.tbRoomName);
-            this.gbAddRoom.Location = new System.Drawing.Point(400, 211);
+            this.gbAddRoom.Location = new System.Drawing.Point(705, 26);
             this.gbAddRoom.Name = "gbAddRoom";
-            this.gbAddRoom.Size = new System.Drawing.Size(322, 172);
+            this.gbAddRoom.Size = new System.Drawing.Size(60, 38);
             this.gbAddRoom.TabIndex = 24;
             this.gbAddRoom.TabStop = false;
             this.gbAddRoom.Text = "Add Room";
+            // 
+            // chbLab
+            // 
+            this.chbLab.AutoSize = true;
+            this.chbLab.Location = new System.Drawing.Point(116, 133);
+            this.chbLab.Name = "chbLab";
+            this.chbLab.Size = new System.Drawing.Size(40, 17);
+            this.chbLab.TabIndex = 6;
+            this.chbLab.Text = "lab";
+            this.chbLab.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 96);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 13);
+            this.label7.Size = new System.Drawing.Size(82, 13);
             this.label7.TabIndex = 4;
             this.label7.Text = "number of seats";
             // 
@@ -665,16 +708,6 @@
             this.tbRoomName.Name = "tbRoomName";
             this.tbRoomName.Size = new System.Drawing.Size(100, 20);
             this.tbRoomName.TabIndex = 0;
-            // 
-            // chbLab
-            // 
-            this.chbLab.AutoSize = true;
-            this.chbLab.Location = new System.Drawing.Point(116, 133);
-            this.chbLab.Name = "chbLab";
-            this.chbLab.Size = new System.Drawing.Size(40, 17);
-            this.chbLab.TabIndex = 6;
-            this.chbLab.Text = "lab";
-            this.chbLab.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -780,5 +813,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbRoomName;
         private System.Windows.Forms.CheckBox chbLab;
+        private System.Windows.Forms.CheckBox chBIsTA;
+        private System.Windows.Forms.Label lblPRooms;
+        private System.Windows.Forms.ComboBox cbRooms;
     }
 }
