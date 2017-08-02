@@ -48,7 +48,7 @@ namespace ConsoleApp1
         {
             foreach (DataRow id in Ids)
             {
-                coursecurTA.Insert(courseId, Int32.Parse(id["curriculumId"].ToString()));
+                coursecurTA.Insert(Int32.Parse(id["curriculumId"].ToString()),courseId );
             }
 
         }
@@ -97,7 +97,7 @@ namespace ConsoleApp1
             }
             for (int k = 0; k < divisionColumns.Count(); k++)
             {
-                expression += divisionColumns[k] + " = null ";
+                expression += divisionColumns[k] + " is null ";
                 if (k != divisionColumns.Count() - 1)
                     expression += " and ";
 
@@ -301,7 +301,7 @@ namespace ConsoleApp1
             foreach (string value in divisionColumns)
             {
 
-                expression += value + " = null ";
+                expression += value + " is null ";
                 if (c != divisionColumns.Count() - 1)
                     expression += " and ";
                 c++;
