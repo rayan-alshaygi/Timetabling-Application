@@ -41,7 +41,7 @@ namespace ConsoleApp1
         public int getInstructorId(string name)
         {
             DataTable s = insTA.GetId(name);
-            return Int32.Parse(s.ToString());
+            return Int32.Parse(s.Rows[0]["Id"].ToString());
         }
 
         public void insertIntoCourseCurriculums(int courseId, DataRow[] Ids)

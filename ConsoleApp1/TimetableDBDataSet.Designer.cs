@@ -10531,7 +10531,8 @@ SELECT year, size, labRoom, numOfGroups FROM CS WHERE (year = @year)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Id FROM dbo.Instructors\r\nwhere lower(name)=lower(@name);";
+            this._commandCollection[4].CommandText = "SELECT        Id, name, TA\r\nFROM            Instructors\r\nWHERE        (LOWER(name" +
+                ") = LOWER(@name))";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();

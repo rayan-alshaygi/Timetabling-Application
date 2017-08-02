@@ -81,6 +81,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(100, 20);
             this.tbName.TabIndex = 1;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // label2
             // 
@@ -370,6 +371,7 @@
             this.cbLectureInstructor.Name = "cbLectureInstructor";
             this.cbLectureInstructor.Size = new System.Drawing.Size(138, 21);
             this.cbLectureInstructor.TabIndex = 34;
+            this.cbLectureInstructor.SelectedIndexChanged += new System.EventHandler(this.cbLectureInstructor_SelectedIndexChanged);
             // 
             // chbLecture
             // 

@@ -46,14 +46,14 @@ namespace ConsoleApp1
             }
             DataTable dt = c.comboDivision();
 
-            for (int i = 1; i < dt.Columns.Count; i++)
+            for (int i = 0; i < dt.Columns.Count; i++)
             {
                 clbDivisions.Items.Add((dt.Columns[i].ColumnName).ToString());
                 clbDivisions1.Items.Add((dt.Columns[i].ColumnName).ToString());
                 clbDivisions2.Items.Add((dt.Columns[i].ColumnName).ToString());
             }
             DataTable dt2 = c.ComboInstructorName();
-            for (int j = 1; j < dt2.Rows.Count; j++)
+            for (int j = 0; j < dt2.Rows.Count; j++)
                 cbLectureInstructor.Items.Add(dt2.Rows[j].Field<string>(1));
             chbLabInstrucctores.Visible = false;
             cbLectureInstructor.Visible = true;
@@ -90,7 +90,7 @@ namespace ConsoleApp1
             DataTable dt = c.ComboInstructorName();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if(dt.Rows[i]["TA"] != DBNull.Value)
+                if(!dt.Rows[i]["TA"].Equals(false) )
                     chbLabInstrucctores.Items.Add(dt.Rows[i].Field<string>(1));
             }
         }
@@ -103,7 +103,7 @@ namespace ConsoleApp1
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    if (dt.Rows[i]["TA"] != DBNull.Value)
+                    if (!dt.Rows[i]["TA"].Equals(false))
                         chbTutorialInstructors.Items.Add(dt.Rows[i].Field<string>(1));
                 }
             }
@@ -114,13 +114,24 @@ namespace ConsoleApp1
         private void btAddCourseAS_Click(object sender, EventArgs e)
         {
             int duration = int.Parse(tbClassDuration.Text);
-            string classname = tbClassName.Text;
+            string classname ="Lecture"+ tbName.Text;
             bool lab = false;
-            if (chbLab.Checked == true)
-                lab = true;
             string coursename = tbName.Text;
-            string instructor = cbLectureInstructor.SelectedValue.ToString();
+            string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
             c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+            if (checkBox3.Checked == true)
+            {
+                classname = "Tutorial" + tbName.Text;
+                c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+            }
+                
+            if (chbLab.Checked == true)
+            {
+                lab = true;
+                classname = "Lab" + tbName.Text;
+                c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+            }
+                
         }
 
         private void cbyears2_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,6 +145,16 @@ namespace ConsoleApp1
         }
 
         private void chbTutorialInstructors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbLectureInstructor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbName_TextChanged(object sender, EventArgs e)
         {
 
         }
