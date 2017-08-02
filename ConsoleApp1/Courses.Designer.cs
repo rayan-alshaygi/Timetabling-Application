@@ -52,7 +52,7 @@
             this.clbDivisions1 = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.cbNumberOfLevels = new System.Windows.Forms.ComboBox();
-            this.tbClassName = new System.Windows.Forms.TextBox();
+            this.tbCourseCodeEnglish = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tbClassDuration = new System.Windows.Forms.TextBox();
@@ -62,6 +62,8 @@
             this.chbLab = new System.Windows.Forms.CheckBox();
             this.cbLectureInstructor = new System.Windows.Forms.ComboBox();
             this.chbLecture = new System.Windows.Forms.CheckBox();
+            this.tbCourseCodeArabic = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.gbOneLevel.SuspendLayout();
             this.gbTowLevels.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +71,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 19);
+            this.label1.Location = new System.Drawing.Point(70, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 0;
@@ -77,7 +79,7 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(141, 12);
+            this.tbName.Location = new System.Drawing.Point(141, 0);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(100, 20);
             this.tbName.TabIndex = 1;
@@ -107,7 +109,7 @@
             this.gbOneLevel.Controls.Add(this.label3);
             this.gbOneLevel.Controls.Add(this.clbDivisions);
             this.gbOneLevel.Controls.Add(this.label4);
-            this.gbOneLevel.Location = new System.Drawing.Point(21, 242);
+            this.gbOneLevel.Location = new System.Drawing.Point(21, 263);
             this.gbOneLevel.Name = "gbOneLevel";
             this.gbOneLevel.Size = new System.Drawing.Size(212, 155);
             this.gbOneLevel.TabIndex = 5;
@@ -161,7 +163,7 @@
             // 
             // btAddCourseAS
             // 
-            this.btAddCourseAS.Location = new System.Drawing.Point(194, 470);
+            this.btAddCourseAS.Location = new System.Drawing.Point(194, 501);
             this.btAddCourseAS.Name = "btAddCourseAS";
             this.btAddCourseAS.Size = new System.Drawing.Size(75, 23);
             this.btAddCourseAS.TabIndex = 7;
@@ -181,7 +183,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(62, 210);
+            this.label10.Location = new System.Drawing.Point(41, 233);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 10;
@@ -198,7 +200,7 @@
             this.gbTowLevels.Controls.Add(this.label5);
             this.gbTowLevels.Controls.Add(this.clbDivisions1);
             this.gbTowLevels.Controls.Add(this.label12);
-            this.gbTowLevels.Location = new System.Drawing.Point(240, 233);
+            this.gbTowLevels.Location = new System.Drawing.Point(250, 264);
             this.gbTowLevels.Name = "gbTowLevels";
             this.gbTowLevels.Size = new System.Drawing.Size(235, 231);
             this.gbTowLevels.TabIndex = 11;
@@ -287,31 +289,33 @@
             // cbNumberOfLevels
             // 
             this.cbNumberOfLevels.FormattingEnabled = true;
-            this.cbNumberOfLevels.Location = new System.Drawing.Point(135, 202);
+            this.cbNumberOfLevels.Location = new System.Drawing.Point(135, 225);
             this.cbNumberOfLevels.Name = "cbNumberOfLevels";
             this.cbNumberOfLevels.Size = new System.Drawing.Size(106, 21);
             this.cbNumberOfLevels.TabIndex = 12;
             // 
-            // tbClassName
+            // tbCourseCodeEnglish
             // 
-            this.tbClassName.Location = new System.Drawing.Point(141, 176);
-            this.tbClassName.Name = "tbClassName";
-            this.tbClassName.Size = new System.Drawing.Size(100, 20);
-            this.tbClassName.TabIndex = 32;
+            this.tbCourseCodeEnglish.Location = new System.Drawing.Point(141, 26);
+            this.tbCourseCodeEnglish.Name = "tbCourseCodeEnglish";
+            this.tbCourseCodeEnglish.Size = new System.Drawing.Size(100, 20);
+            this.tbCourseCodeEnglish.TabIndex = 32;
+            this.tbCourseCodeEnglish.TextChanged += new System.EventHandler(this.tbClassName_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(80, 183);
+            this.label11.Location = new System.Drawing.Point(53, 29);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(60, 13);
+            this.label11.Size = new System.Drawing.Size(66, 13);
             this.label11.TabIndex = 31;
-            this.label11.Text = "class name";
+            this.label11.Text = "course code";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(66, 157);
+            this.label9.Location = new System.Drawing.Point(41, 189);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 13);
             this.label9.TabIndex = 30;
@@ -319,7 +323,7 @@
             // 
             // tbClassDuration
             // 
-            this.tbClassDuration.Location = new System.Drawing.Point(141, 150);
+            this.tbClassDuration.Location = new System.Drawing.Point(135, 189);
             this.tbClassDuration.Name = "tbClassDuration";
             this.tbClassDuration.Size = new System.Drawing.Size(106, 20);
             this.tbClassDuration.TabIndex = 29;
@@ -327,7 +331,7 @@
             // chbLabInstrucctores
             // 
             this.chbLabInstrucctores.FormattingEnabled = true;
-            this.chbLabInstrucctores.Location = new System.Drawing.Point(141, 110);
+            this.chbLabInstrucctores.Location = new System.Drawing.Point(141, 135);
             this.chbLabInstrucctores.Name = "chbLabInstrucctores";
             this.chbLabInstrucctores.Size = new System.Drawing.Size(138, 34);
             this.chbLabInstrucctores.TabIndex = 28;
@@ -336,7 +340,7 @@
             // chbTutorialInstructors
             // 
             this.chbTutorialInstructors.FormattingEnabled = true;
-            this.chbTutorialInstructors.Location = new System.Drawing.Point(141, 70);
+            this.chbTutorialInstructors.Location = new System.Drawing.Point(141, 87);
             this.chbTutorialInstructors.Name = "chbTutorialInstructors";
             this.chbTutorialInstructors.Size = new System.Drawing.Size(138, 34);
             this.chbTutorialInstructors.TabIndex = 27;
@@ -345,7 +349,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(77, 87);
+            this.checkBox3.Location = new System.Drawing.Point(44, 87);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(61, 17);
             this.checkBox3.TabIndex = 26;
@@ -356,7 +360,7 @@
             // chbLab
             // 
             this.chbLab.AutoSize = true;
-            this.chbLab.Location = new System.Drawing.Point(83, 127);
+            this.chbLab.Location = new System.Drawing.Point(44, 135);
             this.chbLab.Name = "chbLab";
             this.chbLab.Size = new System.Drawing.Size(44, 17);
             this.chbLab.TabIndex = 25;
@@ -367,7 +371,7 @@
             // cbLectureInstructor
             // 
             this.cbLectureInstructor.FormattingEnabled = true;
-            this.cbLectureInstructor.Location = new System.Drawing.Point(141, 42);
+            this.cbLectureInstructor.Location = new System.Drawing.Point(141, 52);
             this.cbLectureInstructor.Name = "cbLectureInstructor";
             this.cbLectureInstructor.Size = new System.Drawing.Size(138, 21);
             this.cbLectureInstructor.TabIndex = 34;
@@ -376,21 +380,40 @@
             // chbLecture
             // 
             this.chbLecture.AutoSize = true;
-            this.chbLecture.Location = new System.Drawing.Point(73, 46);
+            this.chbLecture.Location = new System.Drawing.Point(44, 54);
             this.chbLecture.Name = "chbLecture";
             this.chbLecture.Size = new System.Drawing.Size(62, 17);
             this.chbLecture.TabIndex = 33;
             this.chbLecture.Text = "Lecture";
             this.chbLecture.UseVisualStyleBackColor = true;
             // 
+            // tbCourseCodeArabic
+            // 
+            this.tbCourseCodeArabic.Location = new System.Drawing.Point(385, 29);
+            this.tbCourseCodeArabic.Name = "tbCourseCodeArabic";
+            this.tbCourseCodeArabic.Size = new System.Drawing.Size(100, 20);
+            this.tbCourseCodeArabic.TabIndex = 35;
+            this.tbCourseCodeArabic.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(247, 29);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(109, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "course code in arabic";
+            // 
             // courses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 505);
+            this.ClientSize = new System.Drawing.Size(520, 551);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.tbCourseCodeArabic);
             this.Controls.Add(this.cbLectureInstructor);
             this.Controls.Add(this.chbLecture);
-            this.Controls.Add(this.tbClassName);
+            this.Controls.Add(this.tbCourseCodeEnglish);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.tbClassDuration);
@@ -446,7 +469,7 @@
         private System.Windows.Forms.CheckedListBox clbDivisions1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbNumberOfLevels;
-        private System.Windows.Forms.TextBox tbClassName;
+        private System.Windows.Forms.TextBox tbCourseCodeEnglish;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbClassDuration;
@@ -456,5 +479,7 @@
         private System.Windows.Forms.CheckBox chbLab;
         private System.Windows.Forms.ComboBox cbLectureInstructor;
         private System.Windows.Forms.CheckBox chbLecture;
+        private System.Windows.Forms.TextBox tbCourseCodeArabic;
+        private System.Windows.Forms.Label label13;
     }
 }

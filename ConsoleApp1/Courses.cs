@@ -63,11 +63,13 @@ namespace ConsoleApp1
         private void btAddLevelAS_Click(object sender, EventArgs e)
         {
             string name = tbName.Text;
+            string codeArabic = tbCourseCodeArabic.Text;
+            string codeEnglish = tbCourseCodeEnglish.Text;
             int y = int.Parse(cbYears.SelectedItem.ToString());
             string[] dv = new string[6];
             clbDivisions.SelectedItems.CopyTo(dv, 0);
 
-            c.InsertCourse(name, y, dv);
+            c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -79,8 +81,9 @@ namespace ConsoleApp1
             int y2 = int.Parse(cbyears2.SelectedItem.ToString());
             string[] dv2 = new string[6];
             clbDivisions2.SelectedItems.CopyTo(dv2, 0);
-
-            c.InsertCourse(name, y1, dv1, y2, dv2);
+            string codeArabic = tbCourseCodeArabic.Text;
+            string codeEnglish = tbCourseCodeEnglish.Text;
+            c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
         }
 
         private void chbLab_CheckedChanged(object sender, EventArgs e)
@@ -155,6 +158,21 @@ namespace ConsoleApp1
         }
 
         private void tbName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbClassName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

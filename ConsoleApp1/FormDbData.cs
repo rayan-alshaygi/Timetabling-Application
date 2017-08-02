@@ -140,7 +140,7 @@ namespace ConsoleApp1
             }
             insertIntoCourseCurriculums(coid, couCurIds);
         }
-        public void InsertCourse(string name, int y, string[] dv)
+        public void InsertCourse(string name, string codeArabic, string codeEnglish, int y, string[] dv)
         {
             int ns = 0;
             foreach (string x in dv)
@@ -150,7 +150,7 @@ namespace ConsoleApp1
                     ns += getSize(x, y);
                 }
             }
-            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns).ToString());
+            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns, codeArabic, codeEnglish).ToString());
             //calls a method that checks if there exists curriculum with this specification
             //and if not create a new one
             //then it seraches for all curriculum the have those devisions
@@ -197,7 +197,7 @@ namespace ConsoleApp1
             }
             return 0;
         }
-        public void InsertCourse(string name, int y1, string[] dv1, int y2, string[] dv2)
+        public void InsertCourse(string name, string codeArabic, string codeEnglish,int y1, string[] dv1, int y2, string[] dv2)
         {
             int ns = 0;
             foreach (string x in dv1)
@@ -207,7 +207,7 @@ namespace ConsoleApp1
             foreach (string x in dv2)
                 if (x != null)
                     ns += getSize(x, y2);
-            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns).ToString());
+            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns , codeArabic , codeEnglish).ToString());
             //calls a method that checks if there exists  curriculum with this specification
             //and if not create a new one
 
