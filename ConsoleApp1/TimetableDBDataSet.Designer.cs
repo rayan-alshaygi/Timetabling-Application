@@ -667,7 +667,7 @@ namespace ConsoleApp1 {
             base.Tables.Add(this.tableInstructorPreferredTime);
             global::System.Data.ForeignKeyConstraint fkc;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_CurriculumDevisions_IT", new global::System.Data.DataColumn[] {
-                        this.tableCurriculumDevisions.ITColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCurriculumDevisions.curriculumIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableIT.yearColumn});
             this.tableIT.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
@@ -2449,9 +2449,9 @@ namespace ConsoleApp1 {
                 this.columnIT = new global::System.Data.DataColumn("IT", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIT);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnIT}, false));
+                                this.columncurriculumId}, false));
                 this.columncurriculumId.AllowDBNull = false;
-                this.columnIT.Unique = true;
+                this.columncurriculumId.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

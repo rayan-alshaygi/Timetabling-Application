@@ -330,6 +330,7 @@
             this.chbLabInstrucctores.Name = "chbLabInstrucctores";
             this.chbLabInstrucctores.Size = new System.Drawing.Size(138, 34);
             this.chbLabInstrucctores.TabIndex = 28;
+            this.chbLabInstrucctores.SelectedIndexChanged += new System.EventHandler(this.chbLabInstrucctores_SelectedIndexChanged);
             // 
             // chbTutorialInstructors
             // 
@@ -338,6 +339,7 @@
             this.chbTutorialInstructors.Name = "chbTutorialInstructors";
             this.chbTutorialInstructors.Size = new System.Drawing.Size(138, 34);
             this.chbTutorialInstructors.TabIndex = 27;
+            this.chbTutorialInstructors.SelectedIndexChanged += new System.EventHandler(this.chbTutorialInstructors_SelectedIndexChanged);
             // 
             // checkBox3
             // 

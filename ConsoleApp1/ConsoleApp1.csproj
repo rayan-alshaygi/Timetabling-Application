@@ -115,8 +115,8 @@
     </None>
     <None Include="TimetableDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>TimetableDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>TimetableDBDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="TimetableDBDataSet.xss">
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>

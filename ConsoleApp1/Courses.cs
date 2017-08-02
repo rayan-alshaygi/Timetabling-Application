@@ -88,9 +88,9 @@ namespace ConsoleApp1
             chbLabInstrucctores.Visible = true;
 
             DataTable dt = c.ComboInstructorName();
-            for (int i = 0; i <= dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if (dt.Rows[i].Field<int>(2) != 0)
+                if(dt.Rows[i]["TA"] != DBNull.Value)
                     chbLabInstrucctores.Items.Add(dt.Rows[i].Field<string>(1));
             }
         }
@@ -101,9 +101,9 @@ namespace ConsoleApp1
             DataTable dt = c.ComboInstructorName();
             try
             {
-                for (int i = 0; i <= dt.Rows.Count; i++)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    if (dt.Rows[i].Field<int>(2) != 0)
+                    if (dt.Rows[i]["TA"] != DBNull.Value)
                         chbTutorialInstructors.Items.Add(dt.Rows[i].Field<string>(1));
                 }
             }
@@ -124,6 +124,16 @@ namespace ConsoleApp1
         }
 
         private void cbyears2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chbLabInstrucctores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chbTutorialInstructors_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
