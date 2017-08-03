@@ -66,7 +66,7 @@ namespace ConsoleApp1
                 if (dv[i] != null)
                 {
                     expression += dv[i] + " = " + y + " and ";
-                    for (int j = 0; j <= 5; j++)
+                    for (int j = 0; j < dv.Count(); j++)
                         if (divisionColumns[j] == dv[i])
                             divisionColumns = divisionColumns.Where(val => val != dv[i]).ToArray();
                     switch (dv[i].ToLower())
@@ -141,7 +141,7 @@ namespace ConsoleApp1
             }
             insertIntoCourseCurriculums(coid, couCurIds);
         }
-        public void InsertCourse(string name, string codeArabic, string codeEnglish, int y, string[] dv)
+        public int InsertCourse(string name, string codeArabic, string codeEnglish, int y, string[] dv)
         {
             int ns = 0;
             foreach (string x in dv)
@@ -162,6 +162,7 @@ namespace ConsoleApp1
             //then inserts them into the courseCurriculum Table
 
             Curriculmcourse(currentcoid, dv, y, ns);
+            return currentcoid;
         }
         public int getSize(String dev, int y)
         {
@@ -176,12 +177,12 @@ namespace ConsoleApp1
                 case "math":
                     {
                         ns = m.GetSize(y);
-                        return Int32.Parse(ns.Columns[0].ToString());
+                        return Int32.Parse(ns.Rows[0]["size"].ToString());
                     }
                 case "mathcs":
                     {
                         ns = mc.GetSize(y);
-                        return Int32.Parse(ns.Columns[0].ToString());
+                        return Int32.Parse(ns.Rows[0]["size"].ToString());
                     }
                 case "it":
                     {
@@ -191,18 +192,18 @@ namespace ConsoleApp1
                 case "stat":
                     {
                         ns = s.GetSize(y);
-                        return Int32.Parse(ns.Columns[0].ToString());
+                        return Int32.Parse(ns.Rows[0]["size"].ToString());
                     }
 
                 case "statcs":
                     {
                         ns = sc.GetSize(y);
-                        return Int32.Parse(ns.Columns[0].ToString());
+                        return Int32.Parse(ns.Rows[0]["size"].ToString());
                     }
             }
             return 0;
         }
-        public void InsertCourse(string name, string codeArabic, string codeEnglish,int y1, string[] dv1, int y2, string[] dv2)
+        public int InsertCourse(string name, string codeArabic, string codeEnglish,int y1, string[] dv1, int y2, string[] dv2)
         {
             int ns = 0;
             foreach (string x in dv1)
@@ -228,6 +229,7 @@ namespace ConsoleApp1
             Curriculmcourse(currentcoid, dv1, y1, dv2, y2, ns);
             //then it seraches for all curriculum the have those devisions
             //then inserts them into the courseCurriculum Table
+            return currentcoid;
 
         }
         public void Curriculmcourse(int coid, string[] dv1, int y1, string[] dv2, int y2, int ns)
@@ -475,12 +477,10 @@ namespace ConsoleApp1
             insertIntoCourseCurriculums(coid, couCurIds);
         }
 
-        public void InsertCourseClass(string name, int duration, bool lab, String Instructor, String Course)
+        public void InsertCourseClass(string name, int duration, bool lab,bool tut, String Instructor, int CourseId)
         {
             int instructorId = getInstructorId(Instructor);
-            DataTable x = coursesTA.GetId(Course);
-            int cid = Int32.Parse(x.Rows[0]["Id"].ToString());
-            ccTA.InsertQuery(name, duration, lab, instructorId, cid);
+            ccTA.InsertQuery(name, duration, lab, instructorId, CourseId);
         }
         public DataTable combolab()
         {

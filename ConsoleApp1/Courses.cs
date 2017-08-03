@@ -17,6 +17,7 @@ namespace ConsoleApp1
             InitializeComponent();
         }
         FormDbData c = new FormDbData();
+        int cid;
         private void button1_Click(object sender, EventArgs e)
         {
             if (cbNumberOfLevels.SelectedItem.ToString() == "1")
@@ -69,7 +70,7 @@ namespace ConsoleApp1
             string[] dv = new string[6];
             clbDivisions.SelectedItems.CopyTo(dv, 0);
 
-            c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
+            cid = c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -83,7 +84,7 @@ namespace ConsoleApp1
             clbDivisions2.SelectedItems.CopyTo(dv2, 0);
             string codeArabic = tbCourseCodeArabic.Text;
             string codeEnglish = tbCourseCodeEnglish.Text;
-            c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
+           cid = c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
         }
 
         private void chbLab_CheckedChanged(object sender, EventArgs e)
@@ -117,22 +118,25 @@ namespace ConsoleApp1
         private void btAddCourseAS_Click(object sender, EventArgs e)
         {
             int duration = int.Parse(tbClassDuration.Text);
-            string classname ="Lecture"+ tbName.Text;
+            string classname ="محاضرة "+ tbName.Text;
             bool lab = false;
-            string coursename = tbName.Text;
+            bool tut = false;
             string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
-            c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+            c.InsertCourseClass(classname, duration, lab,tut, instructor, cid);
             if (checkBox3.Checked == true)
             {
-                classname = "Tutorial" + tbName.Text;
-                c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+                tut = true;
+                classname = "تمارين " + tbName.Text;
+                c.InsertCourseClass(classname, duration, lab,tut, instructor, cid);
+                tut = false;
             }
                 
             if (chbLab.Checked == true)
             {
                 lab = true;
                 classname = "Lab" + tbName.Text;
-                c.InsertCourseClass(classname, duration, lab, instructor, coursename);
+                c.InsertCourseClass(classname, duration, lab, tut, instructor, cid);
+                lab = false;
             }
                 
         }

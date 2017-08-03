@@ -989,6 +989,8 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnpreferredRoom;
             
+            private global::System.Data.DataColumn columnTut;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public CourseClassDataTable() {
@@ -1088,6 +1090,14 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TutColumn {
+                get {
+                    return this.columnTut;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1123,7 +1133,7 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CourseClassRow AddCourseClassRow(int Id, string name, int duration, bool lab, InstructorsRow parentInstructorsRowByFK_CourseClass_ToTableInstructor, CoursesRow parentCoursesRowByFK_CourseClass_ToTableCourses, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRooms, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRoomsP) {
+            public CourseClassRow AddCourseClassRow(int Id, string name, int duration, bool lab, InstructorsRow parentInstructorsRowByFK_CourseClass_ToTableInstructor, CoursesRow parentCoursesRowByFK_CourseClass_ToTableCourses, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRooms, RoomsRow parentRoomsRowByFK_CourseClass_ToTableRoomsP, bool Tut) {
                 CourseClassRow rowCourseClassRow = ((CourseClassRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -1133,7 +1143,8 @@ namespace ConsoleApp1 {
                         null,
                         null,
                         null,
-                        null};
+                        null,
+                        Tut};
                 if ((parentInstructorsRowByFK_CourseClass_ToTableInstructor != null)) {
                     columnValuesArray[4] = parentInstructorsRowByFK_CourseClass_ToTableInstructor[0];
                 }
@@ -1183,6 +1194,7 @@ namespace ConsoleApp1 {
                 this.columncourseId = base.Columns["courseId"];
                 this.columnroomId = base.Columns["roomId"];
                 this.columnpreferredRoom = base.Columns["preferredRoom"];
+                this.columnTut = base.Columns["Tut"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1204,6 +1216,8 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnroomId);
                 this.columnpreferredRoom = new global::System.Data.DataColumn("preferredRoom", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpreferredRoom);
+                this.columnTut = new global::System.Data.DataColumn("Tut", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTut);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AllowDBNull = false;
@@ -5990,6 +6004,22 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Tut {
+                get {
+                    try {
+                        return ((bool)(this[this.tableCourseClass.TutColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Tut\' in table \'CourseClass\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCourseClass.TutColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RoomsRow RoomsRowByFK_CourseClass_ToTableRoomsP {
                 get {
                     return ((RoomsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CourseClass_ToTableRoomsP"])));
@@ -6066,6 +6096,18 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetpreferredRoomNull() {
                 this[this.tableCourseClass.preferredRoomColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTutNull() {
+                return this.IsNull(this.tableCourseClass.TutColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTutNull() {
+                this[this.tableCourseClass.TutColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8371,10 +8413,11 @@ namespace ConsoleApp1.TimetableDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("courseId", "courseId");
             tableMapping.ColumnMappings.Add("roomId", "roomId");
             tableMapping.ColumnMappings.Add("preferredRoom", "preferredRoom");
+            tableMapping.ColumnMappings.Add("Tut", "Tut");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [CourseClass] WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [CourseClass] WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)) AND ((@IsNull_Tut = 1 AND [Tut] IS NULL) OR ([Tut] = @Original_Tut)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -8386,10 +8429,12 @@ namespace ConsoleApp1.TimetableDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Tut", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tut", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [CourseClass] ([name], [duration], [lab], [instructorId], [courseId], [roomId], [preferredRoom]) VALUES (@name, @duration, @lab, @instructorId, @courseId, @roomId, @preferredRoom);
-SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FROM CourseClass WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [CourseClass] ([name], [duration], [lab], [instructorId], [courseId], [roomId], [preferredRoom], [Tut]) VALUES (@name, @duration, @lab, @instructorId, @courseId, @roomId, @preferredRoom, @Tut);
+SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom, Tut FROM CourseClass WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8398,10 +8443,11 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tut", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [CourseClass] SET [name] = @name, [duration] = @duration, [lab] = @lab, [instructorId] = @instructorId, [courseId] = @courseId, [roomId] = @roomId, [preferredRoom] = @preferredRoom WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)));
-SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FROM CourseClass WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [CourseClass] SET [name] = @name, [duration] = @duration, [lab] = @lab, [instructorId] = @instructorId, [courseId] = @courseId, [roomId] = @roomId, [preferredRoom] = @preferredRoom, [Tut] = @Tut WHERE (([Id] = @Original_Id) AND ([duration] = @Original_duration) AND ((@IsNull_lab = 1 AND [lab] IS NULL) OR ([lab] = @Original_lab)) AND ([instructorId] = @Original_instructorId) AND ([courseId] = @Original_courseId) AND ((@IsNull_roomId = 1 AND [roomId] IS NULL) OR ([roomId] = @Original_roomId)) AND ((@IsNull_preferredRoom = 1 AND [preferredRoom] IS NULL) OR ([preferredRoom] = @Original_preferredRoom)) AND ((@IsNull_Tut = 1 AND [Tut] IS NULL) OR ([Tut] = @Original_Tut)));
+SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom, Tut FROM CourseClass WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8410,6 +8456,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Tut", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_duration", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "duration", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_lab", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lab", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -8420,6 +8467,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_preferredRoom", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "preferredRoom", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Tut", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Tut", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Tut", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -8437,7 +8486,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        Id, name, duration, lab, instructorId, courseId, roomId, preferredR" +
-                "oom\r\nFROM            CourseClass";
+                "oom, Tut\r\nFROM            CourseClass";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
@@ -8445,8 +8494,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT        Id, name, duration, lab, instructorId, courseId, roomId, preferredR" +
-                "oom\r\nFROM            CourseClass\r\nwhere id = @id";
+            this._commandCollection[2].CommandText = "SELECT Id, Tut, courseId, duration, instructorId, lab, name, preferredRoom, roomI" +
+                "d FROM CourseClass WHERE (Id = @id)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
@@ -8457,8 +8506,8 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Id, courseId, duration, instructorId, lab, name, preferredRoom, roomId FRO" +
-                "M CourseClass";
+            this._commandCollection[4].CommandText = "SELECT Id, Tut, courseId, duration, instructorId, lab, name, preferredRoom, roomI" +
+                "d FROM CourseClass";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
@@ -8588,7 +8637,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom) {
+        public virtual int Delete(int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom, global::System.Nullable<bool> Original_Tut) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_duration));
             if ((Original_lab.HasValue == true)) {
@@ -8617,6 +8666,14 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
                 this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
+            if ((Original_Tut.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((bool)(Original_Tut.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8637,7 +8694,7 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom) {
+        public virtual int Insert(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom, global::System.Nullable<bool> Tut) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
@@ -8665,6 +8722,12 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
+            if ((Tut.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((bool)(Tut.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8685,7 +8748,24 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom, int Id) {
+        public virtual int Update(
+                    string name, 
+                    int duration, 
+                    global::System.Nullable<bool> lab, 
+                    int instructorId, 
+                    int courseId, 
+                    global::System.Nullable<int> roomId, 
+                    global::System.Nullable<int> preferredRoom, 
+                    global::System.Nullable<bool> Tut, 
+                    int Original_Id, 
+                    int Original_duration, 
+                    global::System.Nullable<bool> Original_lab, 
+                    int Original_instructorId, 
+                    int Original_courseId, 
+                    global::System.Nullable<int> Original_roomId, 
+                    global::System.Nullable<int> Original_preferredRoom, 
+                    global::System.Nullable<bool> Original_Tut, 
+                    int Id) {
             if ((name == null)) {
                 throw new global::System.ArgumentNullException("name");
             }
@@ -8713,35 +8793,49 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_duration));
+            if ((Tut.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((bool)(Tut.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_duration));
             if ((Original_lab.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Original_lab.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((bool)(Original_lab.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_instructorId));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_courseId));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_instructorId));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_courseId));
             if ((Original_roomId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_roomId.Value));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_roomId.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
             if ((Original_preferredRoom.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_preferredRoom.Value));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_preferredRoom.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
+            if ((Original_Tut.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Original_Tut.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8762,8 +8856,24 @@ SELECT Id, name, duration, lab, instructorId, courseId, roomId, preferredRoom FR
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, int duration, global::System.Nullable<bool> lab, int instructorId, int courseId, global::System.Nullable<int> roomId, global::System.Nullable<int> preferredRoom, int Original_Id, int Original_duration, global::System.Nullable<bool> Original_lab, int Original_instructorId, int Original_courseId, global::System.Nullable<int> Original_roomId, global::System.Nullable<int> Original_preferredRoom) {
-            return this.Update(name, duration, lab, instructorId, courseId, roomId, preferredRoom, Original_Id, Original_duration, Original_lab, Original_instructorId, Original_courseId, Original_roomId, Original_preferredRoom, Original_Id);
+        public virtual int Update(
+                    string name, 
+                    int duration, 
+                    global::System.Nullable<bool> lab, 
+                    int instructorId, 
+                    int courseId, 
+                    global::System.Nullable<int> roomId, 
+                    global::System.Nullable<int> preferredRoom, 
+                    global::System.Nullable<bool> Tut, 
+                    int Original_Id, 
+                    int Original_duration, 
+                    global::System.Nullable<bool> Original_lab, 
+                    int Original_instructorId, 
+                    int Original_courseId, 
+                    global::System.Nullable<int> Original_roomId, 
+                    global::System.Nullable<int> Original_preferredRoom, 
+                    global::System.Nullable<bool> Original_Tut) {
+            return this.Update(name, duration, lab, instructorId, courseId, roomId, preferredRoom, Tut, Original_Id, Original_duration, Original_lab, Original_instructorId, Original_courseId, Original_roomId, Original_preferredRoom, Original_Tut, Original_Id);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
