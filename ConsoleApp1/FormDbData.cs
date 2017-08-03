@@ -17,6 +17,7 @@ namespace ConsoleApp1
         RoomsTableAdapter roomTA = new RoomsTableAdapter();
         CourseClassTableAdapter ccTA = new CourseClassTableAdapter();
         CoursesTableAdapter coursesTA = new CoursesTableAdapter();
+        CoursesYDTableAdapter cYD = new CoursesYDTableAdapter();
         CurriculumDevisionsTableAdapter cdTA = new CurriculumDevisionsTableAdapter();
         CourseCurriculumsTableAdapter coursecurTA = new CourseCurriculumsTableAdapter();
         CurriculumDevisionsTableAdapter curdvTA = new CurriculumDevisionsTableAdapter();
@@ -151,6 +152,10 @@ namespace ConsoleApp1
                 }
             }
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns, codeArabic, codeEnglish).ToString());
+            string year = y.ToString();
+            foreach (string z in dv)
+                if (z != null)
+                    cYD.Insert(currentcoid, year, z);
             //calls a method that checks if there exists curriculum with this specification
             //and if not create a new one
             //then it seraches for all curriculum the have those devisions
@@ -208,6 +213,14 @@ namespace ConsoleApp1
                 if (x != null)
                     ns += getSize(x, y2);
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns , codeArabic , codeEnglish).ToString());
+            string year = y1.ToString();
+            foreach (string z in dv1)
+                if (z != null)
+                    cYD.Insert(currentcoid, year, z);
+            string year2 = y2.ToString();
+            foreach (string z in dv2)
+                if (z != null)
+                    cYD.Insert(currentcoid, year2, z);
             //calls a method that checks if there exists  curriculum with this specification
             //and if not create a new one
 
