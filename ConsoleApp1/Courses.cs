@@ -127,7 +127,8 @@ namespace ConsoleApp1
             {
                 tut = true;
                 classname = "تمارين " + tbName.Text;
-                c.InsertCourseClass(classname, duration, lab,tut, instructor, cid);
+                int d = 2;
+                c.InsertCourseClass(classname, d, lab,tut, instructor, cid);
                 tut = false;
             }
                 
@@ -135,7 +136,8 @@ namespace ConsoleApp1
             {
                 lab = true;
                 classname = "Lab" + tbName.Text;
-                c.InsertCourseClass(classname, duration, lab, tut, instructor, cid);
+                int d = 2;
+                c.InsertCourseClass(classname, d, lab, tut, instructor, cid);
                 lab = false;
             }
                 
@@ -177,6 +179,11 @@ namespace ConsoleApp1
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbClassDuration_TextChanged(object sender, EventArgs e)
         {
 
         }

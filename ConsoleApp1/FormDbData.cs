@@ -56,6 +56,7 @@ namespace ConsoleApp1
         public void Curriculmcourse(int coid, string[] dv, int y, int ns)
         {
             String[] divisionColumns = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
+            String[] divisionColumn= new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" }; ;
             // st[] to store values for curriculum devisions columns in case the curriculum does not exist
             String[] insDevs = new String[6];
             //int id = -1;
@@ -66,9 +67,9 @@ namespace ConsoleApp1
                 if (dv[i] != null)
                 {
                     expression += dv[i] + " = " + y + " and ";
-                    for (int j = 0; j < dv.Count(); j++)
+                    for (int j = 0; j < divisionColumns.Count(); j++)
                         if (divisionColumns[j] == dv[i])
-                            divisionColumns = divisionColumns.Where(val => val != dv[i]).ToArray();
+                            divisionColumn = divisionColumns.Where(val => val != dv[i]).ToArray();
                     switch (dv[i].ToLower())
                     {
                         case "cs":
@@ -96,10 +97,10 @@ namespace ConsoleApp1
 
 
             }
-            for (int k = 0; k < divisionColumns.Count(); k++)
+            for (int k = 0; k < divisionColumn.Count(); k++)
             {
-                expression += divisionColumns[k] + " is null ";
-                if (k != divisionColumns.Count() - 1)
+                expression += divisionColumn[k] + " is null ";
+                if (k != divisionColumn.Count() - 1)
                     expression += " and ";
 
             }

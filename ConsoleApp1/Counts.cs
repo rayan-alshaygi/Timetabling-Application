@@ -17,6 +17,7 @@ namespace ConsoleApp1
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
         CoursesTableAdapter courses = new CoursesTableAdapter();
         CourseCurriculumsTableAdapter courseCur = new CourseCurriculumsTableAdapter();
+        CoursesYDTableAdapter courseYD = new CoursesYDTableAdapter();
     
 
         // Global instance
@@ -34,7 +35,6 @@ namespace ConsoleApp1
 
         public int GetCourseStudents(int courseId)   {
             DataTable dt =courses.GetSizeById(courseId);
-            Console.WriteLine(Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString()));
             return Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString());
         }
 
@@ -77,7 +77,7 @@ namespace ConsoleApp1
 
         public DataTable GetClassYandD(int cid)
         {
-            return cc.GetYDByCourseId(cid);
+            return courseYD.GetYDById(cid);// .GetYDByCourseId(cid);
         }
         // Returns pointer to room with specified ID
         // If there is no room with such ID method returns NULL

@@ -327,6 +327,7 @@
             this.tbClassDuration.Name = "tbClassDuration";
             this.tbClassDuration.Size = new System.Drawing.Size(106, 20);
             this.tbClassDuration.TabIndex = 29;
+            this.tbClassDuration.TextChanged += new System.EventHandler(this.tbClassDuration_TextChanged);
             // 
             // chbLabInstrucctores
             // 

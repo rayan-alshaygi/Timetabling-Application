@@ -22,15 +22,21 @@ namespace ConsoleApp1
             int numTimeslots = _slots.Count;
             int rc;
             int rt;
+            bool Empty;
+            int choosenClassId;
+            int randomClassId;
             for (int i = 0; i < 200; i++)
             {
 
                 rc = RandomNumbers.NextNumber() % numClasses + 1;
+                randomClassId = Int32.Parse(c.Rows[rc]["Id"].ToString());
                 do
                 {
                     rt = RandomNumbers.NextNumber() % numTimeslots;
+                    Empty = _classes.Equals(null);
+                    choosenClassId = Int32.Parse(_classes.ElementAt(rt).Key["id"].ToString());
                     //where the slot choosen is npt the one currently used by the class
-                } while (Int32.Parse(_classes.ElementAt(rt).Key["id"].ToString()) != rc);
+                } while (!Empty  && choosenClassId != rc);
                 change.CalculateFitness();
                 if (change.GetFitness() > s.GetFitness())
                     s = change;
