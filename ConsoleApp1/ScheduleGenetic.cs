@@ -317,7 +317,7 @@ namespace ConsoleApp1
             }
 
             n.CalculateFitness();
-            //HillClimbing.solve(this);
+           // HillClimbing.solve(this);
             //HillClimbing.solve(parent2);
             // return smart pointer to offspring
             return n;
@@ -1050,7 +1050,7 @@ namespace ConsoleApp1
                 ScheduleGenetic best = GetBestChromosome();
                 Console.WriteLine("check if best found");
                 // work algorithm has reached criteria?
-                if (best.GetFitness() >= 1)
+                if (best.GetFitness() >= 0)
                 {
                     Counts counts = new Counts();
                     ScheduleTableAdapter sched = new ScheduleTableAdapter();
@@ -1060,15 +1060,14 @@ namespace ConsoleApp1
                     //{
                     foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
                         // coordinate of time-space slot
-                        int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+                        int nr = Counts.GetInstance().GetNumberOfRooms();
                         int daySize = DefineConstants.DAY_HOURS * nr;
                         int p = x.Value;
                         int day = p / daySize;
                         int time = p % daySize;
                         int room = time / DefineConstants.DAY_HOURS;
                         time = time % DefineConstants.DAY_HOURS;
-
-                        
+                        //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                         int dur = Int32.Parse(x.Key["duration"].ToString());
                         int classId = Int32.Parse(x.Key["id"].ToString());
                         int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
@@ -1208,7 +1207,11 @@ namespace ConsoleApp1
                 // increase current size if it has not reached the limit yet
                 if (_currentBestSize < (int)_bestChromosomes.Count())
                 _currentBestSize++;
-            Console.WriteLine(_chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness().ToString());
+            Console.WriteLine("0:"+ _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
+            Console.WriteLine("1:" + _chromosomes[_bestChromosomes[1]].GetFitness().ToString());
+            Console.WriteLine("2:" + _chromosomes[_bestChromosomes[2]].GetFitness().ToString());
+            Console.WriteLine("3:" + _chromosomes[_bestChromosomes[3]].GetFitness().ToString());
+            Console.WriteLine("4:" + _chromosomes[_bestChromosomes[4]].GetFitness().ToString());
             ////if start up population best is empty
             //if (_currentBestSize == 0)
             //{
