@@ -317,8 +317,8 @@ namespace ConsoleApp1
             }
 
             n.CalculateFitness();
-           // HillClimbing.solve(this);
-            //HillClimbing.solve(parent2);
+            HillClimbing.solve(this);
+            HillClimbing.solve(parent2);
             // return smart pointer to offspring
             return n;
         }
