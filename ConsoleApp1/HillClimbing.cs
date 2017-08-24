@@ -25,7 +25,7 @@ namespace ConsoleApp1
             bool notEmpty;
             int choosenClassId;
             int randomClassId;
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 10; i++)
             {
 
                 rc = RandomNumbers.NextNumber() % numClasses;
