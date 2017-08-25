@@ -317,9 +317,10 @@ namespace ConsoleApp1
             }
 
             n.CalculateFitness();
-            //HillClimbing.solve(this);
-            //HillClimbing.solve(parent2);
-            // return smart pointer to offspring
+            HillClimbing.solve(n);
+            SimulatedAnnealing.StartAnnealing(n);
+
+            // return offspring
             return n;
         }
 
