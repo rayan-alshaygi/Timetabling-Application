@@ -34,18 +34,12 @@
             this.btMakeSchedule = new System.Windows.Forms.Button();
             this.btSeeSchedule = new System.Windows.Forms.Button();
             this.btLogout = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
+            this.btAddRoom = new System.Windows.Forms.Button();
             this.gbAddTeacher = new System.Windows.Forms.GroupBox();
+            this.chBIsTA = new System.Windows.Forms.CheckBox();
             this.tbInstructorName = new System.Windows.Forms.TextBox();
             this.lblInstructorName = new System.Windows.Forms.Label();
             this.btInsertTeacher = new System.Windows.Forms.Button();
-            this.gbAddCourse = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lbldivision = new System.Windows.Forms.Label();
-            this.cbdivision = new System.Windows.Forms.ComboBox();
-            this.tbCourseName = new System.Windows.Forms.TextBox();
-            this.btAddCourseAC = new System.Windows.Forms.Button();
-            this.lblCourseName = new System.Windows.Forms.Label();
             this.gbAddStudent = new System.Windows.Forms.GroupBox();
             this.CBSelectYear = new System.Windows.Forms.ComboBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -54,6 +48,8 @@
             this.lblDivisionAS = new System.Windows.Forms.Label();
             this.CBSelectDivision = new System.Windows.Forms.ComboBox();
             this.gbMakeSchedule = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.generateSchedule = new System.Windows.Forms.Button();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
@@ -67,6 +63,8 @@
             this.btAddDivisionSize = new System.Windows.Forms.Button();
             this.btAddCurriculum = new System.Windows.Forms.Button();
             this.gbAddDivisionSize = new System.Windows.Forms.GroupBox();
+            this.lblPRooms = new System.Windows.Forms.Label();
+            this.cbRooms = new System.Windows.Forms.ComboBox();
             this.btAddDivisioSizeAD = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbDivisionSize = new System.Windows.Forms.TextBox();
@@ -82,11 +80,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.generateSchedule = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.gbAddRoom = new System.Windows.Forms.GroupBox();
+            this.chbLab = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbSeats = new System.Windows.Forms.TextBox();
+            this.btAddRoomAS = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbRoomName = new System.Windows.Forms.TextBox();
             this.gbAddTeacher.SuspendLayout();
-            this.gbAddCourse.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.gbAddStudent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.gbMakeSchedule.SuspendLayout();
@@ -95,6 +96,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.gbAddDivisionSize.SuspendLayout();
             this.gbAddCurriculm.SuspendLayout();
+            this.gbAddRoom.SuspendLayout();
             this.SuspendLayout();
             // 
             // btAddTeacher
@@ -129,7 +131,7 @@
             // 
             // btMakeSchedule
             // 
-            this.btMakeSchedule.Location = new System.Drawing.Point(24, 300);
+            this.btMakeSchedule.Location = new System.Drawing.Point(24, 344);
             this.btMakeSchedule.Name = "btMakeSchedule";
             this.btMakeSchedule.Size = new System.Drawing.Size(177, 39);
             this.btMakeSchedule.TabIndex = 3;
@@ -139,7 +141,7 @@
             // 
             // btSeeSchedule
             // 
-            this.btSeeSchedule.Location = new System.Drawing.Point(24, 344);
+            this.btSeeSchedule.Location = new System.Drawing.Point(24, 389);
             this.btSeeSchedule.Name = "btSeeSchedule";
             this.btSeeSchedule.Size = new System.Drawing.Size(177, 39);
             this.btSeeSchedule.TabIndex = 4;
@@ -149,41 +151,52 @@
             // 
             // btLogout
             // 
-            this.btLogout.Location = new System.Drawing.Point(24, 389);
+            this.btLogout.Location = new System.Drawing.Point(24, 434);
             this.btLogout.Name = "btLogout";
             this.btLogout.Size = new System.Drawing.Size(177, 39);
             this.btLogout.TabIndex = 5;
             this.btLogout.Text = "Logout";
             this.btLogout.UseVisualStyleBackColor = true;
             // 
-            // btExit
+            // btAddRoom
             // 
-            this.btExit.Location = new System.Drawing.Point(24, 434);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(177, 39);
-            this.btExit.TabIndex = 6;
-            this.btExit.Text = "Exit";
-            this.btExit.UseVisualStyleBackColor = true;
+            this.btAddRoom.Location = new System.Drawing.Point(24, 300);
+            this.btAddRoom.Name = "btAddRoom";
+            this.btAddRoom.Size = new System.Drawing.Size(177, 39);
+            this.btAddRoom.TabIndex = 6;
+            this.btAddRoom.Text = "Add Room";
+            this.btAddRoom.UseVisualStyleBackColor = true;
+            this.btAddRoom.Click += new System.EventHandler(this.btAddRoom_Click);
             // 
             // gbAddTeacher
             // 
+            this.gbAddTeacher.Controls.Add(this.chBIsTA);
             this.gbAddTeacher.Controls.Add(this.tbInstructorName);
             this.gbAddTeacher.Controls.Add(this.lblInstructorName);
             this.gbAddTeacher.Controls.Add(this.btInsertTeacher);
-            this.gbAddTeacher.Location = new System.Drawing.Point(207, 18);
+            this.gbAddTeacher.Location = new System.Drawing.Point(443, 19);
             this.gbAddTeacher.Name = "gbAddTeacher";
-            this.gbAddTeacher.Size = new System.Drawing.Size(80, 64);
+            this.gbAddTeacher.Size = new System.Drawing.Size(101, 46);
             this.gbAddTeacher.TabIndex = 7;
             this.gbAddTeacher.TabStop = false;
             this.gbAddTeacher.Text = "Add Teacher";
             this.gbAddTeacher.Visible = false;
-            this.gbAddTeacher.VisibleChanged += new System.EventHandler(this.gbAddTeacher_VisibleChanged);
+            // 
+            // chBIsTA
+            // 
+            this.chBIsTA.AutoSize = true;
+            this.chBIsTA.Location = new System.Drawing.Point(142, 88);
+            this.chBIsTA.Name = "chBIsTA";
+            this.chBIsTA.Size = new System.Drawing.Size(40, 17);
+            this.chBIsTA.TabIndex = 17;
+            this.chBIsTA.Text = "TA";
+            this.chBIsTA.UseVisualStyleBackColor = true;
             // 
             // tbInstructorName
             // 
             this.tbInstructorName.BackColor = System.Drawing.Color.White;
             this.tbInstructorName.ForeColor = System.Drawing.Color.Black;
-            this.tbInstructorName.Location = new System.Drawing.Point(142, 61);
+            this.tbInstructorName.Location = new System.Drawing.Point(142, 46);
             this.tbInstructorName.Name = "tbInstructorName";
             this.tbInstructorName.Size = new System.Drawing.Size(215, 20);
             this.tbInstructorName.TabIndex = 15;
@@ -192,7 +205,7 @@
             // 
             this.lblInstructorName.AutoSize = true;
             this.lblInstructorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstructorName.Location = new System.Drawing.Point(19, 64);
+            this.lblInstructorName.Location = new System.Drawing.Point(19, 46);
             this.lblInstructorName.Name = "lblInstructorName";
             this.lblInstructorName.Size = new System.Drawing.Size(117, 15);
             this.lblInstructorName.TabIndex = 14;
@@ -210,86 +223,6 @@
             this.btInsertTeacher.UseVisualStyleBackColor = false;
             this.btInsertTeacher.Click += new System.EventHandler(this.btInsertTeacher_Click);
             // 
-            // gbAddCourse
-            // 
-            this.gbAddCourse.Controls.Add(this.dataGridView1);
-            this.gbAddCourse.Controls.Add(this.lbldivision);
-            this.gbAddCourse.Controls.Add(this.cbdivision);
-            this.gbAddCourse.Controls.Add(this.tbCourseName);
-            this.gbAddCourse.Controls.Add(this.btAddCourseAC);
-            this.gbAddCourse.Controls.Add(this.lblCourseName);
-            this.gbAddCourse.Location = new System.Drawing.Point(724, 18);
-            this.gbAddCourse.Name = "gbAddCourse";
-            this.gbAddCourse.Size = new System.Drawing.Size(74, 51);
-            this.gbAddCourse.TabIndex = 16;
-            this.gbAddCourse.TabStop = false;
-            this.gbAddCourse.Text = "Add Course";
-            this.gbAddCourse.Visible = false;
-            this.gbAddCourse.Enter += new System.EventHandler(this.gbAddCourse_Enter);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(203, 167);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(29, 16);
-            this.dataGridView1.TabIndex = 16;
-            // 
-            // lbldivision
-            // 
-            this.lbldivision.AutoSize = true;
-            this.lbldivision.Font = new System.Drawing.Font("MS Reference Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldivision.Location = new System.Drawing.Point(30, 92);
-            this.lbldivision.Name = "lbldivision";
-            this.lbldivision.Size = new System.Drawing.Size(71, 19);
-            this.lbldivision.TabIndex = 17;
-            this.lbldivision.Text = "division";
-            this.lbldivision.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // cbdivision
-            // 
-            this.cbdivision.AllowDrop = true;
-            this.cbdivision.BackColor = System.Drawing.Color.White;
-            this.cbdivision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbdivision.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbdivision.ForeColor = System.Drawing.Color.Black;
-            this.cbdivision.FormattingEnabled = true;
-            this.cbdivision.Location = new System.Drawing.Point(107, 90);
-            this.cbdivision.Name = "cbdivision";
-            this.cbdivision.Size = new System.Drawing.Size(217, 21);
-            this.cbdivision.TabIndex = 16;
-            // 
-            // tbCourseName
-            // 
-            this.tbCourseName.BackColor = System.Drawing.Color.White;
-            this.tbCourseName.ForeColor = System.Drawing.Color.Black;
-            this.tbCourseName.Location = new System.Drawing.Point(121, 48);
-            this.tbCourseName.Name = "tbCourseName";
-            this.tbCourseName.Size = new System.Drawing.Size(173, 20);
-            this.tbCourseName.TabIndex = 15;
-            // 
-            // btAddCourseAC
-            // 
-            this.btAddCourseAC.BackColor = System.Drawing.Color.White;
-            this.btAddCourseAC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btAddCourseAC.Location = new System.Drawing.Point(356, 64);
-            this.btAddCourseAC.Name = "btAddCourseAC";
-            this.btAddCourseAC.Size = new System.Drawing.Size(87, 43);
-            this.btAddCourseAC.TabIndex = 12;
-            this.btAddCourseAC.Text = "Add Course";
-            this.btAddCourseAC.UseVisualStyleBackColor = false;
-            this.btAddCourseAC.Click += new System.EventHandler(this.btAddCourseAC_Click);
-            // 
-            // lblCourseName
-            // 
-            this.lblCourseName.AutoSize = true;
-            this.lblCourseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCourseName.Location = new System.Drawing.Point(16, 50);
-            this.lblCourseName.Name = "lblCourseName";
-            this.lblCourseName.Size = new System.Drawing.Size(94, 15);
-            this.lblCourseName.TabIndex = 13;
-            this.lblCourseName.Text = "Course Name";
-            // 
             // gbAddStudent
             // 
             this.gbAddStudent.Controls.Add(this.CBSelectYear);
@@ -298,14 +231,13 @@
             this.gbAddStudent.Controls.Add(this.lblSelectYearAs);
             this.gbAddStudent.Controls.Add(this.lblDivisionAS);
             this.gbAddStudent.Controls.Add(this.CBSelectDivision);
-            this.gbAddStudent.Location = new System.Drawing.Point(833, 18);
+            this.gbAddStudent.Location = new System.Drawing.Point(602, 26);
             this.gbAddStudent.Name = "gbAddStudent";
-            this.gbAddStudent.Size = new System.Drawing.Size(72, 28);
+            this.gbAddStudent.Size = new System.Drawing.Size(77, 39);
             this.gbAddStudent.TabIndex = 17;
             this.gbAddStudent.TabStop = false;
             this.gbAddStudent.Text = "Add Student";
             this.gbAddStudent.Visible = false;
-            this.gbAddStudent.Enter += new System.EventHandler(this.gbAddStudent_Enter);
             // 
             // CBSelectYear
             // 
@@ -338,7 +270,6 @@
             this.btAddStudentAS.TabIndex = 12;
             this.btAddStudentAS.Text = "Add Student";
             this.btAddStudentAS.UseVisualStyleBackColor = false;
-            this.btAddStudentAS.Click += new System.EventHandler(this.btAddStudentAS_Click);
             // 
             // lblSelectYearAs
             // 
@@ -385,13 +316,30 @@
             this.gbMakeSchedule.Controls.Add(this.btMakeScheduleMS);
             this.gbMakeSchedule.Controls.Add(this.lblCourseNameMS);
             this.gbMakeSchedule.Controls.Add(this.cbCourseName);
-            this.gbMakeSchedule.Location = new System.Drawing.Point(334, 163);
+            this.gbMakeSchedule.Location = new System.Drawing.Point(346, 19);
             this.gbMakeSchedule.Name = "gbMakeSchedule";
-            this.gbMakeSchedule.Size = new System.Drawing.Size(536, 231);
+            this.gbMakeSchedule.Size = new System.Drawing.Size(70, 50);
             this.gbMakeSchedule.TabIndex = 17;
             this.gbMakeSchedule.TabStop = false;
             this.gbMakeSchedule.Text = "Make Schedule";
             this.gbMakeSchedule.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(204, 26);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 25;
+            // 
+            // generateSchedule
+            // 
+            this.generateSchedule.Location = new System.Drawing.Point(97, 24);
+            this.generateSchedule.Name = "generateSchedule";
+            this.generateSchedule.Size = new System.Drawing.Size(75, 35);
+            this.generateSchedule.TabIndex = 24;
+            this.generateSchedule.Text = "Generate Schedule";
+            this.generateSchedule.UseVisualStyleBackColor = true;
+            this.generateSchedule.Click += new System.EventHandler(this.generateSchedule_Click);
             // 
             // dataGridView5
             // 
@@ -516,6 +464,8 @@
             // 
             // gbAddDivisionSize
             // 
+            this.gbAddDivisionSize.Controls.Add(this.lblPRooms);
+            this.gbAddDivisionSize.Controls.Add(this.cbRooms);
             this.gbAddDivisionSize.Controls.Add(this.btAddDivisioSizeAD);
             this.gbAddDivisionSize.Controls.Add(this.label3);
             this.gbAddDivisionSize.Controls.Add(this.tbDivisionSize);
@@ -524,16 +474,33 @@
             this.gbAddDivisionSize.Controls.Add(this.label1);
             this.gbAddDivisionSize.Controls.Add(this.cbDivision1);
             this.gbAddDivisionSize.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.gbAddDivisionSize.Location = new System.Drawing.Point(546, 24);
+            this.gbAddDivisionSize.Location = new System.Drawing.Point(439, 184);
             this.gbAddDivisionSize.Name = "gbAddDivisionSize";
-            this.gbAddDivisionSize.Size = new System.Drawing.Size(97, 45);
+            this.gbAddDivisionSize.Size = new System.Drawing.Size(422, 255);
             this.gbAddDivisionSize.TabIndex = 22;
             this.gbAddDivisionSize.TabStop = false;
             this.gbAddDivisionSize.Text = "add division size";
             // 
+            // lblPRooms
+            // 
+            this.lblPRooms.AutoSize = true;
+            this.lblPRooms.Location = new System.Drawing.Point(6, 200);
+            this.lblPRooms.Name = "lblPRooms";
+            this.lblPRooms.Size = new System.Drawing.Size(166, 23);
+            this.lblPRooms.TabIndex = 9;
+            this.lblPRooms.Text = "Prefered lab Room";
+            // 
+            // cbRooms
+            // 
+            this.cbRooms.FormattingEnabled = true;
+            this.cbRooms.Location = new System.Drawing.Point(181, 192);
+            this.cbRooms.Name = "cbRooms";
+            this.cbRooms.Size = new System.Drawing.Size(121, 31);
+            this.cbRooms.TabIndex = 10;
+            // 
             // btAddDivisioSizeAD
             // 
-            this.btAddDivisioSizeAD.Location = new System.Drawing.Point(287, 95);
+            this.btAddDivisioSizeAD.Location = new System.Drawing.Point(334, 95);
             this.btAddDivisioSizeAD.Name = "btAddDivisioSizeAD";
             this.btAddDivisioSizeAD.Size = new System.Drawing.Size(75, 41);
             this.btAddDivisioSizeAD.TabIndex = 6;
@@ -553,21 +520,19 @@
             // 
             // tbDivisionSize
             // 
-            this.tbDivisionSize.Location = new System.Drawing.Point(134, 148);
+            this.tbDivisionSize.Location = new System.Drawing.Point(181, 145);
             this.tbDivisionSize.Name = "tbDivisionSize";
             this.tbDivisionSize.Size = new System.Drawing.Size(121, 30);
             this.tbDivisionSize.TabIndex = 4;
-            this.tbDivisionSize.TextChanged += new System.EventHandler(this.tbDivisionSize_TextChanged);
             this.tbDivisionSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDivisionSize_KeyPress);
             // 
             // cbYear1
             // 
             this.cbYear1.FormattingEnabled = true;
-            this.cbYear1.Location = new System.Drawing.Point(134, 97);
+            this.cbYear1.Location = new System.Drawing.Point(181, 101);
             this.cbYear1.Name = "cbYear1";
             this.cbYear1.Size = new System.Drawing.Size(121, 31);
             this.cbYear1.TabIndex = 3;
-            this.cbYear1.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -592,7 +557,7 @@
             // cbDivision1
             // 
             this.cbDivision1.FormattingEnabled = true;
-            this.cbDivision1.Location = new System.Drawing.Point(131, 45);
+            this.cbDivision1.Location = new System.Drawing.Point(178, 43);
             this.cbDivision1.Name = "cbDivision1";
             this.cbDivision1.Size = new System.Drawing.Size(124, 31);
             this.cbDivision1.TabIndex = 0;
@@ -607,13 +572,12 @@
             this.gbAddCurriculm.Controls.Add(this.label6);
             this.gbAddCurriculm.Controls.Add(this.comboBox2);
             this.gbAddCurriculm.Font = new System.Drawing.Font("Tahoma", 14F);
-            this.gbAddCurriculm.Location = new System.Drawing.Point(293, 24);
+            this.gbAddCurriculm.Location = new System.Drawing.Point(262, 19);
             this.gbAddCurriculm.Name = "gbAddCurriculm";
-            this.gbAddCurriculm.Size = new System.Drawing.Size(69, 65);
+            this.gbAddCurriculm.Size = new System.Drawing.Size(62, 45);
             this.gbAddCurriculm.TabIndex = 23;
             this.gbAddCurriculm.TabStop = false;
             this.gbAddCurriculm.Text = "add curriculm";
-            this.gbAddCurriculm.Enter += new System.EventHandler(this.gbAddCurriculm_Enter);
             // 
             // lblCurriculmName
             // 
@@ -677,29 +641,80 @@
             this.comboBox2.Size = new System.Drawing.Size(100, 31);
             this.comboBox2.TabIndex = 0;
             // 
-            // generateSchedule
+            // gbAddRoom
             // 
-            this.generateSchedule.Location = new System.Drawing.Point(97, 24);
-            this.generateSchedule.Name = "generateSchedule";
-            this.generateSchedule.Size = new System.Drawing.Size(75, 35);
-            this.generateSchedule.TabIndex = 24;
-            this.generateSchedule.Text = "Generate Schedule";
-            this.generateSchedule.UseVisualStyleBackColor = true;
-            this.generateSchedule.Click += new System.EventHandler(this.generateSchedule_Click);
+            this.gbAddRoom.Controls.Add(this.chbLab);
+            this.gbAddRoom.Controls.Add(this.label7);
+            this.gbAddRoom.Controls.Add(this.tbSeats);
+            this.gbAddRoom.Controls.Add(this.btAddRoomAS);
+            this.gbAddRoom.Controls.Add(this.label4);
+            this.gbAddRoom.Controls.Add(this.tbRoomName);
+            this.gbAddRoom.Location = new System.Drawing.Point(705, 26);
+            this.gbAddRoom.Name = "gbAddRoom";
+            this.gbAddRoom.Size = new System.Drawing.Size(60, 38);
+            this.gbAddRoom.TabIndex = 24;
+            this.gbAddRoom.TabStop = false;
+            this.gbAddRoom.Text = "Add Room";
             // 
-            // textBox2
+            // chbLab
             // 
-            this.textBox2.Location = new System.Drawing.Point(204, 26);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 25;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.chbLab.AutoSize = true;
+            this.chbLab.Location = new System.Drawing.Point(116, 133);
+            this.chbLab.Name = "chbLab";
+            this.chbLab.Size = new System.Drawing.Size(40, 17);
+            this.chbLab.TabIndex = 6;
+            this.chbLab.Text = "lab";
+            this.chbLab.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 96);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(82, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "number of seats";
+            // 
+            // tbSeats
+            // 
+            this.tbSeats.Location = new System.Drawing.Point(100, 89);
+            this.tbSeats.Name = "tbSeats";
+            this.tbSeats.Size = new System.Drawing.Size(100, 20);
+            this.tbSeats.TabIndex = 3;
+            this.tbSeats.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSeats_KeyPress);
+            // 
+            // btAddRoomAS
+            // 
+            this.btAddRoomAS.Location = new System.Drawing.Point(216, 72);
+            this.btAddRoomAS.Name = "btAddRoomAS";
+            this.btAddRoomAS.Size = new System.Drawing.Size(75, 23);
+            this.btAddRoomAS.TabIndex = 2;
+            this.btAddRoomAS.Text = "Add";
+            this.btAddRoomAS.UseVisualStyleBackColor = true;
+            this.btAddRoomAS.Click += new System.EventHandler(this.btAddRoomAS_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(52, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "name";
+            // 
+            // tbRoomName
+            // 
+            this.tbRoomName.Location = new System.Drawing.Point(100, 44);
+            this.tbRoomName.Name = "tbRoomName";
+            this.tbRoomName.Size = new System.Drawing.Size(100, 20);
+            this.tbRoomName.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 529);
+            this.Controls.Add(this.gbAddRoom);
             this.Controls.Add(this.gbAddCurriculm);
             this.Controls.Add(this.gbAddDivisionSize);
             this.Controls.Add(this.btAddCurriculum);
@@ -708,9 +723,8 @@
             this.Controls.Add(this.lblHeading);
             this.Controls.Add(this.gbMakeSchedule);
             this.Controls.Add(this.gbAddStudent);
-            this.Controls.Add(this.gbAddCourse);
             this.Controls.Add(this.gbAddTeacher);
-            this.Controls.Add(this.btExit);
+            this.Controls.Add(this.btAddRoom);
             this.Controls.Add(this.btLogout);
             this.Controls.Add(this.btSeeSchedule);
             this.Controls.Add(this.btMakeSchedule);
@@ -722,9 +736,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.gbAddTeacher.ResumeLayout(false);
             this.gbAddTeacher.PerformLayout();
-            this.gbAddCourse.ResumeLayout(false);
-            this.gbAddCourse.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.gbAddStudent.ResumeLayout(false);
             this.gbAddStudent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -737,6 +748,8 @@
             this.gbAddDivisionSize.PerformLayout();
             this.gbAddCurriculm.ResumeLayout(false);
             this.gbAddCurriculm.PerformLayout();
+            this.gbAddRoom.ResumeLayout(false);
+            this.gbAddRoom.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -750,15 +763,11 @@
         private System.Windows.Forms.Button btMakeSchedule;
         private System.Windows.Forms.Button btSeeSchedule;
         private System.Windows.Forms.Button btLogout;
-        private System.Windows.Forms.Button btExit;
+        private System.Windows.Forms.Button btAddRoom;
         private System.Windows.Forms.GroupBox gbAddTeacher;
         private System.Windows.Forms.TextBox tbInstructorName;
         private System.Windows.Forms.Label lblInstructorName;
         private System.Windows.Forms.Button btInsertTeacher;
-        private System.Windows.Forms.GroupBox gbAddCourse;
-        private System.Windows.Forms.TextBox tbCourseName;
-        private System.Windows.Forms.Button btAddCourseAC;
-        private System.Windows.Forms.Label lblCourseName;
         private System.Windows.Forms.GroupBox gbAddStudent;
         private System.Windows.Forms.Label lblSelectYearAs;
         private System.Windows.Forms.Button btAddStudentAS;
@@ -771,14 +780,11 @@
         private System.Windows.Forms.Label lblCourseNameMS;
         private System.Windows.Forms.ComboBox cbCourseName;
         private System.Windows.Forms.Label lblHeading;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.DataGridView dataGridView5;
         private System.Windows.Forms.Button btgotoform2;
-        private System.Windows.Forms.Label lbldivision;
-        private System.Windows.Forms.ComboBox cbdivision;
         private System.Windows.Forms.ComboBox CBSelectYear;
         private System.Windows.Forms.Button btAddDivisionSize;
         private System.Windows.Forms.Button btAddCurriculum;
@@ -800,5 +806,15 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button generateSchedule;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.GroupBox gbAddRoom;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbSeats;
+        private System.Windows.Forms.Button btAddRoomAS;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbRoomName;
+        private System.Windows.Forms.CheckBox chbLab;
+        private System.Windows.Forms.CheckBox chBIsTA;
+        private System.Windows.Forms.Label lblPRooms;
+        private System.Windows.Forms.ComboBox cbRooms;
     }
 }

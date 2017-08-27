@@ -132,10 +132,8 @@ namespace ConsoleApp1
             this._fitness = 0F;
             // reserve space for time-space slots in chromosomes code
             _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
-           int slotSize= _slots.Count();
-            //_slots = (from i in Enumerable.Range(0, slotSize) select new List<List<DataRow>>());
             // reserve space for flags of class requirements
-            _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
+            _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 9);
         }
 
         // Copy constructor
@@ -159,7 +157,7 @@ namespace ConsoleApp1
                 _slots.Resize(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
                 // reserve space for flags of class requirements
-                _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 8);
+                _criteria.Resize(Counts.GetInstance().GetNumberOfCourseClasses() * 9);
             }
 
             // copy parameters
@@ -187,31 +185,36 @@ namespace ConsoleApp1
             // DataTable rooms = Counts.GetInstance().GetLectureRooms();
             //DataTable labs = Counts.GetInstance().GetLabRooms();
             DataTable rooms = Counts.GetInstance().GetRooms();
+            DataTable lectureRooms = Counts.GetInstance().GetLectureRooms();
+            DataTable labRooms = Counts.GetInstance().GetLabRooms();
+            int numLabRooms = Counts.GetInstance().GetNumberOfLabRooms();
+            int numLectureRooms = Counts.GetInstance().GetNumberOfLectureRooms();
             // place classes at random position
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //int nl = Counts.GetInstance().GetNumberOfLabRooms();
             //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
-            Console.WriteLine("before entering");
-            Console.WriteLine(c.Rows.Count);
-            Console.WriteLine(rooms.Rows.Count);
+            Console.WriteLine("New Chromosome");
             foreach (DataRow courseRow in c.Rows)
             {
-                Console.WriteLine("currently working in course" + courseRow["Id"]);
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int randroom = RandomNumbers.NextNumber() % nr;
-                int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
+                int room;
+                if (courseRow["lab"].Equals(true))
+                    room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                else
+                    room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
+               // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
-                Console.WriteLine("picked random numbers");
-
                 // fill time-space slots, for each hour of class
-                List<DataRow> l = new List<DataRow>();
+               // List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
                 {
+                    List<DataRow> l = new List<DataRow>();
                     l.Add(courseRow);
                     if (newChromosome._slots[(pos + i)]==null)
                         newChromosome._slots[(pos + i)]=l;
@@ -313,8 +316,9 @@ namespace ConsoleApp1
                 }
             }
 
+            //n.CalculateFitness();
+           //n= HillClimbing.solve(n);
             n.CalculateFitness();
-
             // return smart pointer to offspring
             return n;
         }
@@ -459,8 +463,6 @@ namespace ConsoleApp1
                 int classRoom = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
 
                 time = time % DefineConstants.DAY_HOURS;
-                Console.WriteLine("current value" + it.Value);
-                Console.WriteLine("current duration " + it.Key["duration"]);
                 int dur = Int32.Parse(it.Key["duration"].ToString());
 
                 // check for room overlapping of classes
@@ -591,19 +593,22 @@ namespace ConsoleApp1
                 _criteria[ci + 6] = pr;
 
                 //Lab and Lecture morning or evening sessions
-                bool monorev = false;
+                bool labeven = false;
+                bool lectMorn = false;
                 if (Boolean.Parse(cc["lab"].ToString()))
                 {
                     if (time >= 12)
-                        monorev = true;
+                        labeven = true;
                 }
                 else
                 {
                     if (time < 12)
-                        monorev = true;
+                        lectMorn = true;
                 }
-                if (monorev) score++;
-                _criteria[ci + 7] = monorev;
+                if (labeven) score++;
+                if (lectMorn) score++;
+                _criteria[ci + 7] = labeven;
+                _criteria[ci + 8] = lectMorn;
                 //To know the max hours per day and if a specific group have a day off
                 // they must be grouped, insert the data in arrays
                 int h;
@@ -615,81 +620,81 @@ namespace ConsoleApp1
                 {
                     if (Int32.Parse(row["year"].ToString()) == 1)
                     {
-                        if (row["Devision"].ToString().ToLower() == "cs")
+                        if (row["Division"].ToString().ToLower() == "cs")
                             fcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "math")
+                        if (row["Division"].ToString().ToLower() == "math")
                             fm[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                        if (row["Division"].ToString().ToLower() == "mathcs")
                             fmcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "stat")
+                        if (row["Division"].ToString().ToLower() == "stat")
                             fs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "statcs")
+                        if (row["Division"].ToString().ToLower() == "statcs")
                             fscs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "it")
+                        if (row["Division"].ToString().ToLower() == "it")
                             fit[day, time] = h;
                     }
                     if (Int32.Parse(row["year"].ToString()) == 2)
                     {
-                        if (row["Devision"].ToString().ToLower() == "cs")
+                        if (row["Division"].ToString().ToLower() == "cs")
                             scs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "math")
+                        if (row["Division"].ToString().ToLower() == "math")
                             sm[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                        if (row["Division"].ToString().ToLower() == "mathcs")
                             smcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "stat")
+                        if (row["Division"].ToString().ToLower() == "stat")
                             ss[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "statcs")
+                        if (row["Division"].ToString().ToLower() == "statcs")
                             sscs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "it")
+                        if (row["Division"].ToString().ToLower() == "it")
                             sit[day, time] = h;
                     }
                     if (Int32.Parse(row["year"].ToString()) == 3)
                     {
-                        if (row["Devision"].ToString().ToLower() == "cs")
+                        if (row["Division"].ToString().ToLower() == "cs")
                             tcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "math")
+                        if (row["Division"].ToString().ToLower() == "math")
                             tm[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                        if (row["Division"].ToString().ToLower() == "mathcs")
                             tmcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "stat")
+                        if (row["Division"].ToString().ToLower() == "stat")
                             ts[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "statcs")
+                        if (row["Division"].ToString().ToLower() == "statcs")
                             tscs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "it")
+                        if (row["Division"].ToString().ToLower() == "it")
                             tit[day, time] = h;
                     }
                     if (Int32.Parse(row["year"].ToString()) == 4)
                     {
-                        if (row["Devision"].ToString().ToLower() == "cs")
+                        if (row["Division"].ToString().ToLower() == "cs")
                             focs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "math")
+                        if (row["Division"].ToString().ToLower() == "math")
                             fom[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                        if (row["Division"].ToString().ToLower() == "mathcs")
                             fomcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "stat")
+                        if (row["Division"].ToString().ToLower() == "stat")
                             fos[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "statcs")
+                        if (row["Division"].ToString().ToLower() == "statcs")
                             foscs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "it")
+                        if (row["Division"].ToString().ToLower() == "it")
                             foit[day, time] = h;
                     }
                     if (Int32.Parse(row["year"].ToString()) == 5)
                     {
-                        if (row["Devision"].ToString().ToLower() == "cs")
+                        if (row["Division"].ToString().ToLower() == "cs")
                             fifcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "math")
+                        if (row["Division"].ToString().ToLower() == "math")
                             fifm[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "mathcs")
+                        if (row["Division"].ToString().ToLower() == "mathcs")
                             fifmcs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "stat")
+                        if (row["Division"].ToString().ToLower() == "stat")
                             fifs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "statcs")
+                        if (row["Division"].ToString().ToLower() == "statcs")
                             fifscs[day, time] = h;
-                        if (row["Devision"].ToString().ToLower() == "it")
+                        if (row["Division"].ToString().ToLower() == "it")
                             fifit[day, time] = h;
                     }
                 }
-                ci += 8;
+                ci += 9;
             }
 
             //then call a function and send it all the years and devisions
@@ -773,6 +778,51 @@ namespace ConsoleApp1
             return score;
         }
         // Returns fitness value of chromosome
+
+        //get the current timetables and evaluate
+        public void evaluate()
+        {
+
+            ScheduleTableAdapter sched = new ScheduleTableAdapter();
+            DataTable sem = sched.GetData();
+            DataRow classDR;
+            Counts counts = new Counts();
+            foreach (DataRow r in sem.Rows)
+            {
+                int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+                int daySize = DefineConstants.DAY_HOURS * nr;
+                int curClassId = Int32.Parse(r["courseClassId"].ToString());
+                classDR = counts.GetClassById(curClassId);
+                int dur = Int32.Parse(classDR["duration"].ToString());
+                String d = r["day"].ToString();
+                int day = 8;
+                if (Enum.IsDefined(typeof(DayOfWeek), d))
+                {
+                    DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d, true);
+                    day = (int)x;
+                }
+                int pos = day * daySize;
+                int time = pos % daySize;
+                // fill time-space slots, for each hour of class
+                
+                for (int i = dur - 1; i >= 0; i--)
+                {
+                    List<DataRow> l = new List<DataRow>();
+                    l.Add(classDR);
+                    if (_slots[(pos + i)] == null)
+                        _slots[(pos + i)] = l;
+                    else
+                        _slots[(pos + i)].Add(classDR);
+                    // newChromosome._slots.Insert((pos + i), l);
+
+                }
+                _classes.Add(classDR, pos);
+            }
+            CalculateFitness();
+            float score= GetFitness();
+            Console.WriteLine("The fitness is " + score);
+
+        }
         public float GetFitness()
         {
             return _fitness;
@@ -998,9 +1048,9 @@ namespace ConsoleApp1
                 }
 
                 ScheduleGenetic best = GetBestChromosome();
-
+                Console.WriteLine("check if best found" + best.GetFitness());
                 // work algorithm has reached criteria?
-                if (best.GetFitness() >= 1.5)
+                if (best.GetFitness() >= 0)
                 {
                     Counts counts = new Counts();
                     ScheduleTableAdapter sched = new ScheduleTableAdapter();
@@ -1010,15 +1060,14 @@ namespace ConsoleApp1
                     //{
                     foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
                         // coordinate of time-space slot
-                        int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+                        int nr = Counts.GetInstance().GetNumberOfRooms();
                         int daySize = DefineConstants.DAY_HOURS * nr;
                         int p = x.Value;
                         int day = p / daySize;
                         int time = p % daySize;
                         int room = time / DefineConstants.DAY_HOURS;
                         time = time % DefineConstants.DAY_HOURS;
-
-                        
+                        //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                         int dur = Int32.Parse(x.Key["duration"].ToString());
                         int classId = Int32.Parse(x.Key["id"].ToString());
                         int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
@@ -1033,7 +1082,7 @@ namespace ConsoleApp1
                 }
 
                 @lock.Release();
-
+                Console.WriteLine("produce offepsing");
                 // produce offepsing
                 List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
                 offspring.Resize(_replaceByGeneration);
@@ -1042,11 +1091,12 @@ namespace ConsoleApp1
                     // selects parent randomly
                     ScheduleGenetic p1 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
                     ScheduleGenetic p2 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
-
+                    Console.WriteLine("produce offepsing: Crossover");
                     offspring[j] = p1.Crossover(p2);
+                    Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
                 }
-
+                Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
                 for (int j = 0; j < _replaceByGeneration; j++)
                 {
@@ -1124,53 +1174,92 @@ namespace ConsoleApp1
         // Tries to add chromosomes in best chromosome group
         private void AddToBest(int chromosomeIndex)
         {
-            //if start up population best is empty
-            if (_currentBestSize == 0)
-            {
-                _bestChromosomes[_currentBestSize] = chromosomeIndex;
-                _bestFlags[chromosomeIndex] = true;
-                _currentBestSize++;
-            }
             // don't add if new chromosome hasn't fitness big enough for best chromosome group
             // or it is already in the group?
-            else
+            if ((_currentBestSize == (int)_bestChromosomes.Count() &&
+                _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >=
+                _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
+                return;
+
+            // find place for new chromosome
+            int i = _currentBestSize;
+            for (; i > 0; i--)
             {
-                if ((_currentBestSize == (int)_bestChromosomes.Count && _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >= _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
-                    return;
-
-                // find place for new chromosome
-                int i = _currentBestSize;
-                for (; i > 0; i--)
+                // group is not full?
+                if (i < (int)_bestChromosomes.Count())
                 {
-                    // group is not full?
-                    if (i < (int)_bestChromosomes.Count)
-                    {
-                        // position of new chromosomes is found?
-                        if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() > _chromosomes[chromosomeIndex].GetFitness())
-                            break;
+                    // position of new chromosomes is found?
+                    if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() >
+                        _chromosomes[chromosomeIndex].GetFitness())
+                        break;
 
-                        // move chromosomes to make room for new
-                        _bestChromosomes[i] = _bestChromosomes[i - 1];
-                    }
-                    else
-                    {
-                        // group is full remove worst chromosomes in the group
-                        _bestFlags[_bestChromosomes[i - 1]] = false;
-                    }
+                    // move chromosomes to make room for new
+                    _bestChromosomes[i] = _bestChromosomes[i - 1];
                 }
-
-                // store chromosome in best chromosome group
-                _bestChromosomes[i] = chromosomeIndex;
-                _bestFlags[chromosomeIndex] = true;
-
-                // increase current size if it has not reached the limit yet
-                if (_currentBestSize < (int)_bestChromosomes.Count)
-                {
-                    _currentBestSize++;
-                }
+                else
+                    // group is full remove worst chromosomes in the group
+                    _bestFlags[_bestChromosomes[i - 1]] = false;
             }
-        }
 
+            // store chromosome in best chromosome group
+            _bestChromosomes[i] = chromosomeIndex;
+            _bestFlags[chromosomeIndex] = true;      
+                // increase current size if it has not reached the limit yet
+                if (_currentBestSize < (int)_bestChromosomes.Count())
+                _currentBestSize++;
+            Console.WriteLine("0:"+ _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
+            Console.WriteLine("1:" + _chromosomes[_bestChromosomes[1]].GetFitness().ToString());
+            Console.WriteLine("2:" + _chromosomes[_bestChromosomes[2]].GetFitness().ToString());
+            Console.WriteLine("3:" + _chromosomes[_bestChromosomes[3]].GetFitness().ToString());
+            Console.WriteLine("4:" + _chromosomes[_bestChromosomes[4]].GetFitness().ToString());
+            ////if start up population best is empty
+            //if (_currentBestSize == 0)
+            //{
+            //    _bestChromosomes[_currentBestSize] = chromosomeIndex;
+            //    _bestFlags[chromosomeIndex] = true;
+            //    _currentBestSize++;
+            //}
+            //// don't add if new chromosome hasn't fitness big enough for best chromosome group
+            //// or it is already in the group?
+            //else
+            //{
+            //    if ((_currentBestSize == (int)_bestChromosomes.Count && _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >= _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
+            //        return;
+
+            //    // find place for new chromosome
+            //    int i = _currentBestSize;
+            //    for (; i > 0; i--)
+            //    {
+            //        // group is not full?
+            //        if (i < (int)_bestChromosomes.Count)
+            //        {
+            //            // position of new chromosomes is found?
+            //            if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() > _chromosomes[chromosomeIndex].GetFitness())
+            //                break;
+
+            //            // move chromosomes to make room for new
+            //            _bestChromosomes[i] = _bestChromosomes[i - 1];
+            //        }
+            //        else
+            //        {
+            //            // group is full remove worst chromosomes in the group
+            //            _bestFlags[_bestChromosomes[i - 1]] = false;
+            //        }
+            //    }
+
+            //    // store chromosome in best chromosome group
+            //    _bestChromosomes[i] = chromosomeIndex;
+            //    _bestFlags[chromosomeIndex] = true;
+
+            //    // increase current size if it has not reached the limit yet
+            //    if (_currentBestSize < (int)_bestChromosomes.Count)
+            //    {
+            //        _currentBestSize++;
+            //    }          
+            //}
+            //for (int z = 0; z < _currentBestSize; z++)
+            //    Console.WriteLine(_chromosomes[_bestChromosomes[z - 1]].GetFitness());
+        }
         // Returns TRUE if chromosome belongs to best chromosome group
         private bool IsInBest(int chromosomeIndex)
         {
@@ -1193,17 +1282,5 @@ namespace ConsoleApp1
 
     }
 
-    //public class CCriticalSectionSim
-    //{
-    //    public static void LockData()
-    //    {
-
-    //    }
-
-    //    public static void UnlockData()
-    //    {
-
-    //    }
-    //}
 
 }

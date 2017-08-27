@@ -63,11 +63,13 @@
   <ItemGroup>
     <Compile Include="ChildView.cs" />
     <Compile Include="Counts.cs" />
-    <Compile Include="Db.cs" />
+    <Compile Include="Courses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Courses.Designer.cs">
+      <DependentUpon>Courses.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefineConstants.cs" />
-    <Compile Include="course.cs" />
-    <Compile Include="CourseClass.cs" />
-    <Compile Include="Curriculum.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,8 +77,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDbData.cs" />
+    <Compile Include="HillClimbing.cs" />
     <Compile Include="ScheduleGenetic.cs" />
-    <Compile Include="instructor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,7 +93,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="RandomNumbers.cs" />
-    <Compile Include="Room.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="TimetableDBDataSet.cs">
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
@@ -114,8 +115,8 @@
     </None>
     <None Include="TimetableDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>TimetableDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>TimetableDBDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="TimetableDBDataSet.xss">
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
@@ -134,6 +135,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Courses.resx">
+      <DependentUpon>Courses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>

@@ -4,6 +4,9 @@
 
     partial class TimetableDBDataSet
     {
+        partial class ITDataTable
+        {
+        }
     }
 }
 
