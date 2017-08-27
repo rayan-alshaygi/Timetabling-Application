@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="RandomNumbers.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="SimulatedAnnealing.cs" />
     <Compile Include="TimetableDBDataSet.cs">
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
     </Compile>

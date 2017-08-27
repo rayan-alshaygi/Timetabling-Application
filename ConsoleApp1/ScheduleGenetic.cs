@@ -317,7 +317,8 @@ namespace ConsoleApp1
             }
 
             //n.CalculateFitness();
-           //n= HillClimbing.solve(n);
+            //n= HillClimbing.solve(n);
+            //n = SimulatedAnnealing.StartAnnealing(n);
             n.CalculateFitness();
             // return smart pointer to offspring
             return n;
@@ -1095,6 +1096,7 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
+                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
