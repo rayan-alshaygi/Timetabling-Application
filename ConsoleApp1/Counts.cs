@@ -144,10 +144,16 @@ namespace ConsoleApp1
             return dt;
             
         }
-       
+
+        public TimetableDBDataSet.CourseClassDataTable HCGetCourseClasses()
+        {
+            TimetableDBDataSet.CourseClassDataTable c=cc.GetData();
+            return c;
+
+        }
 
         // Returns number of parsed classes
-    
+
         public int GetNumberOfCourseClasses()
         {
             return (int) cc.Count();

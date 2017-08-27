@@ -316,9 +316,9 @@ namespace ConsoleApp1
                 }
             }
 
+            //n.CalculateFitness();
+           //n= HillClimbing.solve(n);
             n.CalculateFitness();
-            HillClimbing.solve(this);
-            HillClimbing.solve(parent2);
             // return smart pointer to offspring
             return n;
         }
@@ -1048,7 +1048,7 @@ namespace ConsoleApp1
                 }
 
                 ScheduleGenetic best = GetBestChromosome();
-                Console.WriteLine("check if best found");
+                Console.WriteLine("check if best found" + best.GetFitness());
                 // work algorithm has reached criteria?
                 if (best.GetFitness() >= 0)
                 {
