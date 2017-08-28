@@ -1283,6 +1283,4 @@ namespace ConsoleApp1
         }
 
     }
-
-
 }
