@@ -209,6 +209,7 @@ namespace ConsoleApp1
                     room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
                // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                if (time % 2 != 0) time -= 1;
                 int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                 // fill time-space slots, for each hour of class
                // List<DataRow> l = new List<DataRow>();
@@ -362,6 +363,7 @@ namespace ConsoleApp1
                 int randroom = RandomNumbers.NextNumber() % nr;
                 int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                if (time % 2 != 0) time -= 1;
                 int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
 
                 // move all time-space slots
@@ -1067,6 +1069,7 @@ namespace ConsoleApp1
                         int day = p / daySize;
                         int time = p % daySize;
                         int room = time / DefineConstants.DAY_HOURS;
+                        int timeEnd;
                         time = time % DefineConstants.DAY_HOURS;
                         //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                         int dur = Int32.Parse(x.Key["duration"].ToString());
@@ -1075,7 +1078,8 @@ namespace ConsoleApp1
                         //0 = sunday and so on
                         String d = ((DayOfWeek)day).ToString();
                         time = time + 8;
-                        sched.Insert(classId, d, time, roomId);
+                        timeEnd = time + dur;
+                        sched.Insert(classId, d, time, timeEnd ,roomId);
                     }
                     Console.Write("done");
                     @lock.Release();

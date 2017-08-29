@@ -4752,6 +4752,10 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columnroomId;
             
+            private global::System.Data.DataColumn columntime_start;
+            
+            private global::System.Data.DataColumn columntime_end;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ScheduleDataTable() {
@@ -4819,6 +4823,22 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn time_startColumn {
+                get {
+                    return this.columntime_start;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn time_endColumn {
+                get {
+                    return this.columntime_end;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4854,13 +4874,15 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ScheduleRow AddScheduleRow(CourseClassRow parentCourseClassRowByFK_Schedule_ToTableCourseClass, string day, int time, RoomsRow parentRoomsRowByFK_Schedule_ToTableRooms) {
+            public ScheduleRow AddScheduleRow(CourseClassRow parentCourseClassRowByFK_Schedule_ToTableCourseClass, string day, int time, RoomsRow parentRoomsRowByFK_Schedule_ToTableRooms, int time_start, int time_end) {
                 ScheduleRow rowScheduleRow = ((ScheduleRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         day,
                         time,
-                        null};
+                        null,
+                        time_start,
+                        time_end};
                 if ((parentCourseClassRowByFK_Schedule_ToTableCourseClass != null)) {
                     columnValuesArray[0] = parentCourseClassRowByFK_Schedule_ToTableCourseClass[0];
                 }
@@ -4870,6 +4892,13 @@ namespace ConsoleApp1 {
                 rowScheduleRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowScheduleRow);
                 return rowScheduleRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ScheduleRow FindBycourseClassId(int courseClassId) {
+                return ((ScheduleRow)(this.Rows.Find(new object[] {
+                            courseClassId})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4893,6 +4922,8 @@ namespace ConsoleApp1 {
                 this.columnday = base.Columns["day"];
                 this.columntime = base.Columns["time"];
                 this.columnroomId = base.Columns["roomId"];
+                this.columntime_start = base.Columns["time start"];
+                this.columntime_end = base.Columns["time end"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4906,11 +4937,20 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columntime);
                 this.columnroomId = new global::System.Data.DataColumn("roomId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnroomId);
+                this.columntime_start = new global::System.Data.DataColumn("time start", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntime_start);
+                this.columntime_end = new global::System.Data.DataColumn("time end", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntime_end);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columncourseClassId}, true));
                 this.columncourseClassId.AllowDBNull = false;
+                this.columncourseClassId.Unique = true;
                 this.columnday.AllowDBNull = false;
                 this.columnday.MaxLength = 50;
                 this.columntime.AllowDBNull = false;
                 this.columnroomId.AllowDBNull = false;
+                this.columntime_start.AllowDBNull = false;
+                this.columntime_end.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7522,6 +7562,28 @@ namespace ConsoleApp1 {
                 }
                 set {
                     this[this.tableSchedule.roomIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int time_start {
+                get {
+                    return ((int)(this[this.tableSchedule.time_startColumn]));
+                }
+                set {
+                    this[this.tableSchedule.time_startColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int time_end {
+                get {
+                    return ((int)(this[this.tableSchedule.time_endColumn]));
+                }
+                set {
+                    this[this.tableSchedule.time_endColumn] = value;
                 }
             }
             
@@ -13743,16 +13805,44 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
             tableMapping.ColumnMappings.Add("day", "day");
             tableMapping.ColumnMappings.Add("time", "time");
             tableMapping.ColumnMappings.Add("roomId", "roomId");
+            tableMapping.ColumnMappings.Add("time start", "time start");
+            tableMapping.ColumnMappings.Add("time end", "time end");
             this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Schedule] WHERE (([courseClassId] = @Original_courseClassId) AND ([d" +
+                "ay] = @Original_day) AND ([time start] = @Original_time_start) AND ([time end] =" +
+                " @Original_time_end) AND ([roomId] = @Original_roomId))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_courseClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseClassId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_day", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "day", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_time_start", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time start", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_time_end", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time end", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Schedule] ([courseClassId], [day], [time], [roomId]) VALUES (@course" +
-                "ClassId, @day, @time, @roomId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Schedule] ([courseClassId], [day], [time start], [time end], [roomId" +
+                "]) VALUES (@courseClassId, @day, @time_start, @time_end, @roomId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@day", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "day", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@time", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@time_start", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time start", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@time_end", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time end", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Schedule] SET [courseClassId] = @courseClassId, [day] = @day, [time start] = @time_start, [time end] = @time_end, [roomId] = @roomId WHERE (([courseClassId] = @Original_courseClassId) AND ([day] = @Original_day) AND ([time start] = @Original_time_start) AND ([time end] = @Original_time_end) AND ([roomId] = @Original_roomId))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseClassId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@day", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "day", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@time_start", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time start", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@time_end", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time end", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_courseClassId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseClassId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_day", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "day", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_time_start", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time start", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_time_end", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "time end", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_roomId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "roomId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13768,7 +13858,7 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        Schedule.*\r\nFROM            Schedule";
+            this._commandCollection[0].CommandText = "SELECT courseClassId, day, [time start], [time end], roomId\r\nFROM  Schedule";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -13828,8 +13918,39 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_courseClassId, string Original_day, int Original_time_start, int Original_time_end, int Original_roomId) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_courseClassId));
+            if ((Original_day == null)) {
+                throw new global::System.ArgumentNullException("Original_day");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_day));
+            }
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_time_start));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_time_end));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_roomId));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int courseClassId, string day, int time, int roomId) {
+        public virtual int Insert(int courseClassId, string day, int time_start, int time_end, int roomId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(courseClassId));
             if ((day == null)) {
                 throw new global::System.ArgumentNullException("day");
@@ -13837,8 +13958,9 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(day));
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(time));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(roomId));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(time_start));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(time_end));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(roomId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -13853,6 +13975,55 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
                     this.Adapter.InsertCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int courseClassId, string day, int time_start, int time_end, int roomId, int Original_courseClassId, string Original_day, int Original_time_start, int Original_time_end, int Original_roomId) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(courseClassId));
+            if ((day == null)) {
+                throw new global::System.ArgumentNullException("day");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(day));
+            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(time_start));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(time_end));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(roomId));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_courseClassId));
+            if ((Original_day == null)) {
+                throw new global::System.ArgumentNullException("Original_day");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_day));
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_time_start));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_time_end));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_roomId));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string day, int time_start, int time_end, int roomId, int Original_courseClassId, string Original_day, int Original_time_start, int Original_time_end, int Original_roomId) {
+            return this.Update(Original_courseClassId, day, time_start, time_end, roomId, Original_courseClassId, Original_day, Original_time_start, Original_time_end, Original_roomId);
         }
     }
     
