@@ -5345,7 +5345,6 @@ namespace ConsoleApp1 {
                 base.Columns.Add(this.columnstatCS);
                 this.columnIT = new global::System.Data.DataColumn("IT", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIT);
-                this.columncourseId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7806,7 +7805,12 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int courseId {
                 get {
-                    return ((int)(this[this.tableCoursesYD.courseIdColumn]));
+                    if (this.IscourseIdNull()) {
+                        return -1;
+                    }
+                    else {
+                        return ((int)(this[this.tableCoursesYD.courseIdColumn]));
+                    }
                 }
                 set {
                     this[this.tableCoursesYD.courseIdColumn] = value;
@@ -7817,11 +7821,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int cs {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.csColumn]));
+                    if (this.IscsNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cs\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.csColumn]));
                     }
                 }
                 set {
@@ -7833,11 +7837,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int stat {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.statColumn]));
+                    if (this.IsstatNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'stat\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.statColumn]));
                     }
                 }
                 set {
@@ -7849,11 +7853,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int math {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.mathColumn]));
+                    if (this.IsmathNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'math\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.mathColumn]));
                     }
                 }
                 set {
@@ -7865,11 +7869,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int mathCS {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.mathCSColumn]));
+                    if (this.IsmathCSNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'mathCS\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.mathCSColumn]));
                     }
                 }
                 set {
@@ -7881,11 +7885,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int statCS {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.statCSColumn]));
+                    if (this.IsstatCSNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'statCS\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.statCSColumn]));
                     }
                 }
                 set {
@@ -7897,11 +7901,11 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int IT {
                 get {
-                    try {
-                        return ((int)(this[this.tableCoursesYD.ITColumn]));
+                    if (this.IsITNull()) {
+                        return -1;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IT\' in table \'CoursesYD\' is DBNull.", e);
+                    else {
+                        return ((int)(this[this.tableCoursesYD.ITColumn]));
                     }
                 }
                 set {
@@ -7984,6 +7988,18 @@ namespace ConsoleApp1 {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableStatCS"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscourseIdNull() {
+                return this.IsNull(this.tableCoursesYD.courseIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcourseIdNull() {
+                this[this.tableCoursesYD.courseIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

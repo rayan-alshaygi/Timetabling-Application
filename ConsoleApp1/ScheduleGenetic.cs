@@ -620,7 +620,8 @@ namespace ConsoleApp1
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
                 DataRow row = yd.Rows[0];
-                if (row["cs"].ToString() != null)
+                Console.WriteLine(row["IT"]);
+                if (Int32.Parse(row["cs"].ToString()) != -1)
                 {
                     if (Int32.Parse(row["cs"].ToString()) == 1)
                         fcs[day, time] = h;
@@ -633,7 +634,7 @@ namespace ConsoleApp1
                     if (Int32.Parse(row["cs"].ToString()) == 5)
                         fifcs[day, time] = h;
                 }
-                if (row["math"].ToString() != null)
+                if (Int32.Parse(row["math"].ToString()) != -1)
                 {
                     if (Int32.Parse(row["math"].ToString()) == 1)
                         fm[day, time] = h;
@@ -646,7 +647,7 @@ namespace ConsoleApp1
                     if (Int32.Parse(row["math"].ToString()) == 5)
                         fifm[day, time] = h;
                 }
-                if (row["mathCS"].ToString() != null)
+                if (Int32.Parse(row["mathCS"].ToString()) != -1)
                 {
                     if (Int32.Parse(row["mathCS"].ToString()) == 1)
                         fmcs[day, time] = h;
@@ -659,7 +660,7 @@ namespace ConsoleApp1
                     if (Int32.Parse(row["mathCS"].ToString()) == 5)
                         fifmcs[day, time] = h;
                 }
-                if (row["stat"].ToString() != null)
+                if (Int32.Parse(row["stat"].ToString()) != -1)
                 {
                     if (Int32.Parse(row["stat"].ToString()) == 1)
                         fs[day, time] = h;
@@ -672,7 +673,7 @@ namespace ConsoleApp1
                     if (Int32.Parse(row["stat"].ToString()) == 5)
                         fifs[day, time] = h;
                 }
-                if (row["statCS"].ToString() != null)
+                if (Int32.Parse(row["statCS"].ToString()) != -1)
                 {
                     if (Int32.Parse(row["statCS"].ToString()) == 1)
                         fscs[day, time] = h;
@@ -685,7 +686,8 @@ namespace ConsoleApp1
                     if (Int32.Parse(row["statCS"].ToString()) == 5)
                         fifscs[day, time] = h;
                 }
-                if (row["IT"].Equals( DBNull))// .ToString()) != null)
+                Console.WriteLine(row["IT"]);
+                if (row["IT"].ToString() != "-1")
                 {
                     if (Int32.Parse(row["IT"].ToString()) == 1)
                         fit[day, time] = h;

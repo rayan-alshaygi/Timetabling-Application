@@ -99,9 +99,9 @@
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TimetableDBDataSet.Designer.cs">
+      <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="VectorHelper.cs" />
   </ItemGroup>
