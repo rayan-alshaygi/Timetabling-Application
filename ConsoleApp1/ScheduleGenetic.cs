@@ -201,13 +201,25 @@ namespace ConsoleApp1
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
-                int randroom = RandomNumbers.NextNumber() % nr;
                 int room;
-                if (courseRow["lab"].Equals(true))
-                    room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                int randroom;
+                if (courseRow["preferredRoom"] != null)
+                {
+                    room = Int32.Parse(courseRow["preferredRoom"].ToString());
+                    if(courseRow["lab"].Equals(true))
+                        randroom = room % numLabRooms;
+                    else
+                        randroom = room % numLectureRooms;
+                }
                 else
-                    room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
-                // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
+                {
+                    randroom = RandomNumbers.NextNumber() % nr;
+
+                    if (courseRow["lab"].Equals(true))
+                        room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                    else
+                        room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
+                }  
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 if (time % 2 != 0) time -= 1;
                 int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
