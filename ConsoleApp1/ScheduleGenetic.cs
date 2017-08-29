@@ -620,85 +620,202 @@ namespace ConsoleApp1
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
                 DataRow row = yd.Rows[0];
-                Console.WriteLine(row["IT"]);
-                if (Int32.Parse(row["cs"].ToString()) != -1)
+                int outt = 0;
+                // to know to wich time block it belongs
+                int timeBlock = time / 2;
+                if (Int32.TryParse(row["cs"].ToString(),out outt))// != -1)
                 {
-                    if (Int32.Parse(row["cs"].ToString()) == 1)
-                        fcs[day, time] = h;
-                    if (Int32.Parse(row["cs"].ToString()) == 2)
-                        scs[day, time] = h;
-                    if (Int32.Parse(row["cs"].ToString()) == 3)
-                        tcs[day, time] = h;
-                    if (Int32.Parse(row["cs"].ToString()) == 4)
-                        focs[day, time] = h;
-                    if (Int32.Parse(row["cs"].ToString()) == 5)
-                        fifcs[day, time] = h;
+
+                    switch (Int32.Parse(row["cs"].ToString()))
+                    {
+                        case 1:
+                            fcs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            scs[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tcs[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            focs[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifcs[day, timeBlock] = h;
+                            break;
+
+                    }     
+                    //if (Int32.Parse(row["cs"].ToString()) == 1)
+                    //    fcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 2)
+                    //    scs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 3)
+                    //    tcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 4)
+                    //    focs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 5)
+                    //    fifcs[day, timeBlock] = h;
                 }
-                if (Int32.Parse(row["math"].ToString()) != -1)
+                if (Int32.TryParse(row["math"].ToString(),out outt))// != -1)
                 {
-                    if (Int32.Parse(row["math"].ToString()) == 1)
-                        fm[day, time] = h;
-                    if (Int32.Parse(row["math"].ToString()) == 2)
-                        sm[day, time] = h;
-                    if (Int32.Parse(row["math"].ToString()) == 3)
-                        tm[day, time] = h;
-                    if (Int32.Parse(row["math"].ToString()) == 4)
-                        fom[day, time] = h;
-                    if (Int32.Parse(row["math"].ToString()) == 5)
-                        fifm[day, time] = h;
+                    switch (Int32.Parse(row["math"].ToString()))
+                    {
+                        case 1:
+                            fm[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sm[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tm[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            fom[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifm[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["math"].ToString()) == 1)
+                    //    fm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 2)
+                    //    sm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 3)
+                    //    tm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 4)
+                    //    fom[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 5)
+                    //    fifm[day, timeBlock] = h;
                 }
-                if (Int32.Parse(row["mathCS"].ToString()) != -1)
+                if (Int32.TryParse(row["mathCS"].ToString(),out outt))// != -1)
                 {
-                    if (Int32.Parse(row["mathCS"].ToString()) == 1)
-                        fmcs[day, time] = h;
-                    if (Int32.Parse(row["mathCS"].ToString()) == 2)
-                        smcs[day, time] = h;
-                    if (Int32.Parse(row["mathCS"].ToString()) == 3)
-                        tmcs[day, time] = h;
-                    if (Int32.Parse(row["mathCS"].ToString()) == 4)
-                        fomcs[day, time] = h;
-                    if (Int32.Parse(row["mathCS"].ToString()) == 5)
-                        fifmcs[day, time] = h;
+                        switch (Int32.Parse(row["mathCS"].ToString()))
+                        {
+                            case 1:
+                                fmcs[day, timeBlock] = h;
+                                break;
+                            case 2:
+                                smcs[day, timeBlock] = h;
+                                break;
+                            case 3:
+                                tmcs[day, timeBlock] = h;
+                                break;
+                            case 4:
+                                fomcs[day, timeBlock] = h;
+                                break;
+                            case 5:
+                                fifmcs[day, timeBlock] = h;
+                                break;
+
+                        }
+                    //    if (Int32.Parse(row["mathCS"].ToString()) == 1)
+                    //    fmcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 2)
+                    //    smcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 3)
+                    //    tmcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 4)
+                    //    fomcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 5)
+                    //    fifmcs[day, timeBlock] = h;
                 }
-                if (Int32.Parse(row["stat"].ToString()) != -1)
+                if (Int32.TryParse(row["stat"].ToString(),out outt))// != -1)
                 {
-                    if (Int32.Parse(row["stat"].ToString()) == 1)
-                        fs[day, time] = h;
-                    if (Int32.Parse(row["stat"].ToString()) == 2)
-                        ss[day, time] = h;
-                    if (Int32.Parse(row["stat"].ToString()) == 3)
-                        ts[day, time] = h;
-                    if (Int32.Parse(row["stat"].ToString()) == 4)
-                        fos[day, time] = h;
-                    if (Int32.Parse(row["stat"].ToString()) == 5)
-                        fifs[day, time] = h;
+                    switch (Int32.Parse(row["stat"].ToString()))
+                    {
+                        case 1:
+                            fs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            ss[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            ts[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            fos[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifs[day, timeBlock] = h;
+                            break;
+
+                    }
+
+                    //if (Int32.Parse(row["stat"].ToString()) == 1)
+                    //    fs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 2)
+                    //    ss[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 3)
+                    //    ts[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 4)
+                    //    fos[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 5)
+                    //    fifs[day, timeBlock] = h;
                 }
-                if (Int32.Parse(row["statCS"].ToString()) != -1)
+                if (Int32.TryParse(row["statCS"].ToString(),out outt))// != -1)
                 {
-                    if (Int32.Parse(row["statCS"].ToString()) == 1)
-                        fscs[day, time] = h;
-                    if (Int32.Parse(row["statCS"].ToString()) == 2)
-                        sscs[day, time] = h;
-                    if (Int32.Parse(row["statCS"].ToString()) == 3)
-                        tscs[day, time] = h;
-                    if (Int32.Parse(row["statCS"].ToString()) == 4)
-                        foscs[day, time] = h;
-                    if (Int32.Parse(row["statCS"].ToString()) == 5)
-                        fifscs[day, time] = h;
-                }
-                Console.WriteLine(row["IT"]);
-                if (row["IT"].ToString() != "-1")
+                    switch (Int32.Parse(row["statCS"].ToString()))
+                    {
+                        case 1:
+                            fscs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sscs[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tscs[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            foscs[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifscs[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["statCS"].ToString()) == 1)
+                    //    fscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 2)
+                    //    sscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 3)
+                    //    tscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 4)
+                    //    foscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 5)
+                    //    fifscs[day, timeBlock] = h;
+                } 
+                if (Int32.TryParse(row["IT"].ToString(),out outt))// != "-1")
                 {
-                    if (Int32.Parse(row["IT"].ToString()) == 1)
-                        fit[day, time] = h;
-                    if (Int32.Parse(row["IT"].ToString()) == 2)
-                        sit[day, time] = h;
-                    if (Int32.Parse(row["IT"].ToString()) == 3)
-                        tit[day, time] = h;
-                    if (Int32.Parse(row["IT"].ToString()) == 4)
-                        foit[day, time] = h;
-                    if (Int32.Parse(row["IT"].ToString()) == 5)
-                        fifit[day, time] = h;
+                    switch (Int32.Parse(row["IT"].ToString()))
+                    {
+                        case 1:
+                            fit[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sit[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tit[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            foit[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifit[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["IT"].ToString()) == 1)
+                    //    fit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 2)
+                    //    sit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 3)
+                    //    tit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 4)
+                    //    foit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 5)
+                    //    fifit[day, timeBlock] = h;
                 }
 
             
