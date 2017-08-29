@@ -207,20 +207,20 @@ namespace ConsoleApp1
                     room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
                 else
                     room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
-               // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
+                // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 if (time % 2 != 0) time -= 1;
                 int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                 // fill time-space slots, for each hour of class
-               // List<DataRow> l = new List<DataRow>();
+                // List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     List<DataRow> l = new List<DataRow>();
                     l.Add(courseRow);
-                    if (newChromosome._slots[(pos + i)]==null)
-                        newChromosome._slots[(pos + i)]=l;
+                    if (newChromosome._slots[(pos + i)] == null)
+                        newChromosome._slots[(pos + i)] = l;
                     else
-                    newChromosome._slots[(pos + i)].Add(courseRow);
+                        newChromosome._slots[(pos + i)].Add(courseRow);
                     // newChromosome._slots.Insert((pos + i), l);
 
                 }
@@ -261,7 +261,7 @@ namespace ConsoleApp1
                 while (true)
                 {
                     int p = RandomNumbers.NextNumber() % size;
-                   if (!cp[p]&&(_classes.ElementAt(p).Equals(null)||_slots[p]==null)&& (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
+                    if (!cp[p] && (_classes.ElementAt(p).Equals(null) || _slots[p] == null) && (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
                     {
                         cp[p] = true;
                         break;
@@ -370,7 +370,7 @@ namespace ConsoleApp1
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     // remove class hour from current time-space slot
-                        List<DataRow> cl = _slots[pos1 + i];
+                    List<DataRow> cl = _slots[pos1 + i];
                     foreach (DataRow r in cl)
                     {
 
@@ -390,7 +390,7 @@ namespace ConsoleApp1
                     }
                     else
                         _slots[pos2 + i].Add(cc1);
-                   // _slots[pos2 + i].AddLast(cc1);
+                    // _slots[pos2 + i].AddLast(cc1);
                 }
 
                 // change entry of class table to point to new time-space slots
@@ -519,12 +519,12 @@ namespace ConsoleApp1
                         List<DataRow> cl = _slots[t + j];
                         if (cl != null)
                         {
-                            foreach (DataRow row in cl)
+                            foreach (DataRow crow in cl)
                             {
-                                if (cc != row)
+                                if (cc != crow)
                                 {
                                     // professor overlaps?
-                                    if (cc["instructorId"] == row["instructorId"])
+                                    if (cc["instructorId"] == crow["instructorId"])
                                     {
                                         po = true;
                                     }
@@ -532,7 +532,7 @@ namespace ConsoleApp1
                                     // student group overlaps?
 
                                     DataTable curClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(cc["courseId"].ToString()));
-                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
+                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
                                     curClassCurriculums.Columns.Remove("courseId");
                                     sameTimeClassCurriculums.Columns.Remove("courseId");
                                     if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
@@ -619,672 +619,676 @@ namespace ConsoleApp1
                     h = 1;
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
-                foreach (DataRow row in yd.Rows)
+                DataRow row = yd.Rows[0];
+                if (row["cs"].ToString() != null)
                 {
-                    if (Int32.Parse(row["year"].ToString()) == 1)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            fcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            fscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            fit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 2)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            scs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            sm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            smcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            ss[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            sscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            sit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 3)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            tcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            tm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            tmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            ts[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            tscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            tit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 4)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            focs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fom[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fomcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fos[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            foscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            foit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 5)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            fifcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fifm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fifmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fifs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            fifscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            fifit[day, time] = h;
-                    }
+                    if (Int32.Parse(row["cs"].ToString()) == 1)
+                        fcs[day, time] = h;
+                    if (Int32.Parse(row["cs"].ToString()) == 2)
+                        scs[day, time] = h;
+                    if (Int32.Parse(row["cs"].ToString()) == 3)
+                        tcs[day, time] = h;
+                    if (Int32.Parse(row["cs"].ToString()) == 4)
+                        focs[day, time] = h;
+                    if (Int32.Parse(row["cs"].ToString()) == 5)
+                        fifcs[day, time] = h;
                 }
-                ci += 9;
-            }
-
-            //then call a function and send it all the years and devisions
-            //then for each devision of a year whom don't have an off day
-            //or consecutive hours more than 6 increment the score
-            List<int[,]> data = new List<int[,]> { fm, fmcs, fs, fit, fcs, sm, smcs, ss, sit, scs, tm, tmcs, ts, tit, tcs, fom, fomcs, fos, foit, focs, fifm, fifmcs, fifs, fifit, fifcs };
-            score += CheckPref(data);
-            //calculate fitess value based on score
-            _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
-        }
-        private int CheckPref(List<int[,]> allData)
-        {
-            int score = 0;
-            foreach (int[,] yd in allData)
-            {
-                score += CheckSoftPref(yd);
-            }
-            return score;
-        }
-        //see if the they have a day off + see the maximum hours they are working in
-        private int CheckSoftPref(int[,] yd)
-        {
-            //work here get the day off preferences for each year
-
-            //work here see if the lab and days on same day or not;
-            int score = 0;
-            int consectiveHours = 0;
-            bool consHours = false;
-            bool[] days = new bool[7];
-            bool prefDayOff = false;
-            bool dayOff = false;
-            //calculate the number of lectures and labs in a single day
-            int numOfLectures = 0;
-            int numOfLabs = 0;
-            for (int d = 0; d <= 4; d++)
-            {
-
-                for (int t = 0; t <= 4; t++)
+                if (row["math"].ToString() != null)
                 {
-                    //1 for lectures
-                    if (yd[d, t] == 1)
-                    {
-                        consectiveHours += 2;
-                        days[d] = true;
-                        numOfLectures++;
-                    }
-                    if (yd[d, t] != 0)
-                    {
-                        consectiveHours += 2;
-                        days[d] = true;
-                        numOfLabs++;
-                    }
+                    if (Int32.Parse(row["math"].ToString()) == 1)
+                        fm[day, time] = h;
+                    if (Int32.Parse(row["math"].ToString()) == 2)
+                        sm[day, time] = h;
+                    if (Int32.Parse(row["math"].ToString()) == 3)
+                        tm[day, time] = h;
+                    if (Int32.Parse(row["math"].ToString()) == 4)
+                        fom[day, time] = h;
+                    if (Int32.Parse(row["math"].ToString()) == 5)
+                        fifm[day, time] = h;
                 }
-                if (consectiveHours >= 6)
-                    consHours = true;
-                //work if day have both
-                if (numOfLectures != 0 && numOfLabs != 0)
-                    score++;
-            }
-            //off day
-            if (days.Contains(false))
-            {
-                dayOff = true;
-                //get the indexes of all off days if any 
-                var result = Enumerable.Range(0, days.Count()).Where(i => days[i] == false).ToList();
-                //check if the off day is the preferred one or not !
-                //if(result.Contains(integer index of the preffered day))  prefDayOff=true; ;
-            }
-
-            bool[] hoursDays = new bool[] { consHours, dayOff, prefDayOff };
-            //consecetive hourse
-            if (consHours == true)
-                score++;
-            //checkForOffDay
-            if (dayOff == false)
-                score++;
-            //check if the day off is the preferred day
-            if (prefDayOff == false)
-                score++;
-
-            return score;
-        }
-        // Returns fitness value of chromosome
-
-        //get the current timetables and evaluate
-        public void evaluate()
-        {
-
-            ScheduleTableAdapter sched = new ScheduleTableAdapter();
-            DataTable sem = sched.GetData();
-            DataRow classDR;
-            Counts counts = new Counts();
-            foreach (DataRow r in sem.Rows)
-            {
-                int nr = Counts.GetInstance().GetNumberOfLectureRooms();
-                int daySize = DefineConstants.DAY_HOURS * nr;
-                int curClassId = Int32.Parse(r["courseClassId"].ToString());
-                classDR = counts.GetClassById(curClassId);
-                int dur = Int32.Parse(classDR["duration"].ToString());
-                String d = r["day"].ToString();
-                int day = 8;
-                if (Enum.IsDefined(typeof(DayOfWeek), d))
+                if (row["mathCS"].ToString() != null)
                 {
-                    DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d, true);
-                    day = (int)x;
+                    if (Int32.Parse(row["mathCS"].ToString()) == 1)
+                        fmcs[day, time] = h;
+                    if (Int32.Parse(row["mathCS"].ToString()) == 2)
+                        smcs[day, time] = h;
+                    if (Int32.Parse(row["mathCS"].ToString()) == 3)
+                        tmcs[day, time] = h;
+                    if (Int32.Parse(row["mathCS"].ToString()) == 4)
+                        fomcs[day, time] = h;
+                    if (Int32.Parse(row["mathCS"].ToString()) == 5)
+                        fifmcs[day, time] = h;
                 }
-                int pos = day * daySize;
-                int time = pos % daySize;
-                // fill time-space slots, for each hour of class
-                
-                for (int i = dur - 1; i >= 0; i--)
+                if (row["stat"].ToString() != null)
                 {
-                    List<DataRow> l = new List<DataRow>();
-                    l.Add(classDR);
-                    if (_slots[(pos + i)] == null)
-                        _slots[(pos + i)] = l;
-                    else
-                        _slots[(pos + i)].Add(classDR);
-                    // newChromosome._slots.Insert((pos + i), l);
-
+                    if (Int32.Parse(row["stat"].ToString()) == 1)
+                        fs[day, time] = h;
+                    if (Int32.Parse(row["stat"].ToString()) == 2)
+                        ss[day, time] = h;
+                    if (Int32.Parse(row["stat"].ToString()) == 3)
+                        ts[day, time] = h;
+                    if (Int32.Parse(row["stat"].ToString()) == 4)
+                        fos[day, time] = h;
+                    if (Int32.Parse(row["stat"].ToString()) == 5)
+                        fifs[day, time] = h;
                 }
-                _classes.Add(classDR, pos);
-            }
-            CalculateFitness();
-            float score= GetFitness();
-            Console.WriteLine("The fitness is " + score);
+                if (row["statCS"].ToString() != null)
+                {
+                    if (Int32.Parse(row["statCS"].ToString()) == 1)
+                        fscs[day, time] = h;
+                    if (Int32.Parse(row["statCS"].ToString()) == 2)
+                        sscs[day, time] = h;
+                    if (Int32.Parse(row["statCS"].ToString()) == 3)
+                        tscs[day, time] = h;
+                    if (Int32.Parse(row["statCS"].ToString()) == 4)
+                        foscs[day, time] = h;
+                    if (Int32.Parse(row["statCS"].ToString()) == 5)
+                        fifscs[day, time] = h;
+                }
+                if (row["IT"].Equals( DBNull))// .ToString()) != null)
+                {
+                    if (Int32.Parse(row["IT"].ToString()) == 1)
+                        fit[day, time] = h;
+                    if (Int32.Parse(row["IT"].ToString()) == 2)
+                        sit[day, time] = h;
+                    if (Int32.Parse(row["IT"].ToString()) == 3)
+                        tit[day, time] = h;
+                    if (Int32.Parse(row["IT"].ToString()) == 4)
+                        foit[day, time] = h;
+                    if (Int32.Parse(row["IT"].ToString()) == 5)
+                        fifit[day, time] = h;
+                }
 
+            
+            ci += 9;
         }
-        public float GetFitness()
+
+        //then call a function and send it all the years and devisions
+        //then for each devision of a year whom don't have an off day
+        //or consecutive hours more than 6 increment the score
+        List<int[,]> data = new List<int[,]> { fm, fmcs, fs, fit, fcs, sm, smcs, ss, sit, scs, tm, tmcs, ts, tit, tcs, fom, fomcs, fos, foit, focs, fifm, fifmcs, fifs, fifit, fifcs };
+        score += CheckPref(data);
+        //calculate fitess value based on score
+        _fitness = (float) score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
+        }
+    private int CheckPref(List<int[,]> allData)
+    {
+        int score = 0;
+        foreach (int[,] yd in allData)
         {
-            return _fitness;
+            score += CheckSoftPref(yd);
         }
-
-        // Returns reference to table of classes
-        public Dictionary<DataRow, int> GetClasses()
-        {
-            return _classes;
-        }
-
-        // Returns array of flags of class requiroments satisfaction
-        public List<bool> GetCriteria()
-        {
-            return _criteria;
-        }
-
-        // Return reference to array of time-space slots
-        public List<List<DataRow>> GetSlots()
-        {
-            return _slots;
-        }
-
+        return score;
     }
+    //see if the they have a day off + see the maximum hours they are working in
+    private int CheckSoftPref(int[,] yd)
+    {
+        //work here get the day off preferences for each year
 
-    // Genetic algorithm
-    public class Algorithm
+        //work here see if the lab and days on same day or not;
+        int score = 0;
+        int consectiveHours = 0;
+        bool consHours = false;
+        bool[] days = new bool[7];
+        bool prefDayOff = false;
+        bool dayOff = false;
+        //calculate the number of lectures and labs in a single day
+        int numOfLectures = 0;
+        int numOfLabs = 0;
+        for (int d = 0; d <= 4; d++)
+        {
+
+            for (int t = 0; t <= 4; t++)
+            {
+                //1 for lectures
+                if (yd[d, t] == 1)
+                {
+                    consectiveHours += 2;
+                    days[d] = true;
+                    numOfLectures++;
+                }
+                if (yd[d, t] != 0)
+                {
+                    consectiveHours += 2;
+                    days[d] = true;
+                    numOfLabs++;
+                }
+            }
+            if (consectiveHours >= 6)
+                consHours = true;
+            //work if day have both
+            if (numOfLectures != 0 && numOfLabs != 0)
+                score++;
+        }
+        //off day
+        if (days.Contains(false))
+        {
+            dayOff = true;
+            //get the indexes of all off days if any 
+            var result = Enumerable.Range(0, days.Count()).Where(i => days[i] == false).ToList();
+            //check if the off day is the preferred one or not !
+            //if(result.Contains(integer index of the preffered day))  prefDayOff=true; ;
+        }
+
+        bool[] hoursDays = new bool[] { consHours, dayOff, prefDayOff };
+        //consecetive hourse
+        if (consHours == true)
+            score++;
+        //checkForOffDay
+        if (dayOff == false)
+            score++;
+        //check if the day off is the preferred day
+        if (prefDayOff == false)
+            score++;
+
+        return score;
+    }
+    // Returns fitness value of chromosome
+
+    //get the current timetables and evaluate
+    public void evaluate()
     {
 
-
-        // Population of chromosomes
-        private List<ScheduleGenetic> _chromosomes = new List<ScheduleGenetic>();
-
-        // Inidicates wheahter chromosome belongs to best chromosome group
-        private List<bool> _bestFlags = new List<bool>();
-
-        // Indices of best chromosomes
-        private List<int> _bestChromosomes = new List<int>();
-
-        // Number of best chromosomes currently saved in best chromosome group
-        private int _currentBestSize;
-
-        // Number of chromosomes which are replaced in each generation by offspring
-        private int _replaceByGeneration;
-
-        // Pointer to algorithm observer
-        private ScheduleObserver _observer;
-
-        // Prototype of chromosomes in population
-        private ScheduleGenetic _prototype;
-
-        // Current generation
-        private int _currentGeneration;
-
-        // State of execution of algorithm
-        private AlgorithmState _state;
-
-        // Synchronization of algorithm's state
-        public static object _stateSect = new Object();
-        // private CCriticalSection _stateSect = new CCriticalSection();
-
-        // Pointer to global instance of algorithm
-        private static Algorithm _instance = null;
-
-        // Synchronization of creation and destruction of global instance
-        public static object _instanceSect = new Object();
-        // private static CCriticalSection _instanceSect = new CCriticalSection();
-
-        // Synchronization of creation and destruction of global instance
-
-        private static SemaphoreSlim @lock;
-        //static Thread @thr;
-        public static Algorithm GetInstance()
+        ScheduleTableAdapter sched = new ScheduleTableAdapter();
+        DataTable sem = sched.GetData();
+        DataRow classDR;
+        Counts counts = new Counts();
+        foreach (DataRow r in sem.Rows)
         {
-
-            @lock = new SemaphoreSlim(1);
-            //CCriticalSectionSim.LockData();
-            // Thread @thr;
-            // global instance doesn't exist?
-            @lock.Wait();
-            if (_instance == null)
+            int nr = Counts.GetInstance().GetNumberOfLectureRooms();
+            int daySize = DefineConstants.DAY_HOURS * nr;
+            int curClassId = Int32.Parse(r["courseClassId"].ToString());
+            classDR = counts.GetClassById(curClassId);
+            int dur = Int32.Parse(classDR["duration"].ToString());
+            String d = r["day"].ToString();
+            int day = 8;
+            if (Enum.IsDefined(typeof(DayOfWeek), d))
             {
-                //@thr = new Thread(new delegate() { GetInstance(); });
-                // set seed for random generator
-                RandomNumbers.Seed((int)DateTime.Now.Ticks);
+                DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d, true);
+                day = (int)x;
+            }
+            int pos = day * daySize;
+            int time = pos % daySize;
+            // fill time-space slots, for each hour of class
 
-                // make prototype of chromosomes
-                ScheduleGenetic prototype = new ScheduleGenetic(2, 2, 80, 3);
-
-                // make new global instance of algorithm using chromosome prototype
-                _instance = new Algorithm(100, 8, 5, prototype, new ScheduleObserver());
-
+            for (int i = dur - 1; i >= 0; i--)
+            {
+                List<DataRow> l = new List<DataRow>();
+                l.Add(classDR);
+                if (_slots[(pos + i)] == null)
+                    _slots[(pos + i)] = l;
+                else
+                    _slots[(pos + i)].Add(classDR);
+                // newChromosome._slots.Insert((pos + i), l);
 
             }
+            _classes.Add(classDR, pos);
+        }
+        CalculateFitness();
+        float score = GetFitness();
+        Console.WriteLine("The fitness is " + score);
 
-            return _instance;
+    }
+    public float GetFitness()
+    {
+        return _fitness;
+    }
+
+    // Returns reference to table of classes
+    public Dictionary<DataRow, int> GetClasses()
+    {
+        return _classes;
+    }
+
+    // Returns array of flags of class requiroments satisfaction
+    public List<bool> GetCriteria()
+    {
+        return _criteria;
+    }
+
+    // Return reference to array of time-space slots
+    public List<List<DataRow>> GetSlots()
+    {
+        return _slots;
+    }
+
+}
+
+// Genetic algorithm
+public class Algorithm
+{
+
+
+    // Population of chromosomes
+    private List<ScheduleGenetic> _chromosomes = new List<ScheduleGenetic>();
+
+    // Inidicates wheahter chromosome belongs to best chromosome group
+    private List<bool> _bestFlags = new List<bool>();
+
+    // Indices of best chromosomes
+    private List<int> _bestChromosomes = new List<int>();
+
+    // Number of best chromosomes currently saved in best chromosome group
+    private int _currentBestSize;
+
+    // Number of chromosomes which are replaced in each generation by offspring
+    private int _replaceByGeneration;
+
+    // Pointer to algorithm observer
+    private ScheduleObserver _observer;
+
+    // Prototype of chromosomes in population
+    private ScheduleGenetic _prototype;
+
+    // Current generation
+    private int _currentGeneration;
+
+    // State of execution of algorithm
+    private AlgorithmState _state;
+
+    // Synchronization of algorithm's state
+    public static object _stateSect = new Object();
+    // private CCriticalSection _stateSect = new CCriticalSection();
+
+    // Pointer to global instance of algorithm
+    private static Algorithm _instance = null;
+
+    // Synchronization of creation and destruction of global instance
+    public static object _instanceSect = new Object();
+    // private static CCriticalSection _instanceSect = new CCriticalSection();
+
+    // Synchronization of creation and destruction of global instance
+
+    private static SemaphoreSlim @lock;
+    //static Thread @thr;
+    public static Algorithm GetInstance()
+    {
+
+        @lock = new SemaphoreSlim(1);
+        //CCriticalSectionSim.LockData();
+        // Thread @thr;
+        // global instance doesn't exist?
+        @lock.Wait();
+        if (_instance == null)
+        {
+            //@thr = new Thread(new delegate() { GetInstance(); });
+            // set seed for random generator
+            RandomNumbers.Seed((int)DateTime.Now.Ticks);
+
+            // make prototype of chromosomes
+            ScheduleGenetic prototype = new ScheduleGenetic(2, 2, 80, 3);
+
+            // make new global instance of algorithm using chromosome prototype
+            _instance = new Algorithm(100, 8, 5, prototype, new ScheduleObserver());
+
+
         }
 
-        // Frees memory used by gloval instance
+        return _instance;
+    }
 
-        public static void FreeInstance()
+    // Frees memory used by gloval instance
+
+    public static void FreeInstance()
+    {
+        //CSingleLock @lock = new CSingleLock(_instanceSect, 1);
+        @lock = new SemaphoreSlim(1);
+        @lock.Wait();
+
+        // free memory used by global instance if it exists
+        if (_instance != null)
         {
-            //CSingleLock @lock = new CSingleLock(_instanceSect, 1);
-            @lock = new SemaphoreSlim(1);
-            @lock.Wait();
+            _instance._prototype = null;
+            _instance._observer.Dispose();
+            _instance = null;
 
-            // free memory used by global instance if it exists
-            if (_instance != null)
-            {
-                _instance._prototype = null;
-                _instance._observer.Dispose();
-                _instance = null;
+        }
+    }
 
-            }
+    // Initializes genetic algorithm
+    public Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, ScheduleGenetic prototype, ScheduleObserver observer)
+    {
+        this._replaceByGeneration = replaceByGeneration;
+        this._currentBestSize = 0;
+        this._prototype = prototype;
+        this._observer = observer;
+        this._currentGeneration = 0;
+        this._state = new AlgorithmState();
+        this._state = AlgorithmState.AS_USER_STOPED;
+        // there should be at least 2 chromosomes in population
+        if (numberOfChromosomes < 2)
+        {
+            numberOfChromosomes = 2;
         }
 
-        // Initializes genetic algorithm
-        public Algorithm(int numberOfChromosomes, int replaceByGeneration, int trackBest, ScheduleGenetic prototype, ScheduleObserver observer)
+        // and algorithm should track at least on of best chromosomes
+        if (trackBest < 1)
         {
-            this._replaceByGeneration = replaceByGeneration;
-            this._currentBestSize = 0;
-            this._prototype = prototype;
-            this._observer = observer;
-            this._currentGeneration = 0;
-            this._state = new AlgorithmState();
-            this._state = AlgorithmState.AS_USER_STOPED;
-            // there should be at least 2 chromosomes in population
-            if (numberOfChromosomes < 2)
+            trackBest = 1;
+        }
+
+        if (_replaceByGeneration < 1)
+        {
+            _replaceByGeneration = 1;
+        }
+        else if (_replaceByGeneration > numberOfChromosomes - trackBest)
+        {
+            _replaceByGeneration = numberOfChromosomes - trackBest;
+        }
+
+        // reserve space for population
+        _chromosomes.Resize(numberOfChromosomes);
+        _bestFlags.Resize(numberOfChromosomes);
+
+        // reserve space for best chromosome group
+        _bestChromosomes.Resize(trackBest);
+
+        // clear population
+        for (int i = (int)_chromosomes.Count - 1; i >= 0; --i)
+        {
+            _chromosomes[i] = null;
+            _bestFlags[i] = false;
+        }
+    }
+
+    // Starts and executes algorithm
+    public void Start()
+    {
+        if (_prototype == null)
+            return;
+
+        //CSingleLock @lock = new CSingleLock(_stateSect, 1);
+        @lock = new SemaphoreSlim(1);
+        @lock.Wait();
+        // do not run already running algorithm
+        if (_state == AlgorithmState.AS_RUNNING)
+            return;
+
+        _state = AlgorithmState.AS_RUNNING;
+
+        @lock.Release();
+        //@lock.Close();
+
+        if (_observer != null)
+        {
+            // notify observer that execution of algorithm has changed it state
+            _observer.EvolutionStateChanged(_state);
+        }
+
+        // clear best chromosome group from previous execution
+        ClearBest();
+
+        // initialize new population with chromosomes randomly built using prototype
+        List<ScheduleGenetic> it = _chromosomes.ToList();
+        ScheduleGenetic snew;
+        for (int i = 0; i < it.Count; i++)
+        {
+            // remove chromosome from previous execution
+            if (it[i] != null)
             {
-                numberOfChromosomes = 2;
+                if (!it[i].Equals(null))
+                {
+                    it[i] = null;
+                }
             }
 
-            // and algorithm should track at least on of best chromosomes
-            if (trackBest < 1)
+            // add new chromosome to population
+            //if population empty inser if into _chromosomes
+            snew = _prototype.MakeNewFromPrototype();
+            if (_chromosomes[i] == null)
+                _chromosomes[i] = snew;
+            it[i] = snew;
+            //    it[i] = _prototype.MakeNewFromPrototype();
+            AddToBest(i);
+        }
+        _currentGeneration = 0;
+
+        while (true)
+        {
+            @lock.Wait();
+            // user has stopped execution?
+            if (_state != AlgorithmState.AS_RUNNING)
             {
-                trackBest = 1;
+                @lock.Release();
+                break;
             }
 
-            if (_replaceByGeneration < 1)
+            ScheduleGenetic best = GetBestChromosome();
+            Console.WriteLine("check if best found" + best.GetFitness());
+            // work algorithm has reached criteria?
+            if (best.GetFitness() >= 0)
             {
-                _replaceByGeneration = 1;
+                Counts counts = new Counts();
+                ScheduleTableAdapter sched = new ScheduleTableAdapter();
+                DataTable rooms = counts.GetRooms();
+                _state = AlgorithmState.AS_CRITERIA_STOPPED;
+                //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
+                //{
+                foreach (KeyValuePair<DataRow, int> x in best.GetClasses())
+                {
+                    // coordinate of time-space slot
+                    int nr = Counts.GetInstance().GetNumberOfRooms();
+                    int daySize = DefineConstants.DAY_HOURS * nr;
+                    int p = x.Value;
+                    int day = p / daySize;
+                    int time = p % daySize;
+                    int room = time / DefineConstants.DAY_HOURS;
+                    int timeEnd;
+                    time = time % DefineConstants.DAY_HOURS;
+                    //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                    int dur = Int32.Parse(x.Key["duration"].ToString());
+                    int classId = Int32.Parse(x.Key["id"].ToString());
+                    int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
+                    //0 = sunday and so on
+                    String d = ((DayOfWeek)day).ToString();
+                    time = time + 8;
+                    timeEnd = time + dur;
+                    sched.Insert(classId, d, time, timeEnd, roomId);
+                }
+                Console.Write("done");
+                @lock.Release();
+                break;
             }
-            else if (_replaceByGeneration > numberOfChromosomes - trackBest)
+
+            @lock.Release();
+            Console.WriteLine("produce offepsing");
+            // produce offepsing
+            List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
+            offspring.Resize(_replaceByGeneration);
+            for (int j = 0; j < _replaceByGeneration; j++)
             {
-                _replaceByGeneration = numberOfChromosomes - trackBest;
+                // selects parent randomly
+                ScheduleGenetic p1 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
+                ScheduleGenetic p2 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
+                Console.WriteLine("produce offepsing: Crossover");
+                offspring[j] = p1.Crossover(p2);
+                Console.WriteLine("produce offepsing: Mutation");
+                offspring[j].Mutation();
+                //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
+            }
+            Console.WriteLine("replace chromosomes of current operation with offspring");
+            // replace chromosomes of current operation with offspring
+            for (int j = 0; j < _replaceByGeneration; j++)
+            {
+                int ci;
+                do
+                {
+                    // select chromosome for replacement randomly
+                    ci = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
+
+                    // protect best chromosomes from replacement
+                } while (IsInBest(ci));
+
+                // replace chromosomes
+                if (_chromosomes[ci] != null)
+                    _chromosomes[ci] = null;
+                _chromosomes[ci] = offspring[j];
+
+                // try to add new chromosomes in best chromosome group
+                AddToBest(ci);
             }
 
-            // reserve space for population
-            _chromosomes.Resize(numberOfChromosomes);
-            _bestFlags.Resize(numberOfChromosomes);
-
-            // reserve space for best chromosome group
-            _bestChromosomes.Resize(trackBest);
-
-            // clear population
-            for (int i = (int)_chromosomes.Count - 1; i >= 0; --i)
+            // algorithm has found new best chromosome
+            if (best != GetBestChromosome() && _observer != null)
             {
-                _chromosomes[i] = null;
+                // notify observer
+                _observer.NewBestChromosome(GetBestChromosome());
+            }
+
+            _currentGeneration++;
+        }
+
+        if (_observer != null)
+        {
+            // notify observer that execution of algorithm has changed it state
+            _observer.EvolutionStateChanged(_state);
+        }
+    }
+
+    // Stops execution of algoruthm
+
+    // Stops execution of algoruthm
+    public void Stop()
+    {
+        @lock = new SemaphoreSlim(1);
+        @lock.Wait();
+        if (_state == AlgorithmState.AS_RUNNING)
+        {
+            _state = AlgorithmState.AS_USER_STOPED;
+        }
+
+        @lock.Release();
+    }
+
+    // Returns pointer to best chromosomes in population
+
+    // Returns pointer to best chromosomes in population
+    public ScheduleGenetic GetBestChromosome()
+    {
+        return _chromosomes[_bestChromosomes[0]];
+    }
+
+    // Returns current generation
+    public int GetCurrentGeneration()
+    {
+        return _currentGeneration;
+    }
+
+    // Return to algorithm's observer
+    public ScheduleObserver GetObserver()
+    {
+        return _observer;
+    }
+
+
+    // Tries to add chromosomes in best chromosome group
+    private void AddToBest(int chromosomeIndex)
+    {
+        // don't add if new chromosome hasn't fitness big enough for best chromosome group
+        // or it is already in the group?
+        if ((_currentBestSize == (int)_bestChromosomes.Count() &&
+            _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >=
+            _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
+            return;
+
+        // find place for new chromosome
+        int i = _currentBestSize;
+        for (; i > 0; i--)
+        {
+            // group is not full?
+            if (i < (int)_bestChromosomes.Count())
+            {
+                // position of new chromosomes is found?
+                if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() >
+                    _chromosomes[chromosomeIndex].GetFitness())
+                    break;
+
+                // move chromosomes to make room for new
+                _bestChromosomes[i] = _bestChromosomes[i - 1];
+            }
+            else
+                // group is full remove worst chromosomes in the group
+                _bestFlags[_bestChromosomes[i - 1]] = false;
+        }
+
+        // store chromosome in best chromosome group
+        _bestChromosomes[i] = chromosomeIndex;
+        _bestFlags[chromosomeIndex] = true;
+        // increase current size if it has not reached the limit yet
+        if (_currentBestSize < (int)_bestChromosomes.Count())
+            _currentBestSize++;
+        Console.WriteLine("0:" + _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
+        Console.WriteLine("1:" + _chromosomes[_bestChromosomes[1]].GetFitness().ToString());
+        Console.WriteLine("2:" + _chromosomes[_bestChromosomes[2]].GetFitness().ToString());
+        Console.WriteLine("3:" + _chromosomes[_bestChromosomes[3]].GetFitness().ToString());
+        Console.WriteLine("4:" + _chromosomes[_bestChromosomes[4]].GetFitness().ToString());
+        ////if start up population best is empty
+        //if (_currentBestSize == 0)
+        //{
+        //    _bestChromosomes[_currentBestSize] = chromosomeIndex;
+        //    _bestFlags[chromosomeIndex] = true;
+        //    _currentBestSize++;
+        //}
+        //// don't add if new chromosome hasn't fitness big enough for best chromosome group
+        //// or it is already in the group?
+        //else
+        //{
+        //    if ((_currentBestSize == (int)_bestChromosomes.Count && _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >= _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
+        //        return;
+
+        //    // find place for new chromosome
+        //    int i = _currentBestSize;
+        //    for (; i > 0; i--)
+        //    {
+        //        // group is not full?
+        //        if (i < (int)_bestChromosomes.Count)
+        //        {
+        //            // position of new chromosomes is found?
+        //            if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() > _chromosomes[chromosomeIndex].GetFitness())
+        //                break;
+
+        //            // move chromosomes to make room for new
+        //            _bestChromosomes[i] = _bestChromosomes[i - 1];
+        //        }
+        //        else
+        //        {
+        //            // group is full remove worst chromosomes in the group
+        //            _bestFlags[_bestChromosomes[i - 1]] = false;
+        //        }
+        //    }
+
+        //    // store chromosome in best chromosome group
+        //    _bestChromosomes[i] = chromosomeIndex;
+        //    _bestFlags[chromosomeIndex] = true;
+
+        //    // increase current size if it has not reached the limit yet
+        //    if (_currentBestSize < (int)_bestChromosomes.Count)
+        //    {
+        //        _currentBestSize++;
+        //    }          
+        //}
+        //for (int z = 0; z < _currentBestSize; z++)
+        //    Console.WriteLine(_chromosomes[_bestChromosomes[z - 1]].GetFitness());
+    }
+    // Returns TRUE if chromosome belongs to best chromosome group
+    private bool IsInBest(int chromosomeIndex)
+    {
+        return _bestFlags[chromosomeIndex];
+    }
+
+    // Clears best chromosome group
+    private void ClearBest()
+    {
+        if (_bestFlags.Contains(true))
+        {
+            for (int i = (int)_bestFlags.Count - 1; i >= 0; --i)
+            {
                 _bestFlags[i] = false;
             }
         }
 
-        // Starts and executes algorithm
-        public void Start()
-        {
-            if (_prototype == null)
-                return;
-
-            //CSingleLock @lock = new CSingleLock(_stateSect, 1);
-            @lock = new SemaphoreSlim(1);
-            @lock.Wait();
-            // do not run already running algorithm
-            if (_state == AlgorithmState.AS_RUNNING)
-                return;
-
-            _state = AlgorithmState.AS_RUNNING;
-
-            @lock.Release();
-            //@lock.Close();
-
-            if (_observer != null)
-            {
-                // notify observer that execution of algorithm has changed it state
-                _observer.EvolutionStateChanged(_state);
-            }
-
-            // clear best chromosome group from previous execution
-            ClearBest();
-
-            // initialize new population with chromosomes randomly built using prototype
-            List<ScheduleGenetic> it = _chromosomes.ToList();
-            ScheduleGenetic snew;
-            for (int i = 0; i < it.Count; i++)
-            {
-                // remove chromosome from previous execution
-                if (it[i] != null)
-                {
-                    if (!it[i].Equals(null))
-                    {
-                        it[i] = null;
-                    }
-                }
-
-                // add new chromosome to population
-                //if population empty inser if into _chromosomes
-                snew = _prototype.MakeNewFromPrototype();
-                if (_chromosomes[i] == null)
-                    _chromosomes[i] = snew;
-                it[i] = snew;
-                //    it[i] = _prototype.MakeNewFromPrototype();
-                AddToBest(i);
-            }
-            _currentGeneration = 0;
-
-            while (true)
-            {
-                @lock.Wait();
-                // user has stopped execution?
-                if (_state != AlgorithmState.AS_RUNNING)
-                {
-                    @lock.Release();
-                    break;
-                }
-
-                ScheduleGenetic best = GetBestChromosome();
-                Console.WriteLine("check if best found" + best.GetFitness());
-                // work algorithm has reached criteria?
-                if (best.GetFitness() >= 0)
-                {
-                    Counts counts = new Counts();
-                    ScheduleTableAdapter sched = new ScheduleTableAdapter();
-                    DataTable rooms = counts.GetRooms();
-                    _state = AlgorithmState.AS_CRITERIA_STOPPED;
-                    //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
-                    //{
-                    foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
-                        // coordinate of time-space slot
-                        int nr = Counts.GetInstance().GetNumberOfRooms();
-                        int daySize = DefineConstants.DAY_HOURS * nr;
-                        int p = x.Value;
-                        int day = p / daySize;
-                        int time = p % daySize;
-                        int room = time / DefineConstants.DAY_HOURS;
-                        int timeEnd;
-                        time = time % DefineConstants.DAY_HOURS;
-                        //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
-                        int dur = Int32.Parse(x.Key["duration"].ToString());
-                        int classId = Int32.Parse(x.Key["id"].ToString());
-                        int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
-                        //0 = sunday and so on
-                        String d = ((DayOfWeek)day).ToString();
-                        time = time + 8;
-                        timeEnd = time + dur;
-                        sched.Insert(classId, d, time, timeEnd ,roomId);
-                    }
-                    Console.Write("done");
-                    @lock.Release();
-                    break;
-                }
-
-                @lock.Release();
-                Console.WriteLine("produce offepsing");
-                // produce offepsing
-                List<ScheduleGenetic> offspring = new List<ScheduleGenetic>();
-                offspring.Resize(_replaceByGeneration);
-                for (int j = 0; j < _replaceByGeneration; j++)
-                {
-                    // selects parent randomly
-                    ScheduleGenetic p1 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
-                    ScheduleGenetic p2 = _chromosomes[RandomNumbers.NextNumber() % _chromosomes.Count];
-                    Console.WriteLine("produce offepsing: Crossover");
-                    offspring[j] = p1.Crossover(p2);
-                    Console.WriteLine("produce offepsing: Mutation");
-                    offspring[j].Mutation();
-                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
-                }
-                Console.WriteLine("replace chromosomes of current operation with offspring");
-                // replace chromosomes of current operation with offspring
-                for (int j = 0; j < _replaceByGeneration; j++)
-                {
-                    int ci;
-                    do
-                    {
-                        // select chromosome for replacement randomly
-                        ci = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
-
-                        // protect best chromosomes from replacement
-                    } while (IsInBest(ci));
-
-                    // replace chromosomes
-                    if (_chromosomes[ci] != null)
-                        _chromosomes[ci] = null;
-                    _chromosomes[ci] = offspring[j];
-
-                    // try to add new chromosomes in best chromosome group
-                    AddToBest(ci);
-                }
-
-                // algorithm has found new best chromosome
-                if (best != GetBestChromosome() && _observer != null)
-                {
-                    // notify observer
-                    _observer.NewBestChromosome(GetBestChromosome());
-                }
-
-                _currentGeneration++;
-            }
-
-            if (_observer != null)
-            {
-                // notify observer that execution of algorithm has changed it state
-                _observer.EvolutionStateChanged(_state);
-            }
-        }
-
-        // Stops execution of algoruthm
-
-        // Stops execution of algoruthm
-        public void Stop()
-        {
-            @lock = new SemaphoreSlim(1);
-            @lock.Wait();
-            if (_state == AlgorithmState.AS_RUNNING)
-            {
-                _state = AlgorithmState.AS_USER_STOPED;
-            }
-
-            @lock.Release();
-        }
-
-        // Returns pointer to best chromosomes in population
-
-        // Returns pointer to best chromosomes in population
-        public ScheduleGenetic GetBestChromosome()
-        {
-            return _chromosomes[_bestChromosomes[0]];
-        }
-
-        // Returns current generation
-        public int GetCurrentGeneration()
-        {
-            return _currentGeneration;
-        }
-
-        // Return to algorithm's observer
-        public ScheduleObserver GetObserver()
-        {
-            return _observer;
-        }
-
-
-        // Tries to add chromosomes in best chromosome group
-        private void AddToBest(int chromosomeIndex)
-        {
-            // don't add if new chromosome hasn't fitness big enough for best chromosome group
-            // or it is already in the group?
-            if ((_currentBestSize == (int)_bestChromosomes.Count() &&
-                _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >=
-                _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
-                return;
-
-            // find place for new chromosome
-            int i = _currentBestSize;
-            for (; i > 0; i--)
-            {
-                // group is not full?
-                if (i < (int)_bestChromosomes.Count())
-                {
-                    // position of new chromosomes is found?
-                    if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() >
-                        _chromosomes[chromosomeIndex].GetFitness())
-                        break;
-
-                    // move chromosomes to make room for new
-                    _bestChromosomes[i] = _bestChromosomes[i - 1];
-                }
-                else
-                    // group is full remove worst chromosomes in the group
-                    _bestFlags[_bestChromosomes[i - 1]] = false;
-            }
-
-            // store chromosome in best chromosome group
-            _bestChromosomes[i] = chromosomeIndex;
-            _bestFlags[chromosomeIndex] = true;      
-                // increase current size if it has not reached the limit yet
-                if (_currentBestSize < (int)_bestChromosomes.Count())
-                _currentBestSize++;
-            Console.WriteLine("0:"+ _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
-            Console.WriteLine("1:" + _chromosomes[_bestChromosomes[1]].GetFitness().ToString());
-            Console.WriteLine("2:" + _chromosomes[_bestChromosomes[2]].GetFitness().ToString());
-            Console.WriteLine("3:" + _chromosomes[_bestChromosomes[3]].GetFitness().ToString());
-            Console.WriteLine("4:" + _chromosomes[_bestChromosomes[4]].GetFitness().ToString());
-            ////if start up population best is empty
-            //if (_currentBestSize == 0)
-            //{
-            //    _bestChromosomes[_currentBestSize] = chromosomeIndex;
-            //    _bestFlags[chromosomeIndex] = true;
-            //    _currentBestSize++;
-            //}
-            //// don't add if new chromosome hasn't fitness big enough for best chromosome group
-            //// or it is already in the group?
-            //else
-            //{
-            //    if ((_currentBestSize == (int)_bestChromosomes.Count && _chromosomes[_bestChromosomes[_currentBestSize - 1]].GetFitness() >= _chromosomes[chromosomeIndex].GetFitness()) || _bestFlags[chromosomeIndex])
-            //        return;
-
-            //    // find place for new chromosome
-            //    int i = _currentBestSize;
-            //    for (; i > 0; i--)
-            //    {
-            //        // group is not full?
-            //        if (i < (int)_bestChromosomes.Count)
-            //        {
-            //            // position of new chromosomes is found?
-            //            if (_chromosomes[_bestChromosomes[i - 1]].GetFitness() > _chromosomes[chromosomeIndex].GetFitness())
-            //                break;
-
-            //            // move chromosomes to make room for new
-            //            _bestChromosomes[i] = _bestChromosomes[i - 1];
-            //        }
-            //        else
-            //        {
-            //            // group is full remove worst chromosomes in the group
-            //            _bestFlags[_bestChromosomes[i - 1]] = false;
-            //        }
-            //    }
-
-            //    // store chromosome in best chromosome group
-            //    _bestChromosomes[i] = chromosomeIndex;
-            //    _bestFlags[chromosomeIndex] = true;
-
-            //    // increase current size if it has not reached the limit yet
-            //    if (_currentBestSize < (int)_bestChromosomes.Count)
-            //    {
-            //        _currentBestSize++;
-            //    }          
-            //}
-            //for (int z = 0; z < _currentBestSize; z++)
-            //    Console.WriteLine(_chromosomes[_bestChromosomes[z - 1]].GetFitness());
-        }
-        // Returns TRUE if chromosome belongs to best chromosome group
-        private bool IsInBest(int chromosomeIndex)
-        {
-            return _bestFlags[chromosomeIndex];
-        }
-
-        // Clears best chromosome group
-        private void ClearBest()
-        {
-            if (_bestFlags.Contains(true))
-            {
-                for (int i = (int)_bestFlags.Count - 1; i >= 0; --i)
-                {
-                    _bestFlags[i] = false;
-                }
-            }
-
-            _currentBestSize = 0;
-        }
-
+        _currentBestSize = 0;
     }
+
+}
 }

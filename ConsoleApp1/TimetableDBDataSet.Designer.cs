@@ -102,6 +102,18 @@ namespace ConsoleApp1 {
         
         private global::System.Data.DataRelation relationFK_STATCS_ToRooms;
         
+        private global::System.Data.DataRelation relationFK_CoursesYD__ToTableIT;
+        
+        private global::System.Data.DataRelation relationFK_CoursesYD_ToTableCS;
+        
+        private global::System.Data.DataRelation relationFK_CoursesYD_ToTableMath;
+        
+        private global::System.Data.DataRelation relationFK_CoursesYD_ToTableMathCS;
+        
+        private global::System.Data.DataRelation relationFK_CoursesYD_ToTableStat;
+        
+        private global::System.Data.DataRelation relationFK_CoursesYD_ToTableStatCS;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -623,6 +635,12 @@ namespace ConsoleApp1 {
             this.relationFK_MathCS_ToRooms = this.Relations["FK_MathCS_ToRooms"];
             this.relationFK_STAT_ToRooms = this.Relations["FK_STAT_ToRooms"];
             this.relationFK_STATCS_ToRooms = this.Relations["FK_STATCS_ToRooms"];
+            this.relationFK_CoursesYD__ToTableIT = this.Relations["FK_CoursesYD__ToTableIT"];
+            this.relationFK_CoursesYD_ToTableCS = this.Relations["FK_CoursesYD_ToTableCS"];
+            this.relationFK_CoursesYD_ToTableMath = this.Relations["FK_CoursesYD_ToTableMath"];
+            this.relationFK_CoursesYD_ToTableMathCS = this.Relations["FK_CoursesYD_ToTableMathCS"];
+            this.relationFK_CoursesYD_ToTableStat = this.Relations["FK_CoursesYD_ToTableStat"];
+            this.relationFK_CoursesYD_ToTableStatCS = this.Relations["FK_CoursesYD_ToTableStatCS"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -765,6 +783,30 @@ namespace ConsoleApp1 {
                         this.tableRooms.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableSTATCS.labRoomColumn}, false);
             this.Relations.Add(this.relationFK_STATCS_ToRooms);
+            this.relationFK_CoursesYD__ToTableIT = new global::System.Data.DataRelation("FK_CoursesYD__ToTableIT", new global::System.Data.DataColumn[] {
+                        this.tableIT.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.ITColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD__ToTableIT);
+            this.relationFK_CoursesYD_ToTableCS = new global::System.Data.DataRelation("FK_CoursesYD_ToTableCS", new global::System.Data.DataColumn[] {
+                        this.tableCS.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.csColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD_ToTableCS);
+            this.relationFK_CoursesYD_ToTableMath = new global::System.Data.DataRelation("FK_CoursesYD_ToTableMath", new global::System.Data.DataColumn[] {
+                        this.tableMath.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.mathColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD_ToTableMath);
+            this.relationFK_CoursesYD_ToTableMathCS = new global::System.Data.DataRelation("FK_CoursesYD_ToTableMathCS", new global::System.Data.DataColumn[] {
+                        this.tableMathCS.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.mathCSColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD_ToTableMathCS);
+            this.relationFK_CoursesYD_ToTableStat = new global::System.Data.DataRelation("FK_CoursesYD_ToTableStat", new global::System.Data.DataColumn[] {
+                        this.tableSTAT.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.statColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD_ToTableStat);
+            this.relationFK_CoursesYD_ToTableStatCS = new global::System.Data.DataRelation("FK_CoursesYD_ToTableStatCS", new global::System.Data.DataColumn[] {
+                        this.tableSTATCS.yearColumn}, new global::System.Data.DataColumn[] {
+                        this.tableCoursesYD.statCSColumn}, false);
+            this.Relations.Add(this.relationFK_CoursesYD_ToTableStatCS);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5086,9 +5128,17 @@ namespace ConsoleApp1 {
             
             private global::System.Data.DataColumn columncourseId;
             
-            private global::System.Data.DataColumn columnyear;
+            private global::System.Data.DataColumn columncs;
             
-            private global::System.Data.DataColumn columnDivision;
+            private global::System.Data.DataColumn columnstat;
+            
+            private global::System.Data.DataColumn columnmath;
+            
+            private global::System.Data.DataColumn columnmathCS;
+            
+            private global::System.Data.DataColumn columnstatCS;
+            
+            private global::System.Data.DataColumn columnIT;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -5133,17 +5183,49 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn yearColumn {
+            public global::System.Data.DataColumn csColumn {
                 get {
-                    return this.columnyear;
+                    return this.columncs;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DivisionColumn {
+            public global::System.Data.DataColumn statColumn {
                 get {
-                    return this.columnDivision;
+                    return this.columnstat;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mathColumn {
+                get {
+                    return this.columnmath;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mathCSColumn {
+                get {
+                    return this.columnmathCS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn statCSColumn {
+                get {
+                    return this.columnstatCS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ITColumn {
+                get {
+                    return this.columnIT;
                 }
             }
             
@@ -5184,14 +5266,36 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CoursesYDRow AddCoursesYDRow(CoursesRow parentCoursesRowByFK_CoursesYD_ToTableCourses, string year, string Division) {
+            public CoursesYDRow AddCoursesYDRow(CoursesRow parentCoursesRowByFK_CoursesYD_ToTableCourses, CSRow parentCSRowByFK_CoursesYD_ToTableCS, STATRow parentSTATRowByFK_CoursesYD_ToTableStat, MathRow parentMathRowByFK_CoursesYD_ToTableMath, MathCSRow parentMathCSRowByFK_CoursesYD_ToTableMathCS, STATCSRow parentSTATCSRowByFK_CoursesYD_ToTableStatCS, ITRow parentITRowByFK_CoursesYD__ToTableIT) {
                 CoursesYDRow rowCoursesYDRow = ((CoursesYDRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        year,
-                        Division};
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null};
                 if ((parentCoursesRowByFK_CoursesYD_ToTableCourses != null)) {
                     columnValuesArray[0] = parentCoursesRowByFK_CoursesYD_ToTableCourses[0];
+                }
+                if ((parentCSRowByFK_CoursesYD_ToTableCS != null)) {
+                    columnValuesArray[1] = parentCSRowByFK_CoursesYD_ToTableCS[0];
+                }
+                if ((parentSTATRowByFK_CoursesYD_ToTableStat != null)) {
+                    columnValuesArray[2] = parentSTATRowByFK_CoursesYD_ToTableStat[0];
+                }
+                if ((parentMathRowByFK_CoursesYD_ToTableMath != null)) {
+                    columnValuesArray[3] = parentMathRowByFK_CoursesYD_ToTableMath[0];
+                }
+                if ((parentMathCSRowByFK_CoursesYD_ToTableMathCS != null)) {
+                    columnValuesArray[4] = parentMathCSRowByFK_CoursesYD_ToTableMathCS[0];
+                }
+                if ((parentSTATCSRowByFK_CoursesYD_ToTableStatCS != null)) {
+                    columnValuesArray[5] = parentSTATCSRowByFK_CoursesYD_ToTableStatCS[0];
+                }
+                if ((parentITRowByFK_CoursesYD__ToTableIT != null)) {
+                    columnValuesArray[6] = parentITRowByFK_CoursesYD__ToTableIT[0];
                 }
                 rowCoursesYDRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCoursesYDRow);
@@ -5216,8 +5320,12 @@ namespace ConsoleApp1 {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columncourseId = base.Columns["courseId"];
-                this.columnyear = base.Columns["year"];
-                this.columnDivision = base.Columns["Division"];
+                this.columncs = base.Columns["cs"];
+                this.columnstat = base.Columns["stat"];
+                this.columnmath = base.Columns["math"];
+                this.columnmathCS = base.Columns["mathCS"];
+                this.columnstatCS = base.Columns["statCS"];
+                this.columnIT = base.Columns["IT"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5225,15 +5333,19 @@ namespace ConsoleApp1 {
             private void InitClass() {
                 this.columncourseId = new global::System.Data.DataColumn("courseId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncourseId);
-                this.columnyear = new global::System.Data.DataColumn("year", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnyear);
-                this.columnDivision = new global::System.Data.DataColumn("Division", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDivision);
+                this.columncs = new global::System.Data.DataColumn("cs", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncs);
+                this.columnstat = new global::System.Data.DataColumn("stat", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnstat);
+                this.columnmath = new global::System.Data.DataColumn("math", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmath);
+                this.columnmathCS = new global::System.Data.DataColumn("mathCS", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmathCS);
+                this.columnstatCS = new global::System.Data.DataColumn("statCS", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnstatCS);
+                this.columnIT = new global::System.Data.DataColumn("IT", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIT);
                 this.columncourseId.AllowDBNull = false;
-                this.columnyear.AllowDBNull = false;
-                this.columnyear.MaxLength = 10;
-                this.columnDivision.AllowDBNull = false;
-                this.columnDivision.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6395,6 +6507,17 @@ namespace ConsoleApp1 {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableCS"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD_ToTableCS"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD_ToTableCS"])));
+                }
+            }
         }
         
         /// <summary>
@@ -6921,6 +7044,17 @@ namespace ConsoleApp1 {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableIT"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD__ToTableIT"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD__ToTableIT"])));
+                }
+            }
         }
         
         /// <summary>
@@ -7019,6 +7153,17 @@ namespace ConsoleApp1 {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableMath"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD_ToTableMath"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD_ToTableMath"])));
+                }
+            }
         }
         
         /// <summary>
@@ -7115,6 +7260,17 @@ namespace ConsoleApp1 {
                 }
                 else {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableMathCS"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD_ToTableMathCS"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD_ToTableMathCS"])));
                 }
             }
         }
@@ -7390,6 +7546,17 @@ namespace ConsoleApp1 {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableStat"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD_ToTableStat"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD_ToTableStat"])));
+                }
+            }
         }
         
         /// <summary>
@@ -7503,6 +7670,17 @@ namespace ConsoleApp1 {
                 }
                 else {
                     return ((CurriculumDevisionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CurriculumDevisions_ToTableStatCS"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CoursesYDRow[] GetCoursesYDRows() {
+                if ((this.Table.ChildRelations["FK_CoursesYD_ToTableStatCS"] == null)) {
+                    return new CoursesYDRow[0];
+                }
+                else {
+                    return ((CoursesYDRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CoursesYD_ToTableStatCS"])));
                 }
             }
         }
@@ -7637,23 +7815,97 @@ namespace ConsoleApp1 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string year {
+            public int cs {
                 get {
-                    return ((string)(this[this.tableCoursesYD.yearColumn]));
+                    try {
+                        return ((int)(this[this.tableCoursesYD.csColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cs\' in table \'CoursesYD\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableCoursesYD.yearColumn] = value;
+                    this[this.tableCoursesYD.csColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string Division {
+            public int stat {
                 get {
-                    return ((string)(this[this.tableCoursesYD.DivisionColumn]));
+                    try {
+                        return ((int)(this[this.tableCoursesYD.statColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'stat\' in table \'CoursesYD\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableCoursesYD.DivisionColumn] = value;
+                    this[this.tableCoursesYD.statColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int math {
+                get {
+                    try {
+                        return ((int)(this[this.tableCoursesYD.mathColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'math\' in table \'CoursesYD\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCoursesYD.mathColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int mathCS {
+                get {
+                    try {
+                        return ((int)(this[this.tableCoursesYD.mathCSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'mathCS\' in table \'CoursesYD\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCoursesYD.mathCSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int statCS {
+                get {
+                    try {
+                        return ((int)(this[this.tableCoursesYD.statCSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'statCS\' in table \'CoursesYD\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCoursesYD.statCSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int IT {
+                get {
+                    try {
+                        return ((int)(this[this.tableCoursesYD.ITColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IT\' in table \'CoursesYD\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCoursesYD.ITColumn] = value;
                 }
             }
             
@@ -7666,6 +7918,144 @@ namespace ConsoleApp1 {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableCourses"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public ITRow ITRow {
+                get {
+                    return ((ITRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD__ToTableIT"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD__ToTableIT"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public CSRow CSRow {
+                get {
+                    return ((CSRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD_ToTableCS"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableCS"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MathRow MathRow {
+                get {
+                    return ((MathRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD_ToTableMath"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableMath"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MathCSRow MathCSRow {
+                get {
+                    return ((MathCSRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD_ToTableMathCS"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableMathCS"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public STATRow STATRow {
+                get {
+                    return ((STATRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD_ToTableStat"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableStat"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public STATCSRow STATCSRow {
+                get {
+                    return ((STATCSRow)(this.GetParentRow(this.Table.ParentRelations["FK_CoursesYD_ToTableStatCS"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_CoursesYD_ToTableStatCS"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscsNull() {
+                return this.IsNull(this.tableCoursesYD.csColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcsNull() {
+                this[this.tableCoursesYD.csColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsstatNull() {
+                return this.IsNull(this.tableCoursesYD.statColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetstatNull() {
+                this[this.tableCoursesYD.statColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsmathNull() {
+                return this.IsNull(this.tableCoursesYD.mathColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetmathNull() {
+                this[this.tableCoursesYD.mathColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsmathCSNull() {
+                return this.IsNull(this.tableCoursesYD.mathCSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetmathCSNull() {
+                this[this.tableCoursesYD.mathCSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsstatCSNull() {
+                return this.IsNull(this.tableCoursesYD.statCSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetstatCSNull() {
+                this[this.tableCoursesYD.statCSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsITNull() {
+                return this.IsNull(this.tableCoursesYD.ITColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetITNull() {
+                this[this.tableCoursesYD.ITColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -14149,17 +14539,25 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "CoursesYD";
             tableMapping.ColumnMappings.Add("courseId", "courseId");
-            tableMapping.ColumnMappings.Add("year", "year");
-            tableMapping.ColumnMappings.Add("Division", "Division");
+            tableMapping.ColumnMappings.Add("cs", "cs");
+            tableMapping.ColumnMappings.Add("stat", "stat");
+            tableMapping.ColumnMappings.Add("math", "math");
+            tableMapping.ColumnMappings.Add("mathCS", "mathCS");
+            tableMapping.ColumnMappings.Add("statCS", "statCS");
+            tableMapping.ColumnMappings.Add("IT", "IT");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [CoursesYD] ([courseId], [year], [Division]) VALUES (@courseId, @year" +
-                ", @Division)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [CoursesYD] ([courseId], [cs], [stat], [math], [mathCS], [statCS], [I" +
+                "T]) VALUES (@courseId, @cs, @stat, @math, @mathCS, @statCS, @IT)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@year", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Division", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Division", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cs", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "cs", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@stat", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "stat", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@math", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "math", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@mathCS", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "mathCS", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@statCS", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "statCS", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IT", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14175,12 +14573,11 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        courseId, year, Division\r\nFROM            CoursesYD";
+            this._commandCollection[0].CommandText = "SELECT courseId, cs, stat, math, mathCS, statCS, IT\r\nFROM  CoursesYD";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        courseId, year, Division\r\nFROM            CoursesYD\r\nwhere courseId" +
-                "=@courseId";
+            this._commandCollection[1].CommandText = "SELECT CoursesYD.*\r\nFROM  CoursesYD\r\nWHERE (courseId = @courseId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@courseId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "courseId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -14254,19 +14651,43 @@ SELECT year, size, labRoom, numOfGroups FROM STATCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int courseId, string year, string Division) {
+        public virtual int Insert(int courseId, global::System.Nullable<int> cs, global::System.Nullable<int> stat, global::System.Nullable<int> math, global::System.Nullable<int> mathCS, global::System.Nullable<int> statCS, global::System.Nullable<int> IT) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(courseId));
-            if ((year == null)) {
-                throw new global::System.ArgumentNullException("year");
+            if ((cs.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(cs.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(year));
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Division == null)) {
-                throw new global::System.ArgumentNullException("Division");
+            if ((stat.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(stat.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Division));
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((math.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(math.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((mathCS.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(mathCS.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((statCS.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(statCS.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((IT.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(IT.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 

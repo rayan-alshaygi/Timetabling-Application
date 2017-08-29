@@ -153,10 +153,8 @@ namespace ConsoleApp1
                 }
             }
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns, codeArabic, codeEnglish).ToString());
-            string year = y.ToString();
-            foreach (string z in dv)
-                if (z != null)
-                    cYD.Insert(currentcoid, year, z);
+            int[] dev = courseYDprepare(y, dv);
+                    cYD.Insert(currentcoid, dev[0], dev[1],dev[2],dev[3],dev[4],dev[5]);
             //calls a method that checks if there exists curriculum with this specification
             //and if not create a new one
             //then it seraches for all curriculum the have those devisions
@@ -164,6 +162,26 @@ namespace ConsoleApp1
 
             Curriculmcourse(currentcoid, dv, y, ns);
             return currentcoid;
+        }
+        public int[] courseYDprepare (int y,string[] dv)
+        {
+            int[] dev = null;
+            foreach (string z in dv)
+            {
+                if (z == "cs")
+                    dev[0] = y;
+                if (z == "stat")
+                    dev[1] = y;
+                if (z == "math")
+                    dev[2] = y;
+                if (z == "mathCS")
+                    dev[3] = y;
+                if (z == "statCS")
+                    dev[4] = y;
+                if (z == "IT")
+                    dev[5] = y;
+            }
+            return dev;
         }
         public int getSize(String dev, int y)
         {
@@ -215,14 +233,8 @@ namespace ConsoleApp1
                 if (x != null)
                     ns += getSize(x, y2);
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns , codeArabic , codeEnglish).ToString());
-            string year = y1.ToString();
-            foreach (string z in dv1)
-                if (z != null)
-                    cYD.Insert(currentcoid, year, z);
-            string year2 = y2.ToString();
-            foreach (string z in dv2)
-                if (z != null)
-                    cYD.Insert(currentcoid, year2, z);
+            int[] dev = courseYDprepare(y1, dv1, y2, dv2);
+            cYD.Insert(currentcoid, dev[0], dev[1], dev[2], dev[3], dev[4], dev[5]);
             //calls a method that checks if there exists  curriculum with this specification
             //and if not create a new one
 
@@ -233,7 +245,42 @@ namespace ConsoleApp1
             return currentcoid;
 
         }
-        public void Curriculmcourse(int coid, string[] dv1, int y1, string[] dv2, int y2, int ns)
+        public int[] courseYDprepare(int y1, string[] dv1, int y2, string[] dv2)
+        {
+            int[] dev = null;
+            foreach (string z in dv1)
+            {
+                if (z == "cs")
+                    dev[0] = y1;
+                if (z == "stat")
+                    dev[1] = y1;
+                if (z == "math")
+                    dev[2] = y1;
+                if (z == "mathCS")
+                    dev[3] = y1;
+                if (z == "statCS")
+                    dev[4] = y1;
+                if (z == "IT")
+                    dev[5] = y1;
+            }
+            foreach (string z in dv2)
+            {
+                if (z == "cs")
+                    dev[0] = y2;
+                if (z == "stat")
+                    dev[1] = y2;
+                if (z == "math")
+                    dev[2] = y2;
+                if (z == "mathCS")
+                    dev[3] = y2;
+                if (z == "statCS")
+                    dev[4] = y2;
+                if (z == "IT")
+                    dev[5] = y2;
+            }
+            return dev;
+        }
+            public void Curriculmcourse(int coid, string[] dv1, int y1, string[] dv2, int y2, int ns)
         {
             String[] divisionColumns1 = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
             String[] divisionColumns2 = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
