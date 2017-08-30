@@ -68,8 +68,7 @@ namespace ConsoleApp1
             string codeEnglish = tbCourseCodeEnglish.Text;
             int y = int.Parse(cbYears.SelectedItem.ToString());
             string[] dv = new string[6];
-            clbDivisions.SelectedItems.CopyTo(dv, 0);
-
+            clbDivisions.CheckedItems.CopyTo(dv, 0);
             cid = c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
         }
 
@@ -78,10 +77,10 @@ namespace ConsoleApp1
             string name = tbName.Text;
             int y1 = int.Parse(cbyears1.SelectedItem.ToString());
             string[] dv1 = new string[6];
-            clbDivisions1.SelectedItems.CopyTo(dv1, 0);
+            clbDivisions1.CheckedItems.CopyTo(dv1, 0);
             int y2 = int.Parse(cbyears2.SelectedItem.ToString());
             string[] dv2 = new string[6];
-            clbDivisions2.SelectedItems.CopyTo(dv2, 0);
+            clbDivisions2.CheckedItems.CopyTo(dv2, 0);
             string codeArabic = tbCourseCodeArabic.Text;
             string codeEnglish = tbCourseCodeEnglish.Text;
            cid = c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
@@ -184,6 +183,11 @@ namespace ConsoleApp1
         }
 
         private void tbClassDuration_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clbDivisions_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
