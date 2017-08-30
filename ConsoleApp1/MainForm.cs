@@ -203,6 +203,8 @@ namespace ConsoleApp1
 
         private void btMakeScheduleMS_Click(object sender, EventArgs e)
         {
+            ScheduleGenetic s = new ScheduleGenetic(2, 2, 80, 3);
+            s.evaluate();
             //List<string> RandomNumberList = new List<string>();
             //DataTable dt = Counts.RandomNumberList();
             //dataGridView5.DataSource = dt;

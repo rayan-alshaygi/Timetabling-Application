@@ -26,9 +26,9 @@ namespace ConsoleApp1.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True" +
-            ";Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=" +
-            "ReadWrite;MultiSubnetFailover=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;" +
+            "Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=R" +
+            "eadWrite;MultiSubnetFailover=False")]
         public string TimetableDBConnectionString {
             get {
                 return ((string)(this["TimetableDBConnectionString"]));

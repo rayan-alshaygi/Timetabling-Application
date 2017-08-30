@@ -11,6 +11,7 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
+        public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
         CurriculumTableAdapter curTA = new CurriculumTableAdapter();
@@ -571,7 +572,7 @@ namespace ConsoleApp1
         public DataTable comboDivision()
         {
             // Data Source = DESKTOP - BC1VAP6; Initial Catalog = "Fixing insert"; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False
-            SqlConnection con = new SqlConnection("Data Source=DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection con = new SqlConnection(conString);
             con.Open();
             SqlCommand cmd = new SqlCommand("Select * from  CurriculumDevisions", con);
             cmd.CommandType = CommandType.Text;
