@@ -34,6 +34,7 @@ namespace ConsoleApp1
         }
         private void courses_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             chbLecture.Checked = true;
             gbOneLevel.Visible = false;
             gbTowLevels.Visible = false;
@@ -70,6 +71,7 @@ namespace ConsoleApp1
             string[] dv = new string[6];
             clbDivisions.CheckedItems.CopyTo(dv, 0);
             cid = c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
+            MessageBox.Show(" COURSE INSERTION WORKED CONTINUE DATA ENTRY");
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -84,6 +86,7 @@ namespace ConsoleApp1
             string codeArabic = tbCourseCodeArabic.Text;
             string codeEnglish = tbCourseCodeEnglish.Text;
            cid = c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
+            MessageBox.Show(" COURSE INSERTION WORKED CONTINUE DATA ENTRY");
         }
 
         private void chbLab_CheckedChanged(object sender, EventArgs e)
@@ -107,7 +110,10 @@ namespace ConsoleApp1
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     if (!dt.Rows[i]["TA"].Equals(false))
+                    {
                         chbTutorialInstructors.Items.Add(dt.Rows[i].Field<string>(1));
+
+                    }                             
                 }
             }
             catch (Exception)
@@ -116,18 +122,25 @@ namespace ConsoleApp1
 
         private void btAddCourseAS_Click(object sender, EventArgs e)
         {
-            int duration = int.Parse(tbClassDuration.Text);
-            string classname ="محاضرة "+ tbName.Text;
-            bool lab = false;
-            bool tut = false;
-            string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
-            c.InsertCourseClass(classname, duration, lab,tut, instructor, cid);
+            string classname;
+            bool lab= false;
+            bool tut = false; ;
+            if (chbLecture.Checked ==  true)
+            {
+                int duration = int.Parse(tbClassDuration.Text);
+                classname = "محاضرة " + tbName.Text;
+                string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
+                c.InsertCourseClass(classname, duration, lab, tut, instructor, cid);
+            }
+            
+            string[] ta = new string[10];
             if (checkBox3.Checked == true)
             {
                 tut = true;
                 classname = "تمارين " + tbName.Text;
                 int d = 2;
-                c.InsertCourseClass(classname, d, lab,tut, instructor, cid);
+                chbTutorialInstructors.CheckedItems.CopyTo(ta,0);
+                c.insertLabsOrTutorial(classname, d, lab,tut, ta, cid);
                 tut = false;
             }
                 
@@ -136,10 +149,15 @@ namespace ConsoleApp1
                 lab = true;
                 classname = "Lab" + tbName.Text;
                 int d = 2;
-                c.InsertCourseClass(classname, d, lab, tut, instructor, cid);
+                chbLabInstrucctores.CheckedItems.CopyTo(ta, 0);
+                c.insertLabsOrTutorial(classname, d, lab, tut, ta, cid);
                 lab = false;
             }
-                
+
+            MessageBox.Show(" Classes Inserted ");
+            this.Dispose(false);
+            courses course = new courses();
+            course.Show();
         }
 
         private void cbyears2_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,6 +206,16 @@ namespace ConsoleApp1
         }
 
         private void clbDivisions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clbDivisions1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

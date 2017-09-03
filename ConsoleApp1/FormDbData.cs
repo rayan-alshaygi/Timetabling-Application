@@ -11,6 +11,7 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
+        //public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
@@ -29,6 +30,7 @@ namespace ConsoleApp1
         MathTableAdapter m = new MathTableAdapter();
         STATCSTableAdapter sc = new STATCSTableAdapter();
         CSTableAdapter cs = new CSTableAdapter();
+        CoursecClassInstructorsTableAdapter ccInst = new CoursecClassInstructorsTableAdapter();
 
         // create an enum to work with finding null curriculum column
         String[] devisionColumns = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
@@ -547,7 +549,20 @@ namespace ConsoleApp1
         public void InsertCourseClass(string name, int duration, bool lab,bool tut, String Instructor, int CourseId)
         {
             int instructorId = getInstructorId(Instructor);
-            ccTA.InsertQuery(name, duration, lab, instructorId, CourseId);
+            ccTA.InsertQuery(name, duration, lab, CourseId,tut);
+        }
+        public void insertLabsOrTutorial(string name, int duration, bool lab, bool tut, string[] instructor, int courseId)
+        {
+            int courseClassId = Int32.Parse(ccTA.InsertQuery(name, duration, lab, courseId, tut).ToString());
+            int instructorId;
+            foreach (string x in instructor)
+            {
+                if (x != null)
+                {
+                    instructorId = getInstructorId(x);
+                    ccInst.Insert(courseClassId, instructorId);
+                } 
+            }
         }
         public DataTable combolab()
         {

@@ -255,6 +255,7 @@ namespace ConsoleApp1
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             gbAddDivisionSize.Visible = false;
             gbAddCurriculm.Visible = false;
             gbAddRoom.Visible = false;

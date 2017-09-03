@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,6 +65,7 @@
             this.chbLecture = new System.Windows.Forms.CheckBox();
             this.tbCourseCodeArabic = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.gbOneLevel.SuspendLayout();
             this.gbTowLevels.SuspendLayout();
             this.SuspendLayout();
@@ -81,7 +83,7 @@
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(282, 0);
-            this.tbName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbName.Margin = new System.Windows.Forms.Padding(6);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(196, 31);
             this.tbName.TabIndex = 1;
@@ -111,12 +113,13 @@
             this.gbOneLevel.Controls.Add(this.btAddLevelAS);
             this.gbOneLevel.Controls.Add(this.cbYears);
             this.gbOneLevel.Controls.Add(this.label3);
+            this.gbOneLevel.Controls.Add(this.gbTowLevels);
             this.gbOneLevel.Controls.Add(this.clbDivisions);
             this.gbOneLevel.Controls.Add(this.label4);
-            this.gbOneLevel.Location = new System.Drawing.Point(42, 506);
-            this.gbOneLevel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gbOneLevel.Location = new System.Drawing.Point(76, 200);
+            this.gbOneLevel.Margin = new System.Windows.Forms.Padding(6);
             this.gbOneLevel.Name = "gbOneLevel";
-            this.gbOneLevel.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gbOneLevel.Padding = new System.Windows.Forms.Padding(6);
             this.gbOneLevel.Size = new System.Drawing.Size(436, 445);
             this.gbOneLevel.TabIndex = 5;
             this.gbOneLevel.TabStop = false;
@@ -124,8 +127,8 @@
             // 
             // btAddLevelAS
             // 
-            this.btAddLevelAS.Location = new System.Drawing.Point(165, 362);
-            this.btAddLevelAS.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btAddLevelAS.Location = new System.Drawing.Point(186, 368);
+            this.btAddLevelAS.Margin = new System.Windows.Forms.Padding(6);
             this.btAddLevelAS.Name = "btAddLevelAS";
             this.btAddLevelAS.Size = new System.Drawing.Size(150, 44);
             this.btAddLevelAS.TabIndex = 20;
@@ -137,7 +140,7 @@
             // 
             this.cbYears.FormattingEnabled = true;
             this.cbYears.Location = new System.Drawing.Point(142, 65);
-            this.cbYears.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbYears.Margin = new System.Windows.Forms.Padding(6);
             this.cbYears.Name = "cbYears";
             this.cbYears.Size = new System.Drawing.Size(238, 33);
             this.cbYears.TabIndex = 11;
@@ -146,7 +149,7 @@
             // 
             this.clbDivisions.FormattingEnabled = true;
             this.clbDivisions.Location = new System.Drawing.Point(142, 154);
-            this.clbDivisions.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.clbDivisions.Margin = new System.Windows.Forms.Padding(6);
             this.clbDivisions.Name = "clbDivisions";
             this.clbDivisions.Size = new System.Drawing.Size(269, 186);
             this.clbDivisions.TabIndex = 8;
@@ -164,8 +167,8 @@
             // 
             // btAddLevel
             // 
-            this.btAddLevel.Location = new System.Drawing.Point(534, 385);
-            this.btAddLevel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btAddLevel.Location = new System.Drawing.Point(555, 104);
+            this.btAddLevel.Margin = new System.Windows.Forms.Padding(6);
             this.btAddLevel.Name = "btAddLevel";
             this.btAddLevel.Size = new System.Drawing.Size(256, 44);
             this.btAddLevel.TabIndex = 6;
@@ -175,8 +178,8 @@
             // 
             // btAddCourseAS
             // 
-            this.btAddCourseAS.Location = new System.Drawing.Point(388, 963);
-            this.btAddCourseAS.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btAddCourseAS.Location = new System.Drawing.Point(1289, 771);
+            this.btAddCourseAS.Margin = new System.Windows.Forms.Padding(6);
             this.btAddCourseAS.Name = "btAddCourseAS";
             this.btAddCourseAS.Size = new System.Drawing.Size(150, 44);
             this.btAddCourseAS.TabIndex = 7;
@@ -197,7 +200,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(82, 448);
+            this.label10.Location = new System.Drawing.Point(112, 123);
             this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(104, 25);
@@ -215,10 +218,10 @@
             this.gbTowLevels.Controls.Add(this.label5);
             this.gbTowLevels.Controls.Add(this.clbDivisions1);
             this.gbTowLevels.Controls.Add(this.label12);
-            this.gbTowLevels.Location = new System.Drawing.Point(500, 508);
-            this.gbTowLevels.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gbTowLevels.Location = new System.Drawing.Point(120, 1);
+            this.gbTowLevels.Margin = new System.Windows.Forms.Padding(6);
             this.gbTowLevels.Name = "gbTowLevels";
-            this.gbTowLevels.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gbTowLevels.Padding = new System.Windows.Forms.Padding(6);
             this.gbTowLevels.Size = new System.Drawing.Size(470, 444);
             this.gbTowLevels.TabIndex = 11;
             this.gbTowLevels.TabStop = false;
@@ -226,8 +229,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(162, 360);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Location = new System.Drawing.Point(176, 352);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 44);
             this.button1.TabIndex = 21;
@@ -239,7 +242,7 @@
             // 
             this.cbyears1.FormattingEnabled = true;
             this.cbyears1.Location = new System.Drawing.Point(140, 75);
-            this.cbyears1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbyears1.Margin = new System.Windows.Forms.Padding(6);
             this.cbyears1.Name = "cbyears1";
             this.cbyears1.Size = new System.Drawing.Size(238, 33);
             this.cbyears1.TabIndex = 15;
@@ -258,7 +261,7 @@
             // 
             this.clbDivisions2.FormattingEnabled = true;
             this.clbDivisions2.Location = new System.Drawing.Point(142, 283);
-            this.clbDivisions2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.clbDivisions2.Margin = new System.Windows.Forms.Padding(6);
             this.clbDivisions2.Name = "clbDivisions2";
             this.clbDivisions2.Size = new System.Drawing.Size(238, 56);
             this.clbDivisions2.TabIndex = 14;
@@ -277,7 +280,7 @@
             // 
             this.cbyears2.FormattingEnabled = true;
             this.cbyears2.Location = new System.Drawing.Point(140, 231);
-            this.cbyears2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbyears2.Margin = new System.Windows.Forms.Padding(6);
             this.cbyears2.Name = "cbyears2";
             this.cbyears2.Size = new System.Drawing.Size(238, 33);
             this.cbyears2.TabIndex = 11;
@@ -297,10 +300,11 @@
             // 
             this.clbDivisions1.FormattingEnabled = true;
             this.clbDivisions1.Location = new System.Drawing.Point(142, 148);
-            this.clbDivisions1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.clbDivisions1.Margin = new System.Windows.Forms.Padding(6);
             this.clbDivisions1.Name = "clbDivisions1";
             this.clbDivisions1.Size = new System.Drawing.Size(236, 56);
             this.clbDivisions1.TabIndex = 8;
+            this.clbDivisions1.SelectedIndexChanged += new System.EventHandler(this.clbDivisions1_SelectedIndexChanged);
             // 
             // label12
             // 
@@ -315,8 +319,8 @@
             // cbNumberOfLevels
             // 
             this.cbNumberOfLevels.FormattingEnabled = true;
-            this.cbNumberOfLevels.Location = new System.Drawing.Point(270, 433);
-            this.cbNumberOfLevels.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbNumberOfLevels.Location = new System.Drawing.Point(282, 115);
+            this.cbNumberOfLevels.Margin = new System.Windows.Forms.Padding(6);
             this.cbNumberOfLevels.Name = "cbNumberOfLevels";
             this.cbNumberOfLevels.Size = new System.Drawing.Size(208, 33);
             this.cbNumberOfLevels.TabIndex = 12;
@@ -324,7 +328,7 @@
             // tbCourseCodeEnglish
             // 
             this.tbCourseCodeEnglish.Location = new System.Drawing.Point(282, 50);
-            this.tbCourseCodeEnglish.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbCourseCodeEnglish.Margin = new System.Windows.Forms.Padding(6);
             this.tbCourseCodeEnglish.Name = "tbCourseCodeEnglish";
             this.tbCourseCodeEnglish.Size = new System.Drawing.Size(196, 31);
             this.tbCourseCodeEnglish.TabIndex = 32;
@@ -344,17 +348,18 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(82, 363);
+            this.label9.Location = new System.Drawing.Point(88, 784);
             this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(146, 25);
             this.label9.TabIndex = 30;
             this.label9.Text = "class duration";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // tbClassDuration
             // 
-            this.tbClassDuration.Location = new System.Drawing.Point(270, 363);
-            this.tbClassDuration.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbClassDuration.Location = new System.Drawing.Point(262, 778);
+            this.tbClassDuration.Margin = new System.Windows.Forms.Padding(6);
             this.tbClassDuration.Name = "tbClassDuration";
             this.tbClassDuration.Size = new System.Drawing.Size(208, 31);
             this.tbClassDuration.TabIndex = 29;
@@ -363,8 +368,8 @@
             // chbLabInstrucctores
             // 
             this.chbLabInstrucctores.FormattingEnabled = true;
-            this.chbLabInstrucctores.Location = new System.Drawing.Point(282, 260);
-            this.chbLabInstrucctores.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chbLabInstrucctores.Location = new System.Drawing.Point(260, 855);
+            this.chbLabInstrucctores.Margin = new System.Windows.Forms.Padding(6);
             this.chbLabInstrucctores.Name = "chbLabInstrucctores";
             this.chbLabInstrucctores.Size = new System.Drawing.Size(272, 56);
             this.chbLabInstrucctores.TabIndex = 28;
@@ -373,8 +378,8 @@
             // chbTutorialInstructors
             // 
             this.chbTutorialInstructors.FormattingEnabled = true;
-            this.chbTutorialInstructors.Location = new System.Drawing.Point(282, 167);
-            this.chbTutorialInstructors.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chbTutorialInstructors.Location = new System.Drawing.Point(262, 960);
+            this.chbTutorialInstructors.Margin = new System.Windows.Forms.Padding(6);
             this.chbTutorialInstructors.Name = "chbTutorialInstructors";
             this.chbTutorialInstructors.Size = new System.Drawing.Size(272, 56);
             this.chbTutorialInstructors.TabIndex = 27;
@@ -383,8 +388,8 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(88, 167);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBox3.Location = new System.Drawing.Point(76, 928);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(6);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(116, 29);
             this.checkBox3.TabIndex = 26;
@@ -395,8 +400,8 @@
             // chbLab
             // 
             this.chbLab.AutoSize = true;
-            this.chbLab.Location = new System.Drawing.Point(88, 260);
-            this.chbLab.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chbLab.Location = new System.Drawing.Point(93, 855);
+            this.chbLab.Margin = new System.Windows.Forms.Padding(6);
             this.chbLab.Name = "chbLab";
             this.chbLab.Size = new System.Drawing.Size(80, 29);
             this.chbLab.TabIndex = 25;
@@ -407,8 +412,8 @@
             // cbLectureInstructor
             // 
             this.cbLectureInstructor.FormattingEnabled = true;
-            this.cbLectureInstructor.Location = new System.Drawing.Point(282, 100);
-            this.cbLectureInstructor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbLectureInstructor.Location = new System.Drawing.Point(262, 691);
+            this.cbLectureInstructor.Margin = new System.Windows.Forms.Padding(6);
             this.cbLectureInstructor.Name = "cbLectureInstructor";
             this.cbLectureInstructor.Size = new System.Drawing.Size(272, 33);
             this.cbLectureInstructor.TabIndex = 34;
@@ -417,8 +422,8 @@
             // chbLecture
             // 
             this.chbLecture.AutoSize = true;
-            this.chbLecture.Location = new System.Drawing.Point(88, 104);
-            this.chbLecture.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chbLecture.Location = new System.Drawing.Point(93, 695);
+            this.chbLecture.Margin = new System.Windows.Forms.Padding(6);
             this.chbLecture.Name = "chbLecture";
             this.chbLecture.Size = new System.Drawing.Size(116, 29);
             this.chbLecture.TabIndex = 33;
@@ -428,7 +433,7 @@
             // tbCourseCodeArabic
             // 
             this.tbCourseCodeArabic.Location = new System.Drawing.Point(770, 56);
-            this.tbCourseCodeArabic.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbCourseCodeArabic.Margin = new System.Windows.Forms.Padding(6);
             this.tbCourseCodeArabic.Name = "tbCourseCodeArabic";
             this.tbCourseCodeArabic.Size = new System.Drawing.Size(196, 31);
             this.tbCourseCodeArabic.TabIndex = 35;
@@ -444,11 +449,17 @@
             this.label13.TabIndex = 36;
             this.label13.Text = "course code in arabic";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // courses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1040, 1060);
+            this.ClientSize = new System.Drawing.Size(1480, 1253);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.tbCourseCodeArabic);
             this.Controls.Add(this.cbLectureInstructor);
@@ -462,7 +473,6 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.chbLab);
             this.Controls.Add(this.cbNumberOfLevels);
-            this.Controls.Add(this.gbTowLevels);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btAddCourseAS);
@@ -471,7 +481,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "courses";
             this.Text = "courses";
             this.Load += new System.EventHandler(this.courses_Load);
@@ -522,5 +532,6 @@
         private System.Windows.Forms.CheckBox chbLecture;
         private System.Windows.Forms.TextBox tbCourseCodeArabic;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
