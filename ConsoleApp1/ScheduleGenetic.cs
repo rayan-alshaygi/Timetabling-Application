@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -190,6 +191,12 @@ namespace ConsoleApp1
             int numLabRooms = Counts.GetInstance().GetNumberOfLabRooms();
             int numLectureRooms = Counts.GetInstance().GetNumberOfLectureRooms();
             // place classes at random position
+            //SqlConnection con = new SqlConnection(FormDbData.conString);
+            //con.Open();
+            //SqlCommand cmd = new SqlCommand("Select * from  CourseClass", con);
+            //cmd.CommandType = CommandType.Text;
+            //DataTable c = new DataTable();
+            //c.Load(cmd.ExecuteReader());
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int nr = Counts.GetInstance().GetNumberOfRooms();
             //int nl = Counts.GetInstance().GetNumberOfLabRooms();
@@ -201,25 +208,41 @@ namespace ConsoleApp1
                 // determine random position of class
                 int dur = Int32.Parse(courseRow["duration"].ToString());
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
-                int randroom = RandomNumbers.NextNumber() % nr;
                 int room;
-                if (courseRow["lab"].Equals(true))
-                    room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                int randroom;
+                if (!courseRow["preferredRoom"].Equals(null))
+                {
+                    room = Int32.Parse(courseRow["preferredRoom"].ToString());
+                    randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
+                    // if (courseRow["lab"].Equals(true))
+                    //     randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
+                    // //randroom = room % numLabRooms;
+                    // else
+                    //     randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
+                    //// randroom = room % numLectureRooms;
+                }
                 else
-                    room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
-               // int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
+                {
+                    randroom = RandomNumbers.NextNumber() % nr;
+
+                    if (courseRow["lab"].Equals(true))
+                        room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                    else
+                        room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
+                }
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                if (time % 2 != 0) time -= 1;
                 int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                 // fill time-space slots, for each hour of class
-               // List<DataRow> l = new List<DataRow>();
+                // List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     List<DataRow> l = new List<DataRow>();
                     l.Add(courseRow);
-                    if (newChromosome._slots[(pos + i)]==null)
-                        newChromosome._slots[(pos + i)]=l;
+                    if (newChromosome._slots[(pos + i)] == null)
+                        newChromosome._slots[(pos + i)] = l;
                     else
-                    newChromosome._slots[(pos + i)].Add(courseRow);
+                        newChromosome._slots[(pos + i)].Add(courseRow);
                     // newChromosome._slots.Insert((pos + i), l);
 
                 }
@@ -253,18 +276,20 @@ namespace ConsoleApp1
             // number of classes
             int size = (int)_classes.Count();
             List<bool> cp = new List<bool>(new bool[size]);
-
+            // limit trial times to only 5 times if not found then exit
+            int counter = 0;
             // determine crossover point (randomly) where it's not in the middle of a class time in both parents
             for (int i = _numberOfCrossoverPoints; i > 0; i--)
             {
-                while (true)
+                while (counter < 5)
                 {
                     int p = RandomNumbers.NextNumber() % size;
-                   if (!cp[p]&&(_classes.ElementAt(p).Equals(null)||_slots[p]==null)&& (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
+                    if (!cp[p] && (_classes.ElementAt(p).Equals(null) || _slots[p] == null) && (parent2._classes.ElementAt(p).Equals(null) || parent2._slots[p] == null))
                     {
                         cp[p] = true;
                         break;
                     }
+                    counter++;
                 }
             }
             // make new code by combining parent codes
@@ -317,7 +342,8 @@ namespace ConsoleApp1
             }
 
             //n.CalculateFitness();
-           //n= HillClimbing.solve(n);
+            //n= HillClimbing.solve(n);
+            //n = SimulatedAnnealing.StartAnnealing(n);
             n.CalculateFitness();
             // return smart pointer to offspring
             return n;
@@ -361,13 +387,14 @@ namespace ConsoleApp1
                 int randroom = RandomNumbers.NextNumber() % nr;
                 int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                if (time % 2 != 0) time -= 1;
                 int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
 
                 // move all time-space slots
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     // remove class hour from current time-space slot
-                        List<DataRow> cl = _slots[pos1 + i];
+                    List<DataRow> cl = _slots[pos1 + i];
                     foreach (DataRow r in cl)
                     {
 
@@ -387,7 +414,7 @@ namespace ConsoleApp1
                     }
                     else
                         _slots[pos2 + i].Add(cc1);
-                   // _slots[pos2 + i].AddLast(cc1);
+                    // _slots[pos2 + i].AddLast(cc1);
                 }
 
                 // change entry of class table to point to new time-space slots
@@ -516,12 +543,12 @@ namespace ConsoleApp1
                         List<DataRow> cl = _slots[t + j];
                         if (cl != null)
                         {
-                            foreach (DataRow row in cl)
+                            foreach (DataRow crow in cl)
                             {
-                                if (cc != row)
+                                if (cc != crow)
                                 {
                                     // professor overlaps?
-                                    if (cc["instructorId"] == row["instructorId"])
+                                    if (cc["instructorId"] == crow["instructorId"])
                                     {
                                         po = true;
                                     }
@@ -529,7 +556,7 @@ namespace ConsoleApp1
                                     // student group overlaps?
 
                                     DataTable curClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(cc["courseId"].ToString()));
-                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(row["courseId"].ToString()));
+                                    DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
                                     curClassCurriculums.Columns.Remove("courseId");
                                     sameTimeClassCurriculums.Columns.Remove("courseId");
                                     if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
@@ -616,84 +643,206 @@ namespace ConsoleApp1
                     h = 1;
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
-                foreach (DataRow row in yd.Rows)
+                DataRow row = yd.Rows[0];
+                int outt = 0;
+                // to know to wich time block it belongs
+                int timeBlock = time / 2;
+                if (Int32.TryParse(row["cs"].ToString(), out outt))// != -1)
                 {
-                    if (Int32.Parse(row["year"].ToString()) == 1)
+
+                    switch (Int32.Parse(row["cs"].ToString()))
                     {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            fcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            fscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            fit[day, time] = h;
+                        case 1:
+                            fcs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            scs[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tcs[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            focs[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifcs[day, timeBlock] = h;
+                            break;
+
                     }
-                    if (Int32.Parse(row["year"].ToString()) == 2)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            scs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            sm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            smcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            ss[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            sscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            sit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 3)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            tcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            tm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            tmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            ts[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            tscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            tit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 4)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            focs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fom[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fomcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fos[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            foscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            foit[day, time] = h;
-                    }
-                    if (Int32.Parse(row["year"].ToString()) == 5)
-                    {
-                        if (row["Division"].ToString().ToLower() == "cs")
-                            fifcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "math")
-                            fifm[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "mathcs")
-                            fifmcs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "stat")
-                            fifs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "statcs")
-                            fifscs[day, time] = h;
-                        if (row["Division"].ToString().ToLower() == "it")
-                            fifit[day, time] = h;
-                    }
+                    //if (Int32.Parse(row["cs"].ToString()) == 1)
+                    //    fcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 2)
+                    //    scs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 3)
+                    //    tcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 4)
+                    //    focs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["cs"].ToString()) == 5)
+                    //    fifcs[day, timeBlock] = h;
                 }
+                if (Int32.TryParse(row["math"].ToString(), out outt))// != -1)
+                {
+                    switch (Int32.Parse(row["math"].ToString()))
+                    {
+                        case 1:
+                            fm[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sm[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tm[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            fom[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifm[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["math"].ToString()) == 1)
+                    //    fm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 2)
+                    //    sm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 3)
+                    //    tm[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 4)
+                    //    fom[day, timeBlock] = h;
+                    //if (Int32.Parse(row["math"].ToString()) == 5)
+                    //    fifm[day, timeBlock] = h;
+                }
+                if (Int32.TryParse(row["mathCS"].ToString(), out outt))// != -1)
+                {
+                    switch (Int32.Parse(row["mathCS"].ToString()))
+                    {
+                        case 1:
+                            fmcs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            smcs[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tmcs[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            fomcs[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifmcs[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //    if (Int32.Parse(row["mathCS"].ToString()) == 1)
+                    //    fmcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 2)
+                    //    smcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 3)
+                    //    tmcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 4)
+                    //    fomcs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["mathCS"].ToString()) == 5)
+                    //    fifmcs[day, timeBlock] = h;
+                }
+                if (Int32.TryParse(row["stat"].ToString(), out outt))// != -1)
+                {
+                    switch (Int32.Parse(row["stat"].ToString()))
+                    {
+                        case 1:
+                            fs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            ss[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            ts[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            fos[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifs[day, timeBlock] = h;
+                            break;
+
+                    }
+
+                    //if (Int32.Parse(row["stat"].ToString()) == 1)
+                    //    fs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 2)
+                    //    ss[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 3)
+                    //    ts[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 4)
+                    //    fos[day, timeBlock] = h;
+                    //if (Int32.Parse(row["stat"].ToString()) == 5)
+                    //    fifs[day, timeBlock] = h;
+                }
+                if (Int32.TryParse(row["statCS"].ToString(), out outt))// != -1)
+                {
+                    switch (Int32.Parse(row["statCS"].ToString()))
+                    {
+                        case 1:
+                            fscs[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sscs[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tscs[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            foscs[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifscs[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["statCS"].ToString()) == 1)
+                    //    fscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 2)
+                    //    sscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 3)
+                    //    tscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 4)
+                    //    foscs[day, timeBlock] = h;
+                    //if (Int32.Parse(row["statCS"].ToString()) == 5)
+                    //    fifscs[day, timeBlock] = h;
+                }
+                if (Int32.TryParse(row["IT"].ToString(), out outt))// != "-1")
+                {
+                    switch (Int32.Parse(row["IT"].ToString()))
+                    {
+                        case 1:
+                            fit[day, timeBlock] = h;
+                            break;
+                        case 2:
+                            sit[day, timeBlock] = h;
+                            break;
+                        case 3:
+                            tit[day, timeBlock] = h;
+                            break;
+                        case 4:
+                            foit[day, timeBlock] = h;
+                            break;
+                        case 5:
+                            fifit[day, timeBlock] = h;
+                            break;
+
+                    }
+                    //if (Int32.Parse(row["IT"].ToString()) == 1)
+                    //    fit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 2)
+                    //    sit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 3)
+                    //    tit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 4)
+                    //    foit[day, timeBlock] = h;
+                    //if (Int32.Parse(row["IT"].ToString()) == 5)
+                    //    fifit[day, timeBlock] = h;
+                }
+
+
                 ci += 9;
             }
 
@@ -782,29 +931,42 @@ namespace ConsoleApp1
         //get the current timetables and evaluate
         public void evaluate()
         {
-
             ScheduleTableAdapter sched = new ScheduleTableAdapter();
             DataTable sem = sched.GetData();
             DataRow classDR;
             Counts counts = new Counts();
+            DataTable rooms = counts.GetRooms();
+            int nr = Counts.GetInstance().GetNumberOfRooms();
+            int daySize = DefineConstants.DAY_HOURS * nr;
+            DataTable labRooms = counts.GetLabRooms();
+            DataTable lectureRooms = counts.GetLectureRooms();
             foreach (DataRow r in sem.Rows)
             {
-                int nr = Counts.GetInstance().GetNumberOfLectureRooms();
-                int daySize = DefineConstants.DAY_HOURS * nr;
                 int curClassId = Int32.Parse(r["courseClassId"].ToString());
                 classDR = counts.GetClassById(curClassId);
+                int startTime = Int32.Parse(r["time start"].ToString());
+                int time = startTime-8;
                 int dur = Int32.Parse(classDR["duration"].ToString());
                 String d = r["day"].ToString();
+                int room = Int32.Parse(r["roomId"].ToString());
+                int randroom;
+                randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
+                //if (classDR["lab"].Equals(true))
+                  //  randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
+                //randroom = room % numLabRooms;
+               // else
+                  //  randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
+                int t = randroom * DefineConstants.DAY_HOURS;
                 int day = 8;
                 if (Enum.IsDefined(typeof(DayOfWeek), d))
                 {
                     DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), d, true);
                     day = (int)x;
                 }
-                int pos = day * daySize;
-                int time = pos % daySize;
+                //int pos = day * daySize;
+                int ptime = startTime - 8;
+                int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                 // fill time-space slots, for each hour of class
-                
                 for (int i = dur - 1; i >= 0; i--)
                 {
                     List<DataRow> l = new List<DataRow>();
@@ -819,7 +981,7 @@ namespace ConsoleApp1
                 _classes.Add(classDR, pos);
             }
             CalculateFitness();
-            float score= GetFitness();
+            float score = GetFitness();
             Console.WriteLine("The fitness is " + score);
 
         }
@@ -1058,7 +1220,8 @@ namespace ConsoleApp1
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
                     //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
                     //{
-                    foreach(KeyValuePair<DataRow,int> x in best.GetClasses()) { 
+                    foreach (KeyValuePair<DataRow, int> x in best.GetClasses())
+                    {
                         // coordinate of time-space slot
                         int nr = Counts.GetInstance().GetNumberOfRooms();
                         int daySize = DefineConstants.DAY_HOURS * nr;
@@ -1066,6 +1229,7 @@ namespace ConsoleApp1
                         int day = p / daySize;
                         int time = p % daySize;
                         int room = time / DefineConstants.DAY_HOURS;
+                        int timeEnd;
                         time = time % DefineConstants.DAY_HOURS;
                         //int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                         int dur = Int32.Parse(x.Key["duration"].ToString());
@@ -1074,7 +1238,8 @@ namespace ConsoleApp1
                         //0 = sunday and so on
                         String d = ((DayOfWeek)day).ToString();
                         time = time + 8;
-                        sched.Insert(classId, d, time, roomId);
+                        timeEnd = time + dur;
+                        sched.Insert(classId, d, time, timeEnd, roomId);
                     }
                     Console.Write("done");
                     @lock.Release();
@@ -1095,6 +1260,7 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
+                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
@@ -1203,11 +1369,11 @@ namespace ConsoleApp1
 
             // store chromosome in best chromosome group
             _bestChromosomes[i] = chromosomeIndex;
-            _bestFlags[chromosomeIndex] = true;      
-                // increase current size if it has not reached the limit yet
-                if (_currentBestSize < (int)_bestChromosomes.Count())
+            _bestFlags[chromosomeIndex] = true;
+            // increase current size if it has not reached the limit yet
+            if (_currentBestSize < (int)_bestChromosomes.Count())
                 _currentBestSize++;
-            Console.WriteLine("0:"+ _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
+            Console.WriteLine("0:" + _chromosomes[_bestChromosomes[0]].GetFitness().ToString());
             Console.WriteLine("1:" + _chromosomes[_bestChromosomes[1]].GetFitness().ToString());
             Console.WriteLine("2:" + _chromosomes[_bestChromosomes[2]].GetFitness().ToString());
             Console.WriteLine("3:" + _chromosomes[_bestChromosomes[3]].GetFitness().ToString());
@@ -1281,6 +1447,4 @@ namespace ConsoleApp1
         }
 
     }
-
-
 }

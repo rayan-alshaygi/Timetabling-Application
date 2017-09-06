@@ -34,6 +34,7 @@ namespace ConsoleApp1
         }
         private void courses_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             chbLecture.Checked = true;
             gbOneLevel.Visible = false;
             gbTowLevels.Visible = false;
@@ -47,7 +48,7 @@ namespace ConsoleApp1
             }
             DataTable dt = c.comboDivision();
 
-            for (int i = 0; i < dt.Columns.Count; i++)
+            for (int i = 1; i < dt.Columns.Count; i++)
             {
                 clbDivisions.Items.Add((dt.Columns[i].ColumnName).ToString());
                 clbDivisions1.Items.Add((dt.Columns[i].ColumnName).ToString());
@@ -68,9 +69,9 @@ namespace ConsoleApp1
             string codeEnglish = tbCourseCodeEnglish.Text;
             int y = int.Parse(cbYears.SelectedItem.ToString());
             string[] dv = new string[6];
-            clbDivisions.SelectedItems.CopyTo(dv, 0);
-
+            clbDivisions.CheckedItems.CopyTo(dv, 0);
             cid = c.InsertCourse(name, codeArabic, codeEnglish, y, dv);
+            MessageBox.Show(" COURSE INSERTION WORKED CONTINUE DATA ENTRY");
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -78,13 +79,14 @@ namespace ConsoleApp1
             string name = tbName.Text;
             int y1 = int.Parse(cbyears1.SelectedItem.ToString());
             string[] dv1 = new string[6];
-            clbDivisions1.SelectedItems.CopyTo(dv1, 0);
+            clbDivisions1.CheckedItems.CopyTo(dv1, 0);
             int y2 = int.Parse(cbyears2.SelectedItem.ToString());
             string[] dv2 = new string[6];
-            clbDivisions2.SelectedItems.CopyTo(dv2, 0);
+            clbDivisions2.CheckedItems.CopyTo(dv2, 0);
             string codeArabic = tbCourseCodeArabic.Text;
             string codeEnglish = tbCourseCodeEnglish.Text;
-           cid = c.InsertCourse(name, codeArabic, codeEnglish,y1, dv1, y2, dv2);
+            cid = c.InsertCourse(name, codeArabic, codeEnglish, y1, dv1, y2, dv2);
+            MessageBox.Show(" COURSE INSERTION WORKED CONTINUE DATA ENTRY");
         }
 
         private void chbLab_CheckedChanged(object sender, EventArgs e)
@@ -92,55 +94,100 @@ namespace ConsoleApp1
             chbLabInstrucctores.Visible = true;
 
             DataTable dt = c.ComboInstructorName();
+            int z = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if(!dt.Rows[i]["TA"].Equals(false) )
-                    chbLabInstrucctores.Items.Add(dt.Rows[i].Field<string>(1));
+                if (!dt.Rows[i]["TA"].Equals(false))
+                {
+                    chbTutorialInstructors.Items.Insert(z, new MyListBoxItem { Text = dt.Rows[i].Field<string>(1), Value = Int32.Parse(dt.Rows[i]["Id"].ToString()) });
+                    z++;
+                }
             }
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             chbTutorialInstructors.Visible = true;
+            chbTutorialInstructors.DisplayMember = "Text";
+            chbTutorialInstructors.ValueMember = "Value";
+
             DataTable dt = c.ComboInstructorName();
             try
             {
+                int z = 0;
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     if (!dt.Rows[i]["TA"].Equals(false))
-                        chbTutorialInstructors.Items.Add(dt.Rows[i].Field<string>(1));
+                    {
+                        chbTutorialInstructors.Items.Insert(z, new MyListBoxItem { Text = dt.Rows[i].Field<string>(1), Value = Int32.Parse(dt.Rows[i]["Id"].ToString()) });
+                        z++;
+                        // chbTutorialInstructors.Items.Add(dt.Rows[i].Field<string>(1));
+                    }
                 }
             }
             catch (Exception)
             { }
         }
-
+        public class MyListBoxItem
+        {
+            public string Text { get; set; }
+            public int Value { get; set; }
+        }
         private void btAddCourseAS_Click(object sender, EventArgs e)
         {
-            int duration = int.Parse(tbClassDuration.Text);
-            string classname ="محاضرة "+ tbName.Text;
+            DataTable dt2 = c.ComboInstructorName();
+            string classname;
             bool lab = false;
-            bool tut = false;
-            string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
-            c.InsertCourseClass(classname, duration, lab,tut, instructor, cid);
+            bool tut = false; ;
+            if (chbLecture.Checked == true)
+            {
+                int duration = int.Parse(tbClassDuration.Text);
+                classname = "محاضرة " + tbName.Text;
+                //string instructor = cbLectureInstructor.SelectedItem.ToString();// .SelectedValue.ToString();
+                int ins = Int32.Parse(dt2.Rows[cbLectureInstructor.SelectedIndex]["Id"].ToString());
+                c.InsertCourseClass(classname, duration, lab, tut, ins, cid);
+            }
+
+
             if (checkBox3.Checked == true)
             {
+                int numCheckedItems = chbTutorialInstructors.CheckedItems.Count;
+                int[] ta = new int[numCheckedItems];
+                int[] checkedIndices = new int[numCheckedItems];
                 tut = true;
                 classname = "تمارين " + tbName.Text;
                 int d = 2;
-                c.InsertCourseClass(classname, d, lab,tut, instructor, cid);
+                chbTutorialInstructors.CheckedIndices.CopyTo(checkedIndices, 0); //ToString().CopyTo(0,ta,0,chbTutorialInstructors.SelectedItems.Count);
+                for (int x = 0; x < numCheckedItems; x++)
+                {
+                    ta[x] = (chbTutorialInstructors.Items[checkedIndices[x]] as MyListBoxItem).Value;
+                }
+                c.insertLabsOrTutorial(classname, d, lab, tut, ta, cid);
                 tut = false;
             }
-                
+
             if (chbLab.Checked == true)
             {
+                int numCheckedItems = chbTutorialInstructors.CheckedItems.Count;
+                int[] ta = new int[numCheckedItems];
+                int[] checkedIndices = new int[numCheckedItems];
                 lab = true;
+                tut = false;
                 classname = "Lab" + tbName.Text;
-                int d = 2;
-                c.InsertCourseClass(classname, d, lab, tut, instructor, cid);
+                int d = 2; chbTutorialInstructors.CheckedIndices.CopyTo(checkedIndices, 0); //ToString().CopyTo(0,ta,0,chbTutorialInstructors.SelectedItems.Count);
+                for (int x = 0; x < numCheckedItems; x++)
+                {
+                    ta[x] = (chbTutorialInstructors.Items[checkedIndices[x]] as MyListBoxItem).Value;
+                }
+                chbLabInstrucctores.CheckedItems.CopyTo(ta, 0);
+                c.insertLabsOrTutorial(classname, d, lab, tut, ta, cid);
                 lab = false;
             }
-                
+
+            MessageBox.Show(" Classes Inserted ");
+            this.Dispose(false);
+            courses course = new courses();
+            course.Show();
         }
 
         private void cbyears2_SelectedIndexChanged(object sender, EventArgs e)
@@ -184,6 +231,21 @@ namespace ConsoleApp1
         }
 
         private void tbClassDuration_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clbDivisions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clbDivisions1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
