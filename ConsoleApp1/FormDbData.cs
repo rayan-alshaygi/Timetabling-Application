@@ -549,20 +549,15 @@ namespace ConsoleApp1
         public void InsertCourseClass(string name, int duration, bool lab,bool tut, int Instructor, int CourseId)
         {
             //int instructorId = getInstructorId(Instructor);
-            ccTA.InsertQuery(name, duration, lab, CourseId,tut);
+            int ccid= Int32.Parse(ccTA.InsertQuery(name, duration, lab, CourseId,tut).ToString());
+            ccInst.Insert(ccid, Instructor);
         }
         public void insertLabsOrTutorial(string name, int duration, bool lab, bool tut, int[] instructor, int courseId)
         {
             int courseClassId = Int32.Parse(ccTA.InsertQuery(name, duration, lab, courseId, tut).ToString());
-            int instructorId;
-            foreach (char x in instructor)
+            foreach (int instructorId in instructor)
             {
-                if (x != 0)
-                {
-                    instructorId = (int)x;
-                    //instructorId = getInstructorId(x);
                     ccInst.Insert(courseClassId, instructorId);
-                } 
             }
         }
         public DataTable combolab()
