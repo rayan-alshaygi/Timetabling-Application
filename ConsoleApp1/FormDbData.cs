@@ -11,7 +11,7 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
-        //public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+      //  public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
@@ -56,7 +56,7 @@ namespace ConsoleApp1
             }
 
         }
-        public void Curriculmcourse(int coid, string[] dv, int y, int ns)
+        public void Curriculmcourse(int coid, string[] dv, int y, int ns, int?[] sendToCurriculum)
         {
             String[] divisionColumns = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
             String[] divisionColumn= new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" }; ;
@@ -117,7 +117,7 @@ namespace ConsoleApp1
             int newCurId = -1;
             if (x == 0)
             {
-                newCurId = insertCurriculum(coid, y, dv, ns, insDevs);
+                newCurId = insertCurriculum(sendToCurriculum, coid, y, dv, ns, insDevs);
             }
             //then it seraches for all curriculum the have those devisions
             string expression2 = "";
@@ -170,7 +170,7 @@ namespace ConsoleApp1
             //then it seraches for all curriculum the have those devisions
             //then inserts them into the courseCurriculum Table
 
-            Curriculmcourse(currentcoid, dv, y, ns);
+            Curriculmcourse(currentcoid, dv, y, ns,dev);
             return currentcoid;
         }
         public int?[] courseYDprepare (int y,string[] dv)
@@ -438,14 +438,18 @@ namespace ConsoleApp1
             }
             insertIntoCourseCurriculums(coid, couCurIds);
         }
-        public int insertCurriculum(int coid, int y, string[] dv, int ns, String[] devs)
+        public int insertCurriculum(int ?[] YD,int coid, int y, string[] dv, int ns, String[] devs)
         {
             int courseCurriculumIds;
             string name = "";
+            int z = 0;
             for (int i = 0; i < devs.Count(); i++)
             {
                 if (devs[i] != null)
-                    name += y + " " +dv[i];
+                {
+                    name += y + " " + dv[z];
+                    z++;
+                }
             }
 
             curTA.InsertQuery(name, ns);
@@ -455,7 +459,8 @@ namespace ConsoleApp1
             //int?[] devisionColumns = Array.ConvertAll(devs, int.Parse);
             int?[] devisionColumns = Array.ConvertAll(devs, value =>
                 string.IsNullOrEmpty(value) ? (int?)null : Convert.ToInt32(value));
-            curdvTA.Insert(courseCurriculumIds, devisionColumns[0], devisionColumns[1], devisionColumns[2], devisionColumns[3], devisionColumns[4], devisionColumns[5]);
+            // curdvTA.Insert(courseCurriculumIds, devisionColumns[0], devisionColumns[1], devisionColumns[2], devisionColumns[3], devisionColumns[4], devisionColumns[5]);
+            curdvTA.Insert(courseCurriculumIds, YD[0], YD[1], YD[2], YD[3], YD[4], YD[5]);
             return courseCurriculumIds;
         }
 
