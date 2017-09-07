@@ -46,6 +46,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ConsoleApp1.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -77,7 +80,24 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDbData.cs" />
+    <Compile Include="GenerateSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateSheet.Designer.cs">
+      <DependentUpon>GenerateSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="HillClimbing.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rooms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rooms.Designer.cs">
+      <DependentUpon>Rooms.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScheduleGenetic.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -94,7 +114,19 @@
     </Compile>
     <Compile Include="RandomNumbers.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="SchedulingSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SchedulingSystem.Designer.cs">
+      <DependentUpon>SchedulingSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="SimulatedAnnealing.cs" />
+    <Compile Include="Teacher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher.Designer.cs">
+      <DependentUpon>Teacher.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimetableDBDataSet.cs">
       <DependentUpon>TimetableDBDataSet.xsd</DependentUpon>
     </Compile>
@@ -143,9 +175,61 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenerateSheet.resx">
+      <DependentUpon>GenerateSheet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rooms.resx">
+      <DependentUpon>Rooms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchedulingSystem.resx">
+      <DependentUpon>SchedulingSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher.resx">
+      <DependentUpon>Teacher.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\schedule-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_Calendar_date_event_month_schedule_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_documentbig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_calendar-date-month-planner_532741.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_calendar_64_201497.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_Timetable_73226.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_calendar_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_calendar_big1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Timetable-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_free-20_463008.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

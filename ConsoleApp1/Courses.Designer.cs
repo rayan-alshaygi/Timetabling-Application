@@ -36,12 +36,6 @@
             this.gbOneLevel = new System.Windows.Forms.GroupBox();
             this.btAddLevelAS = new System.Windows.Forms.Button();
             this.cbYears = new System.Windows.Forms.ComboBox();
-            this.clbDivisions = new System.Windows.Forms.CheckedListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btAddLevel = new System.Windows.Forms.Button();
-            this.btAddCourseAS = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.gbTowLevels = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.cbyears1 = new System.Windows.Forms.ComboBox();
@@ -52,6 +46,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.clbDivisions1 = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.clbDivisions = new System.Windows.Forms.CheckedListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btAddLevel = new System.Windows.Forms.Button();
+            this.btAddCourseAS = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.cbNumberOfLevels = new System.Windows.Forms.ComboBox();
             this.tbCourseCodeEnglish = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -113,7 +113,6 @@
             this.gbOneLevel.Controls.Add(this.btAddLevelAS);
             this.gbOneLevel.Controls.Add(this.cbYears);
             this.gbOneLevel.Controls.Add(this.label3);
-            this.gbOneLevel.Controls.Add(this.gbTowLevels);
             this.gbOneLevel.Controls.Add(this.clbDivisions);
             this.gbOneLevel.Controls.Add(this.label4);
             this.gbOneLevel.Location = new System.Drawing.Point(76, 200);
@@ -145,68 +144,6 @@
             this.cbYears.Size = new System.Drawing.Size(238, 33);
             this.cbYears.TabIndex = 11;
             // 
-            // clbDivisions
-            // 
-            this.clbDivisions.FormattingEnabled = true;
-            this.clbDivisions.Location = new System.Drawing.Point(142, 154);
-            this.clbDivisions.Margin = new System.Windows.Forms.Padding(6);
-            this.clbDivisions.Name = "clbDivisions";
-            this.clbDivisions.Size = new System.Drawing.Size(269, 186);
-            this.clbDivisions.TabIndex = 8;
-            this.clbDivisions.SelectedIndexChanged += new System.EventHandler(this.clbDivisions_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 154);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 25);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "divisions";
-            // 
-            // btAddLevel
-            // 
-            this.btAddLevel.Location = new System.Drawing.Point(555, 104);
-            this.btAddLevel.Margin = new System.Windows.Forms.Padding(6);
-            this.btAddLevel.Name = "btAddLevel";
-            this.btAddLevel.Size = new System.Drawing.Size(256, 44);
-            this.btAddLevel.TabIndex = 6;
-            this.btAddLevel.Text = "Add Level details";
-            this.btAddLevel.UseVisualStyleBackColor = true;
-            this.btAddLevel.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btAddCourseAS
-            // 
-            this.btAddCourseAS.Location = new System.Drawing.Point(1289, 771);
-            this.btAddCourseAS.Margin = new System.Windows.Forms.Padding(6);
-            this.btAddCourseAS.Name = "btAddCourseAS";
-            this.btAddCourseAS.Size = new System.Drawing.Size(150, 44);
-            this.btAddCourseAS.TabIndex = 7;
-            this.btAddCourseAS.Text = "done";
-            this.btAddCourseAS.UseVisualStyleBackColor = true;
-            this.btAddCourseAS.Click += new System.EventHandler(this.btAddCourseAS_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 25);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "label8";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(112, 123);
-            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(104, 25);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "#of levels";
-            // 
             // gbTowLevels
             // 
             this.gbTowLevels.Controls.Add(this.button1);
@@ -218,7 +155,7 @@
             this.gbTowLevels.Controls.Add(this.label5);
             this.gbTowLevels.Controls.Add(this.clbDivisions1);
             this.gbTowLevels.Controls.Add(this.label12);
-            this.gbTowLevels.Location = new System.Drawing.Point(120, 1);
+            this.gbTowLevels.Location = new System.Drawing.Point(579, 225);
             this.gbTowLevels.Margin = new System.Windows.Forms.Padding(6);
             this.gbTowLevels.Name = "gbTowLevels";
             this.gbTowLevels.Padding = new System.Windows.Forms.Padding(6);
@@ -315,6 +252,68 @@
             this.label12.Size = new System.Drawing.Size(96, 25);
             this.label12.TabIndex = 6;
             this.label12.Text = "divisions";
+            // 
+            // clbDivisions
+            // 
+            this.clbDivisions.FormattingEnabled = true;
+            this.clbDivisions.Location = new System.Drawing.Point(142, 154);
+            this.clbDivisions.Margin = new System.Windows.Forms.Padding(6);
+            this.clbDivisions.Name = "clbDivisions";
+            this.clbDivisions.Size = new System.Drawing.Size(269, 186);
+            this.clbDivisions.TabIndex = 8;
+            this.clbDivisions.SelectedIndexChanged += new System.EventHandler(this.clbDivisions_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 154);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 25);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "divisions";
+            // 
+            // btAddLevel
+            // 
+            this.btAddLevel.Location = new System.Drawing.Point(555, 104);
+            this.btAddLevel.Margin = new System.Windows.Forms.Padding(6);
+            this.btAddLevel.Name = "btAddLevel";
+            this.btAddLevel.Size = new System.Drawing.Size(256, 44);
+            this.btAddLevel.TabIndex = 6;
+            this.btAddLevel.Text = "Add Level details";
+            this.btAddLevel.UseVisualStyleBackColor = true;
+            this.btAddLevel.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btAddCourseAS
+            // 
+            this.btAddCourseAS.Location = new System.Drawing.Point(1289, 771);
+            this.btAddCourseAS.Margin = new System.Windows.Forms.Padding(6);
+            this.btAddCourseAS.Name = "btAddCourseAS";
+            this.btAddCourseAS.Size = new System.Drawing.Size(150, 44);
+            this.btAddCourseAS.TabIndex = 7;
+            this.btAddCourseAS.Text = "done";
+            this.btAddCourseAS.UseVisualStyleBackColor = true;
+            this.btAddCourseAS.Click += new System.EventHandler(this.btAddCourseAS_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 25);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "label8";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(112, 123);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(104, 25);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "#of levels";
             // 
             // cbNumberOfLevels
             // 
@@ -462,6 +461,7 @@
             this.ClientSize = new System.Drawing.Size(1480, 1253);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.tbCourseCodeArabic);
+            this.Controls.Add(this.gbTowLevels);
             this.Controls.Add(this.cbLectureInstructor);
             this.Controls.Add(this.chbLecture);
             this.Controls.Add(this.tbCourseCodeEnglish);

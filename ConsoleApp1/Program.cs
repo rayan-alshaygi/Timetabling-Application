@@ -16,7 +16,7 @@ namespace ConsoleApp1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
-            Application.Run(new MainForm());
+            Application.Run(new SchedulingSystem());
             //int numrooms;
             //Console.WriteLine("Enter room numbers");
             //string x=Console.ReadLine();
