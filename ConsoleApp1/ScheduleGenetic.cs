@@ -183,26 +183,17 @@ namespace ConsoleApp1
             // number of time-space slots
             int size = _slots.Count;
             ScheduleGenetic newChromosome = new ScheduleGenetic(this, true);
-            // DataTable rooms = Counts.GetInstance().GetLectureRooms();
-            //DataTable labs = Counts.GetInstance().GetLabRooms();
             DataTable rooms = Counts.GetInstance().GetRooms();
             DataTable lectureRooms = Counts.GetInstance().GetLectureRooms();
             DataTable labRooms = Counts.GetInstance().GetLabRooms();
             int numLabRooms = Counts.GetInstance().GetNumberOfLabRooms();
             int numLectureRooms = Counts.GetInstance().GetNumberOfLectureRooms();
-            // place classes at random position
-            //SqlConnection con = new SqlConnection(FormDbData.conString);
-            //con.Open();
-            //SqlCommand cmd = new SqlCommand("Select * from  CourseClass", con);
-            //cmd.CommandType = CommandType.Text;
-            //DataTable c = new DataTable();
-            //c.Load(cmd.ExecuteReader());
+            // DataTable c = Counts.GetInstance().getCourseClassesWithNullValues();
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int nr = Counts.GetInstance().GetNumberOfRooms();
-            //int nl = Counts.GetInstance().GetNumberOfLabRooms();
-            //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
             Console.WriteLine("New Chromosome");
+            Counts counts = new Counts();
             foreach (DataRow courseRow in c.Rows)
             {
                 // determine random position of class
@@ -210,25 +201,26 @@ namespace ConsoleApp1
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int room;
                 int randroom;
-                if (!courseRow["preferredRoom"].Equals(null))
+                if (courseRow["preferredRoom"] != DBNull.Value)// .Equals(null))
                 {
                     room = Int32.Parse(courseRow["preferredRoom"].ToString());
                     randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
-                    // if (courseRow["lab"].Equals(true))
-                    //     randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
-                    // //randroom = room % numLabRooms;
-                    // else
-                    //     randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
-                    //// randroom = room % numLectureRooms;
                 }
                 else
                 {
                     randroom = RandomNumbers.NextNumber() % nr;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        randroom = RandomNumbers.NextNumber() % nr;
+                        if (courseRow["lab"].Equals(true))
+                            room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                        else
+                            room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
+                        int roomSeats = counts.GetRoomMaxCapicityById(room);
+                        int classSeats = counts.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
+                        if (roomSeats >= classSeats) break;
+                    }
 
-                    if (courseRow["lab"].Equals(true))
-                        room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
-                    else
-                        room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
                 }
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 if (time % 2 != 0) time -= 1;
@@ -491,7 +483,7 @@ namespace ConsoleApp1
 
                 time = time % DefineConstants.DAY_HOURS;
                 int dur = Int32.Parse(it.Key["duration"].ToString());
-
+                int currentClassId = Int32.Parse(it.Key["courseId"].ToString());
                 // check for room overlapping of classes
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
@@ -513,7 +505,7 @@ namespace ConsoleApp1
                 DataRow cc = it.Key;
                 DataRow r = Counts.GetInstance().GetRoomById(classRoom);
                 int roomSeats = counts.GetRoomMaxCapicityById(classRoom);
-                int classSeats = counts.GetCourseStudents(Int32.Parse(cc["courseId"].ToString()));
+                int classSeats = counts.GetCourseStudents(currentClassId);
 
                 // does current room have enough seats
                 _criteria[ci + 1] = roomSeats >= classSeats;
@@ -548,7 +540,7 @@ namespace ConsoleApp1
                                 if (cc != crow)
                                 {
                                     // professor overlaps?
-                                    if (cc["instructorId"] == crow["instructorId"])
+                                    if (counts.GetClassInstructor(Int32.Parse(cc["courseId"].ToString())) == counts.GetClassInstructor( Int32.Parse(crow["courseId"].ToString())))
                                     {
                                         po = true;
                                     }
@@ -595,7 +587,8 @@ namespace ConsoleApp1
                     _criteria[ci + 4] = !go;
                 }
                 // instructors preferred time
-                DataTable dt = counts.GetInstructorPreferredTime(Int32.Parse(cc["instructorId"].ToString()));
+                int[] instructorId = counts.GetClassInstructor(currentClassId);
+                DataTable dt = counts.GetInstructorPreferredTime(instructorId);
                 bool insPrefTime = false;
                 foreach (DataRow t in dt.Rows)
                 {
@@ -945,17 +938,17 @@ namespace ConsoleApp1
                 int curClassId = Int32.Parse(r["courseClassId"].ToString());
                 classDR = counts.GetClassById(curClassId);
                 int startTime = Int32.Parse(r["time start"].ToString());
-                int time = startTime-8;
+                int time = startTime - 8;
                 int dur = Int32.Parse(classDR["duration"].ToString());
                 String d = r["day"].ToString();
                 int room = Int32.Parse(r["roomId"].ToString());
                 int randroom;
                 randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
                 //if (classDR["lab"].Equals(true))
-                  //  randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
+                //  randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
                 //randroom = room % numLabRooms;
-               // else
-                  //  randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
+                // else
+                //  randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
                 int t = randroom * DefineConstants.DAY_HOURS;
                 int day = 8;
                 if (Enum.IsDefined(typeof(DayOfWeek), d))
