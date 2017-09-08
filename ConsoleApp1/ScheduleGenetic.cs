@@ -334,7 +334,8 @@ namespace ConsoleApp1
             }
 
             //n.CalculateFitness();
-            //n= HillClimbing.solve(n);
+            Console.WriteLine("hill climbing");
+            n= HillClimbing.solve(n);
             //n = SimulatedAnnealing.StartAnnealing(n);
             n.CalculateFitness();
             // return smart pointer to offspring
@@ -517,11 +518,11 @@ namespace ConsoleApp1
                 // does current room have computers if they are required
                 Boolean roomLab = Convert.ToBoolean(rooms.Rows[randroom]["lab"].ToString().ToLower());
                 Boolean classLab = Boolean.Parse(cc["lab"].ToString());
-                _criteria[ci + 2] = classLab || (classLab && roomLab);
+                _criteria[ci + 2] = !classLab || (classLab && roomLab);
                 // Hard constraint when satisfied nothing happens nothing happens
                 //if (_criteria[ci + 2])
                 //    score++;
-                if (_criteria[ci + 2])
+                if (!_criteria[ci + 2])
                     score -= 16;
                 bool po = false;
                 bool go = false;
@@ -1253,7 +1254,8 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
-                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
+                    Console.WriteLine("produce offepsing: Simulated Annealling");
+                    offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring

@@ -109,14 +109,16 @@ namespace ConsoleApp1
                 rt = RandomNumbers.NextNumber() % (numTimeslots - 3);
                 containsValueTS = _classes.ContainsValue(rt);
                 counter++;
-                //continue till the slot choosen is empty or not the one currently used by the class
+                //continue till the slot choosen is empty
             } while (counter < 2 && containsValueTS);
+            if (containsValueTS)
+                return;
             DataRow courseRow = _classes.ElementAt(classIndexInDict).Key;
             //Console.WriteLine(_classes[courseRow]);
             for (int z = dur - 1; z >= 0; z--)
             {
-                // add the new timeslot to _slots
-                List<DataRow> l = new List<DataRow>();
+                    // add the new timeslot to _slots
+                    List<DataRow> l = new List<DataRow>();
                 l.Add(courseRow);
                 if (_slots[(rt + z)] == null)
                     _slots[(rt + z)] = l;
