@@ -9306,8 +9306,8 @@ SELECT Id, name, duration, lab, courseId, roomId, preferredRoom, Tut FROM Course
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT Id, Tut, courseId, duration, instructorId, lab, name, preferredRoom, roomI" +
-                "d FROM CourseClass WHERE (Id = @id)";
+            this._commandCollection[2].CommandText = "SELECT Id, Tut, courseId, duration,lab, name, preferredRoom, roomId FROM CourseCl" +
+                "ass WHERE (Id = @id)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
@@ -9318,8 +9318,8 @@ SELECT Id, name, duration, lab, courseId, roomId, preferredRoom, Tut FROM Course
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Id, Tut, courseId, duration, instructorId, lab, name, preferredRoom, roomI" +
-                "d FROM CourseClass";
+            this._commandCollection[4].CommandText = "SELECT Id, Tut, courseId, duration,lab, name, preferredRoom, roomId FROM CourseCl" +
+                "ass";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;

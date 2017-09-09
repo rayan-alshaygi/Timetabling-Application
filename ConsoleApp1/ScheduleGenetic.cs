@@ -616,7 +616,7 @@ namespace ConsoleApp1
                 //Lab and Lecture morning or evening sessions
                 bool labeven = false;
                 bool lectMorn = false;
-                if (Boolean.Parse(cc["lab"].ToString()))
+                if (Convert.ToBoolean(cc["lab"]))
                 {
                     if (time >= 12)
                         labeven = true;
@@ -633,7 +633,7 @@ namespace ConsoleApp1
                 //To know the max hours per day and if a specific group have a day off
                 // they must be grouped, insert the data in arrays
                 int h;
-                if (cc["lab"].ToString() == null)
+                if ( Convert.ToBoolean( cc["lab"])== false)
                     h = 1;
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
@@ -843,7 +843,7 @@ namespace ConsoleApp1
             //then call a function and send it all the years and devisions
             //then for each devision of a year whom don't have an off day
             //or consecutive hours more than 6 increment the score
-            List<int[,]> data = new List<int[,]> { fm, fmcs, fs, fit, fcs, sm, smcs, ss, sit, scs, tm, tmcs, ts, tit, tcs, fom, fomcs, fos, foit, focs, fifm, fifmcs, fifs, fifit, fifcs };
+            List<int[,]> data = new List<int[,]> { fm/*, fmcs, fs, fscs, fcs, */,fit, sm, /*smcs, ss, sscs, scs,*/sit, tm/*, tmcs, ts, tscs, tcs*/, tit, fom, fomcs, fos,foscs, focs, foit, fifm, fifmcs, fifs, fifscs, fifcs, fifit};
             score += CheckPref(data);
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
@@ -869,12 +869,13 @@ namespace ConsoleApp1
             bool[] days = new bool[7];
             bool prefDayOff = false;
             bool dayOff = false;
+            bool labsAndLecturesSameDay = false;
             //calculate the number of lectures and labs in a single day
             int numOfLectures = 0;
             int numOfLabs = 0;
             for (int d = 0; d <= 4; d++)
             {
-
+                consectiveHours = 0;
                 for (int t = 0; t <= 4; t++)
                 {
                     //1 for lectures
@@ -884,18 +885,21 @@ namespace ConsoleApp1
                         days[d] = true;
                         numOfLectures++;
                     }
-                    if (yd[d, t] != 0)
+                    else if (yd[d, t] == 2)
                     {
                         consectiveHours += 2;
                         days[d] = true;
                         numOfLabs++;
                     }
+                    else
+                        consectiveHours = 0;
+
                 }
                 if (consectiveHours >= 6)
                     consHours = true;
                 //work if day have both
                 if (numOfLectures != 0 && numOfLabs != 0)
-                    score++;
+                    labsAndLecturesSameDay = true;
             }
             //off day
             if (days.Contains(false))
@@ -917,11 +921,11 @@ namespace ConsoleApp1
             //check if the day off is the preferred day
             if (prefDayOff == false)
                 score++;
-
+            //if(labsAndLecturesSameDay == )
+           // score++;
             return score;
         }
-        // Returns fitness value of chromosome
-
+        
         //get the current timetables and evaluate
         public void evaluate()
         {
@@ -979,6 +983,7 @@ namespace ConsoleApp1
             Console.WriteLine("The fitness is " + score);
 
         }
+        // Returns fitness value of chromosome
         public float GetFitness()
         {
             return _fitness;
