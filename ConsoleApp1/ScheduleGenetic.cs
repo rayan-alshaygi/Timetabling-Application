@@ -335,7 +335,7 @@ namespace ConsoleApp1
 
             //n.CalculateFitness();
             Console.WriteLine("hill climbing");
-            n= HillClimbing.solve(n);
+            n = HillClimbing.solve(n);
             //n = SimulatedAnnealing.StartAnnealing(n);
             n.CalculateFitness();
             // return smart pointer to offspring
@@ -541,7 +541,7 @@ namespace ConsoleApp1
                                 if (cc != crow)
                                 {
                                     // professor overlaps?
-                                    if (counts.GetClassInstructor(Int32.Parse(cc["courseId"].ToString())) == counts.GetClassInstructor( Int32.Parse(crow["courseId"].ToString())))
+                                    if (counts.GetClassInstructor(Int32.Parse(cc["courseId"].ToString())) == counts.GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
                                     {
                                         po = true;
                                     }
@@ -633,7 +633,7 @@ namespace ConsoleApp1
                 //To know the max hours per day and if a specific group have a day off
                 // they must be grouped, insert the data in arrays
                 int h;
-                if ( Convert.ToBoolean( cc["lab"])== false)
+                if (Convert.ToBoolean(cc["lab"]) == false)
                     h = 1;
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
@@ -842,30 +842,33 @@ namespace ConsoleApp1
 
             //then call a function and send it all the years and devisions
             //then for each devision of a year whom don't have an off day
-            //or consecutive hours more than 6 increment the score
-            List<int[,]> data = new List<int[,]> { fm/*, fmcs, fs, fscs, fcs, */,fit, sm, /*smcs, ss, sscs, scs,*/sit, tm/*, tmcs, ts, tscs, tcs*/, tit, fom, fomcs, fos,foscs, focs, foit, fifm, fifmcs, fifs, fifscs, fifcs, fifit};
-            score += CheckPref(data);
+            //or consecutive hours more than 6 increment the score 
+            List<int[,]> data = new List<int[,]> { fm/*, fmcs, fs, fscs, fcs, */, fit, sm, /*smcs, ss, sscs, scs,*/sit, tm/*, tmcs, ts, tscs, tcs*/, tit, fom, fomcs, fos, foscs, focs, foit, fifm, fifmcs, fifs, fifscs, fifcs, fifit };
+            List<string> dataNames = new List<string> { "first", "firstIT", "second", "secondIT", "third", "thirdIT", "fourthMATH", "fourthMATHCS", "fourthSTAT", "fourthSTATCS","fourthCS", "fourthIT", "fifthMATH", "fifthMATHCS", "fifthSTAT", "fifthSTATCS", "fifthCS","fifthIT" };
+            score += CheckPref(data, dataNames);
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
-        private int CheckPref(List<int[,]> allData)
+        private int CheckPref(List<int[,]> allData, List<string> allDataNames)
         {
             int score = 0;
-            foreach (int[,] yd in allData)
-            {
-                score += CheckSoftPref(yd);
-            }
+            for (int i = 0; i < allData.Count; i++)
+                score += CheckSoftPref(allData[i], allDataNames[i]);
             return score;
         }
         //see if the they have a day off + see the maximum hours they are working in
-        private int CheckSoftPref(int[,] yd)
+        private int CheckSoftPref(int[,] yd, string name)
         {
             //work here get the day off preferences for each year
-
+            DataTable pref = Counts.GetInstance().GetStudentsPrefrences(name);
+            string prefDay = pref.Rows[0]["DayOff"].ToString();
+            bool labLectureSameDay = Convert.ToBoolean(pref.Rows[0]["LabLectureSameDay"]);
+            bool lectureMorningSession = Convert.ToBoolean(pref.Rows[0]["LectureMorningSession"]);
             //work here see if the lab and days on same day or not;
             int score = 0;
             int consectiveHours = 0;
-            bool consHours = false;
+            bool consHours6 = false;
+            bool consHours4 = false;
             bool[] days = new bool[7];
             bool prefDayOff = false;
             bool dayOff = false;
@@ -896,7 +899,9 @@ namespace ConsoleApp1
 
                 }
                 if (consectiveHours >= 6)
-                    consHours = true;
+                    consHours6 = true;
+                if (consectiveHours >= 4)
+                    consHours4 = true;
                 //work if day have both
                 if (numOfLectures != 0 && numOfLabs != 0)
                     labsAndLecturesSameDay = true;
@@ -908,28 +913,38 @@ namespace ConsoleApp1
                 //get the indexes of all off days if any 
                 var result = Enumerable.Range(0, days.Count()).Where(i => days[i] == false).ToList();
                 //check if the off day is the preferred one or not !
-                //if(result.Contains(integer index of the preffered day))  prefDayOff=true; ;
+                int intIndexOfPrefDay = 8;
+                if (Enum.IsDefined(typeof(DayOfWeek), prefDay))
+                {
+                    DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), prefDay, true);
+                    intIndexOfPrefDay = (int)x;
+                }
+                if (result.Contains(intIndexOfPrefDay)) prefDayOff = true; ;
             }
 
-            bool[] hoursDays = new bool[] { consHours, dayOff, prefDayOff };
             //consecetive hourse
-            if (consHours == true)
+            if (consHours4 == false)
                 score++;
+            else
+            {
+                if (consHours6 == false)
+                    score++;
+            }
             //checkForOffDay
-            if (dayOff == false)
+            if (dayOff == true)
                 score++;
             //check if the day off is the preferred day
-            if (prefDayOff == false)
+            if (prefDayOff == true)
                 score++;
-            //if(labsAndLecturesSameDay == )
-           // score++;
+            if (labsAndLecturesSameDay == labLectureSameDay)
+                score++;
             return score;
         }
-        
+
         //get the current timetables and evaluate
         public void evaluate()
         {
-            ScheduleTableAdapter sched = new ScheduleTableAdapter();
+            _2ndTermUniversityScheduleTableAdapter sched = new _2ndTermUniversityScheduleTableAdapter();
             DataTable sem = sched.GetData();
             DataRow classDR;
             Counts counts = new Counts();

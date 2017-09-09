@@ -18,7 +18,7 @@ namespace ConsoleApp1
         CoursesTableAdapter courses = new CoursesTableAdapter();
         CourseCurriculumsTableAdapter courseCur = new CourseCurriculumsTableAdapter();
         CoursesYDTableAdapter courseYD = new CoursesYDTableAdapter();
-    
+        StudentsPreferencesTableAdapter studentsPreferencesTableAdapter = new StudentsPreferencesTableAdapter();
 
         // Global instance
         private static Counts _instance = new Counts();
@@ -38,6 +38,11 @@ namespace ConsoleApp1
             return Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString());
         }
 
+        // get soft prefernces
+        public DataTable GetStudentsPrefrences(string name)
+        {
+            return studentsPreferencesTableAdapter.GetPrefrencesByName(name);
+        }
         // Returns number of Instructor
 
         public int GetNumberOfInstructor()
