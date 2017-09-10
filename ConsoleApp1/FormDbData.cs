@@ -11,7 +11,7 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
-      //  public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //  public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
@@ -52,14 +52,14 @@ namespace ConsoleApp1
         {
             foreach (DataRow id in Ids)
             {
-                coursecurTA.Insert(Int32.Parse(id["curriculumId"].ToString()),courseId );
+                coursecurTA.Insert(Int32.Parse(id["curriculumId"].ToString()), courseId);
             }
 
         }
         public void Curriculmcourse(int coid, string[] dv, int y, int ns, int?[] sendToCurriculum)
         {
             String[] divisionColumns = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
-            String[] divisionColumn= new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" }; ;
+            String[] divisionColumn = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" }; ;
             // st[] to store values for curriculum devisions columns in case the curriculum does not exist
             String[] insDevs = new String[6];
             //int id = -1;
@@ -69,10 +69,10 @@ namespace ConsoleApp1
             {
                 if (dv[i] != null)
                 {
-                    if (expression.Count()>2)
+                    if (expression.Count() > 2)
                         expression += " and ";
-                    expression += dv[i] + " = " + y ;
-                        for (int j = 0; j < divisionColumn.Count(); j++)
+                    expression += dv[i] + " = " + y;
+                    for (int j = 0; j < divisionColumn.Count(); j++)
                         if (divisionColumn[j] == dv[i])
                             divisionColumn = divisionColumn.Where(val => val != dv[i]).ToArray();
                     switch (dv[i].ToLower())
@@ -121,7 +121,7 @@ namespace ConsoleApp1
             }
             //then it seraches for all curriculum the have those devisions
             string expression2 = "";
-           // int count = 0;
+            // int count = 0;
             for (int i = 0; i < dv.Count(); i++)
             {
                 if (dv[i] != null)
@@ -129,7 +129,7 @@ namespace ConsoleApp1
                     if (expression2.Count() > 2)
                         expression2 += " or ";
                     expression2 += dv[i] + " = " + y;
-                   // count++;
+                    // count++;
                 }
             }
             DataTable d = comboDivision();
@@ -164,16 +164,16 @@ namespace ConsoleApp1
             }
             int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns, codeArabic, codeEnglish).ToString());
             int?[] dev = courseYDprepare(y, dv);
-                    cYD.Insert(currentcoid, dev[0], dev[1],dev[2],dev[3],dev[4],dev[5]);
+            cYD.Insert(currentcoid, dev[0], dev[1], dev[2], dev[3], dev[4], dev[5]);
             //calls a method that checks if there exists curriculum with this specification
             //and if not create a new one
             //then it seraches for all curriculum the have those devisions
             //then inserts them into the courseCurriculum Table
 
-            Curriculmcourse(currentcoid, dv, y, ns,dev);
+            Curriculmcourse(currentcoid, dv, y, ns, dev);
             return currentcoid;
         }
-        public int?[] courseYDprepare (int y,string[] dv)
+        public int?[] courseYDprepare(int y, string[] dv)
         {
             int?[] dev = new int?[6];
             Console.WriteLine(dev[0]);
@@ -233,7 +233,7 @@ namespace ConsoleApp1
             }
             return 0;
         }
-        public int InsertCourse(string name, string codeArabic, string codeEnglish,int y1, string[] dv1, int y2, string[] dv2)
+        public int InsertCourse(string name, string codeArabic, string codeEnglish, int y1, string[] dv1, int y2, string[] dv2)
         {
             int ns = 0;
             foreach (string x in dv1)
@@ -243,7 +243,7 @@ namespace ConsoleApp1
             foreach (string x in dv2)
                 if (x != null)
                     ns += getSize(x, y2);
-            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns , codeArabic , codeEnglish).ToString());
+            int currentcoid = Int32.Parse(coursesTA.InsertQuery(name, ns, codeArabic, codeEnglish).ToString());
             int?[] dev = courseYDprepare(y1, dv1, y2, dv2);
             cYD.Insert(currentcoid, dev[0], dev[1], dev[2], dev[3], dev[4], dev[5]);
             //calls a method that checks if there exists  curriculum with this specification
@@ -291,7 +291,7 @@ namespace ConsoleApp1
             }
             return dev;
         }
-            public void Curriculmcourse(int coid, string[] dv1, int y1, string[] dv2, int y2, int ns)
+        public void Curriculmcourse(int coid, string[] dv1, int y1, string[] dv2, int y2, int ns)
         {
             String[] divisionColumns1 = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
             String[] divisionColumns2 = new string[6] { "cs", "stat", "math", "mathCS", "statCS", "IT" };
@@ -306,7 +306,7 @@ namespace ConsoleApp1
                 {
                     if (expression.Count() > 2)
                         expression += " and ";
-                    expression += dv1[i] + " = " + y1 ;
+                    expression += dv1[i] + " = " + y1;
                     for (int j = 0; j < divisionColumns1.Count(); j++)
                         if (divisionColumns1[j] == dv1[i])
                             divisionColumns1 = divisionColumns1.Where(val => val != dv1[i]).ToArray();
@@ -343,7 +343,7 @@ namespace ConsoleApp1
                 {
                     if (expression.Count() > 2)
                         expression += " and ";
-                    expression += dv2[i] + " = " + y2 ;
+                    expression += dv2[i] + " = " + y2;
                     for (int j = 0; j < divisionColumns2.Count(); j++)
                         if (divisionColumns2[j] == dv2[i])
                             divisionColumns2 = divisionColumns2.Where(val => val != dv2[i]).ToArray();
@@ -431,14 +431,14 @@ namespace ConsoleApp1
                 else
                 {
                     DataRow[] temp = new DataRow[index + 1];
-                    couCurIds.CopyTo(temp,0);
+                    couCurIds.CopyTo(temp, 0);
                     couCurIds = temp;
                 }
                 couCurIds[index] = firstId;
             }
             insertIntoCourseCurriculums(coid, couCurIds);
         }
-        public int insertCurriculum(int ?[] YD,int coid, int y, string[] dv, int ns, String[] devs)
+        public int insertCurriculum(int?[] YD, int coid, int y, string[] dv, int ns, String[] devs)
         {
             int courseCurriculumIds;
             string name = "";
@@ -551,23 +551,29 @@ namespace ConsoleApp1
             insertIntoCourseCurriculums(coid, couCurIds);
         }
 
-        public void InsertCourseClass(string name, int duration, bool lab,bool tut, int Instructor, int CourseId)
+        public void InsertCourseClass(string name, int duration, bool lab, bool tut, int[] Instructor, int CourseId)
         {
             //int instructorId = getInstructorId(Instructor);
-            int ccid= Int32.Parse(ccTA.InsertQuery(name, duration, lab, CourseId,tut).ToString());
-            ccInst.Insert(ccid, Instructor);
+            int ccid = Int32.Parse(ccTA.InsertQuery(name, duration, lab, CourseId, tut).ToString());
+            foreach (int Id in Instructor)
+                ccInst.Insert(ccid, Id);
         }
-        public void insertLabsOrTutorial(string name, int duration, bool lab, bool tut, int[] instructor, int courseId)
+        public int insertLabsOrTutorial(string name, int duration, bool lab, bool tut, int[] instructor, int courseId)
         {
             int courseClassId = Int32.Parse(ccTA.InsertQuery(name, duration, lab, courseId, tut).ToString());
             foreach (int instructorId in instructor)
             {
-                    ccInst.Insert(courseClassId, instructorId);
+                ccInst.Insert(courseClassId, instructorId);
             }
+            return courseClassId;
+        }
+        public DataTable GetCourseIdandName(string code)
+        {
+            return coursesTA.GetCourseNameAndId(code);
         }
         public DataTable combolab()
         {
-            
+
             DataTable dt = roomTA.GetLabRooms();
             return dt;
         }
@@ -595,7 +601,7 @@ namespace ConsoleApp1
             DataTable d = new DataTable();
             d.Load(cmd.ExecuteReader());
             return d;
-           // return cdTA.GetData().CopyToDataTable();
+            // return cdTA.GetData().CopyToDataTable();
             //DataTable dt = cdTA.GetData();
             //return dt;
         }
