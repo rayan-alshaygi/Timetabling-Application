@@ -31,7 +31,8 @@ namespace ConsoleApp1
 
         private void btAddDivisionSize_Click(object sender, EventArgs e)
         {
-
+            add_division_size frm = new add_division_size();
+            frm.Show();
         }
 
         private void btMakeSchedule_Click(object sender, EventArgs e)
@@ -44,6 +45,26 @@ namespace ConsoleApp1
         {
             Teacher frm = new Teacher();
             frm.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SchedulingSystem_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btSeeSchedule_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
