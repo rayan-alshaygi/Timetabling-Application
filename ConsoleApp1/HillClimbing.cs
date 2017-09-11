@@ -328,6 +328,7 @@ namespace ConsoleApp1
                 {
                     fitness = change.GetFitness();
                     hcIdle--;
+                    Console.WriteLine("Better :) ");
                 }
             }
             return change;
