@@ -10,19 +10,16 @@ namespace ConsoleApp1
 {
     class HillClimbing
     {
-        public static ScheduleGenetic solve(ScheduleGenetic s)
+        public static ScheduleGenetic solve(ScheduleGenetic change , float fitness)
         {
             int hcIdle = 0;
-            ScheduleGenetic change = s;
+            //ScheduleGenetic change = new ScheduleGenetic(s, false);
+            //ScheduleGenetic change = (ScheduleGenetic)s.MemberwiseClone();
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int numClasses = c.Rows.Count;
-            // Time-space slots, one entry represent one hour in one classroom
-            List<List<DataRow>> _slots = change.GetSlots();
-            // Used to determine first time-space slot used by class
-            Dictionary<DataRow, int> _classes = change.GetClasses();
             List<bool> _criteria = change.GetCriteria();
             DataTable rooms = Counts.GetInstance().GetRooms();
-            int numTimeslots = _slots.Count;
+            int numTimeslots = change._slots.Count;
             int rc;
             int rt;
             bool containsValueTS = true;
@@ -30,20 +27,24 @@ namespace ConsoleApp1
             int randomClassId;
             int classIndexInDict;
             // int randomTSClass = -1;
+            DataRow courseRow;// = _classes.ElementAt(classIndexInDict).Key;
             for (int i = 0; i < 5 && hcIdle < 3; i++)
             {
                 hcIdle++;
-                Dictionary<int, int> _classesId = _classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()),
+                Dictionary<int, int> _classesId = change._classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()),
                    p => p.Value);
                 newRandomClass:
                 rc = RandomNumbers.NextNumber() % numClasses;
-                var listClasses = _classes.Values.ToList();
+                var attempt = change._classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()));
+                var listClasses = change._classes.Keys.ToList();
                 randomClassId = Int32.Parse(c.Rows[rc]["Id"].ToString());
                 int dur = Int32.Parse(c.Rows[rc]["duration"].ToString());
                 // DataRow please = c.Rows[rc];
                 //int x = _classes[please];
                 int randomClassOldTS = _classesId[randomClassId];
-                classIndexInDict = listClasses.IndexOf(randomClassOldTS);
+                var real = attempt[randomClassId]; 
+                courseRow = real.Key;
+                classIndexInDict = listClasses.IndexOf(courseRow);
                 //to limit the number of attempts to find an empty timeslot
                 int counter = 0;
                 bool[] crit = new bool[5];
@@ -63,26 +64,31 @@ namespace ConsoleApp1
                     rt = RandomNumbers.NextNumber() % (numTimeslots - 3);
                     if (crit[0] == false || crit[1] == false)
                     {
+
                         //get a room with enough seats
                         int classSeats = Counts.GetInstance().GetCourseStudents(Int32.Parse(c.Rows[rc]["courseId"].ToString()));
                         Boolean classLab = Boolean.Parse(c.Rows[rc]["lab"].ToString());
                         int[] satsisfyingRooms = Counts.GetInstance().GetRoomWithSeats(classSeats, classLab);
                         int roomId = satsisfyingRooms[RandomNumbers.NextNumber() % satsisfyingRooms.Count()];
                         int randroom = rooms.Rows.IndexOf(rooms.Rows.Find(roomId));
-                        day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
-                        time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
-                        if (time % 2 != 0) time -= 1;
-                        rt = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
-                        counter++;
+                        newTimeSlot:
                         do
                         {
-                            if (_slots[rt] == null)
+
+                            day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
+                            time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                            if (time % 2 != 0) time -= 1;
+                            rt = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                            counter++;
+
+
+                            if (change._slots[rt] == null)
                                 break;
-                            if (_slots[rt].Count == 0)
+                            if (change._slots[rt].Count == 0)
                                 break;
-                            if (rt < _slots.Count - 7)
+                            if (rt < change._slots.Count - 7)
                             {
-                                if (_slots[rt + 4] == null)
+                                if (change._slots[rt + 4] == null)
                                 {
                                     if (time + 4 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -94,7 +100,7 @@ namespace ConsoleApp1
                             }
                             if (rt > 4 && time > 4)
                             {
-                                if (_slots[rt - 4] == null)
+                                if (change._slots[rt - 4] == null)
                                 {
                                     if (time - 4 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -104,9 +110,9 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                            if (rt < _slots.Count - 5)
+                            if (rt < change._slots.Count - 5)
                             {
-                                if (_slots[rt + 2] == null)
+                                if (change._slots[rt + 2] == null)
                                 {
                                     if (time + 2 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -118,7 +124,7 @@ namespace ConsoleApp1
                             }
                             if (rt > 2 && time > 2)
                             {
-                                if (_slots[rt - 2] == null)
+                                if (change._slots[rt - 2] == null)
                                 {
                                     if (time - 2 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -128,18 +134,71 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
+                        } while (true);
+                        //cc = _classes.ElementAt(classIndexInDict).Key;
+                        bool go = false;
+                        for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
+                        {
+                            // for each hour of class
+                            for (int j = dur - 1; j >= 0; j--)
+                            {
+                                // check for overlapping with other classes at same time
+                                List<DataRow> cl = change._slots[t + j];
+                                if (cl != null)
+                                {
+                                    foreach (DataRow crow in cl)
+                                    {
+                                        if (courseRow != crow)
+                                        {
+                                            // professor overlaps?
+                                            if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                            {
+                                                goto newTimeSlot;
+                                            }
 
-                        } while (false);
-                        goto cont;
+                                            // student group overlaps?
+
+                                            DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
+                                            DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
+                                            curClassCurriculums.Columns.Remove("courseId");
+                                            sameTimeClassCurriculums.Columns.Remove("courseId");
+                                            int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
+                                            int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                            //int count = 0;
+                                            //foreach (DataRow id in curClassCurriculums.Rows)
+                                            //{
+                                            //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                            //    count++;
+                                            //}
+                                            //count = 0;
+                                            //foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                            //{
+                                            //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                            //    count++;
+                                            //}
+                                            var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
+                                            if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
+                                            {
+                                                goto newTimeSlot;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            goto cont;
+                        }
+
                     }
-
                     if (crit[1] == true)
                     {
+                        newTimeSlot:
                         do
                         {
-                            if (pos < _slots.Count - 7)
+                            if (pos < change._slots.Count - 7)
                             {
-                                if (_slots[pos + 4] == null)
+                                if (change._slots[pos + 4] == null)
                                 {
                                     if (time + 4 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -151,7 +210,7 @@ namespace ConsoleApp1
                             }
                             if (pos > 4 && time > 4)
                             {
-                                if (_slots[pos - 4] == null)
+                                if (change._slots[pos - 4] == null)
                                 {
                                     if (time - 4 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -161,9 +220,9 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                            if (pos < _slots.Count - 5)
+                            if (pos < change._slots.Count - 5)
                             {
-                                if (_slots[pos + 2] == null)
+                                if (change._slots[pos + 2] == null)
                                 {
                                     if (time + 2 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -175,7 +234,7 @@ namespace ConsoleApp1
                             }
                             if (pos > 2 && time > 2)
                             {
-                                if (_slots[pos - 2] == null)
+                                if (change._slots[pos - 2] == null)
                                 {
                                     if (time - 2 < DefineConstants.DAY_HOURS + 1 - dur)
                                     {
@@ -185,40 +244,93 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                        } while (false);
+                        } while (true);
+                        //cc = _classes.ElementAt(classIndexInDict).Key;
+                            bool go = false;
+                            for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
+                            {
+                                // for each hour of class
+                                for (int j = dur - 1; j >= 0; j--)
+                                {
+                                    // check for overlapping with other classes at same time
+                                    List<DataRow> cl = change._slots[rt + j];
+                                    if (cl != null)
+                                    {
+                                        foreach (DataRow crow in cl)
+                                        {
+                                            if (courseRow != crow)
+                                            {
+                                                // professor overlaps?
+                                                if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
+                                                // student group overlaps?
+
+                                                DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
+                                                DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
+                                                curClassCurriculums.Columns.Remove("courseId");
+                                                sameTimeClassCurriculums.Columns.Remove("courseId");
+                                                int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
+                                                int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                                //int count = 0;
+                                                //foreach (DataRow id in curClassCurriculums.Rows)
+                                                //{
+                                                //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                //count = 0;
+                                                //foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                                //{
+                                                //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
+                                                if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         goto cont;
                     }
 
 
                     cont:
-                    containsValueTS = _classes.ContainsValue(rt);
+                    for (int k = dur - 1; k >= 0; k--)//_classes.ContainsValue(rt);
+                        if (change._slots[rt + k] == null)
+                            containsValueTS = false;
                     counter++;
                     //continue till the slot choosen is empty or not the one currently used by the class
-                } while (false);//counter < 2 && containsValueTS);
-                DataRow courseRow = _classes.ElementAt(classIndexInDict).Key;
+                } while (containsValueTS);//counter < 2 && containsValueTS);
+                
                 for (int z = dur - 1; z >= 0; z--)
                 {
-                    // add the new timeslot to _slots
+                    // add the new timeslot to change._slots
                     List<DataRow> l = new List<DataRow>();
                     l.Add(courseRow);
-                    if (_slots[(rt + z)] == null)
-                        _slots[(rt + z)] = l;
+                    if (change._slots[(rt + z)] == null)
+                        change._slots[(rt + z)] = l;
                     else
-                        _slots[(rt + z)].Add(courseRow);
+                        change._slots[(rt + z)].Add(courseRow);
 
                     //remove the old timeslots
-                        _slots[(randomClassOldTS + z)].Remove(courseRow);
-
+                    change._slots[(randomClassOldTS + z)].Remove(courseRow);
                 }
-                _classes[courseRow] = rt;
+                change._classes[courseRow] = rt;
                 change.CalculateFitness();
-                if (change.GetFitness() > s.GetFitness())
+                if (change.GetFitness() > fitness)
                 {
-                    s = change;
+                    fitness = change.GetFitness();
                     hcIdle--;
                 }
             }
-            return s;
+            return change;
         }
     }
 }

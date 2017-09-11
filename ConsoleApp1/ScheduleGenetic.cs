@@ -116,11 +116,11 @@ namespace ConsoleApp1
         private List<bool> _criteria = new List<bool>();
 
         // Time-space slots, one entry represent one hour in one classroom
-        private List<List<DataRow>> _slots = new List<List<DataRow>>(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
+        public List<List<DataRow>> _slots = new List<List<DataRow>>(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
         // Class table for chromosome
         // Used to determine first time-space slot used by class
-        private Dictionary<DataRow, int> _classes = new Dictionary<DataRow, int>();
+        public Dictionary<DataRow, int> _classes = new Dictionary<DataRow, int>();
 
 
         // Initializes chromosomes with configuration block (setup of chromosome)
@@ -395,9 +395,11 @@ namespace ConsoleApp1
             //n.CalculateFitness();
             //Console.WriteLine("hill climbing");
             n.CalculateFitness();
-            n = HillClimbing.solve(n);
+            ScheduleGenetic change = (ScheduleGenetic)n.MemberwiseClone();
+            change = HillClimbing.solve(change,n.GetFitness());
             //n = SimulatedAnnealing.StartAnnealing(n);
-            n.CalculateFitness();
+            if (change.GetFitness() > n.GetFitness())
+                n = change;
             // return smart pointer to offspring
             return n;
         }
@@ -511,6 +513,7 @@ namespace ConsoleApp1
 
         public void CalculateFitness()
         {
+            Console.WriteLine(" In the fitness function");
             // chromosome's score
             int score = 0;
 
@@ -562,7 +565,6 @@ namespace ConsoleApp1
             //for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last()); it.MoveNext(), ci += 8)
             foreach (KeyValuePair<DataRow, int> it in _classes)
             {
-
                 // coordinate of time-space slot
                 int p = it.Value;
                 int day = p / daySize;
@@ -723,12 +725,12 @@ namespace ConsoleApp1
                 bool lectMorn = false;
                 if (Convert.ToBoolean(cc["lab"]))
                 {
-                    if (time >= 12)
+                    if (time >= 5)
                         labeven = true;
                 }
                 else
                 {
-                    if (time < 12)
+                    if (time < 5)
                         lectMorn = true;
                 }
                 if (labeven) score++;
@@ -940,7 +942,6 @@ namespace ConsoleApp1
                     //if (Int32.Parse(row["IT"].ToString()) == 5)
                     //    fifit[day, timeBlock] = h;
                 }
-
 
                 ci += 9;
             }
@@ -1271,7 +1272,6 @@ namespace ConsoleApp1
         {
             if (_prototype == null)
                 return;
-
             //CSingleLock @lock = new CSingleLock(_stateSect, 1);
             @lock = new SemaphoreSlim(1);
             @lock.Wait();
@@ -1296,6 +1296,7 @@ namespace ConsoleApp1
             // initialize new population with chromosomes randomly built using prototype
             List<ScheduleGenetic> it = _chromosomes.ToList();
             ScheduleGenetic snew;
+            
             for (int i = 0; i < it.Count; i++)
             {
                 // remove chromosome from previous execution
@@ -1310,6 +1311,7 @@ namespace ConsoleApp1
                 // add new chromosome to population
                 //if population empty inser if into _chromosomes
                 snew = _prototype.MakeNewFromPrototype();
+                Console.WriteLine(i);
                 if (_chromosomes[i] == null)
                     _chromosomes[i] = snew;
                 it[i] = snew;
