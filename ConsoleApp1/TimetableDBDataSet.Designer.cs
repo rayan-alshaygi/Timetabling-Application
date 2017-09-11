@@ -14316,7 +14316,7 @@ SELECT year, size, labRoom, numOfGroups FROM MathCS WHERE (year = @year)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[7];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[8];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        Id, name, numberofseats, lab\r\nFROM            Rooms";
@@ -14344,8 +14344,15 @@ SELECT year, size, labRoom, numOfGroups FROM MathCS WHERE (year = @year)";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=0;";
+            this._commandCollection[6].CommandText = "SELECT        Id, name, numberofseats, lab\r\nFROM            Rooms\r\nWHERE numberof" +
+                "seats >= @numSeats AND   lab = @lab";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@numSeats", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "numberofseats", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lab", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "lab", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[7] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = "SELECT Id, name, numberofseats,lab FROM dbo.Rooms\r\nwhere lab=0;";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14399,8 +14406,21 @@ SELECT year, size, labRoom, numOfGroups FROM MathCS WHERE (year = @year)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual TimetableDBDataSet.RoomsDataTable GetRooms() {
+        public virtual TimetableDBDataSet.RoomsDataTable GetRoomEnoughSeats(int numSeats, bool lab) {
             this.Adapter.SelectCommand = this.CommandCollection[6];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(numSeats));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((bool)(lab));
+            TimetableDBDataSet.RoomsDataTable dataTable = new TimetableDBDataSet.RoomsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual TimetableDBDataSet.RoomsDataTable GetRooms() {
+            this.Adapter.SelectCommand = this.CommandCollection[7];
             TimetableDBDataSet.RoomsDataTable dataTable = new TimetableDBDataSet.RoomsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

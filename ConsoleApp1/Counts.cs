@@ -184,5 +184,18 @@ namespace ConsoleApp1
             return (int) cc.Count();
         }
 
+        public int[] GetRoomWithSeats(int numSeats, bool lab)
+        {
+            DataTable d = room.GetRoomEnoughSeats(numSeats, lab);
+            int[] ids = new int[d.Rows.Count];
+            int c = 0;
+            foreach(DataRow d in d.Rows)
+            {
+                ids[c] = Int32.Parse(d["Id"].ToString());
+                c++;
+            }
+            return ids;
+        }
+
     }
 }
