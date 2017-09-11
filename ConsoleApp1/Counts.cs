@@ -189,9 +189,9 @@ namespace ConsoleApp1
             DataTable d = room.GetRoomEnoughSeats(numSeats, lab);
             int[] ids = new int[d.Rows.Count];
             int c = 0;
-            foreach(DataRow d in d.Rows)
+            foreach(DataRow x in d.Rows)
             {
-                ids[c] = Int32.Parse(d["Id"].ToString());
+                ids[c] = Int32.Parse(x["Id"].ToString());
                 c++;
             }
             return ids;
