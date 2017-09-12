@@ -10,12 +10,10 @@ namespace ConsoleApp1
     class SimulatedAnnealing
     {
 
-        public static ScheduleGenetic StartAnnealing(ScheduleGenetic s)
+        public static ScheduleGenetic StartAnnealing(ScheduleGenetic next, ScheduleGenetic current)
         {
-            //primary configuration of classes
-            ScheduleGenetic current = s;
-            //the next configuration of classes to be tested
-            ScheduleGenetic next = current;
+            //primary configuration of classes: current
+            //the next configuration of classes to be tested: next
             int iteration = -1;
             //the probability
             double proba;
@@ -24,7 +22,7 @@ namespace ConsoleApp1
             double temperature = 40.0;
             double epsilon = 0.001;
             double delta;
-            double distance = s.GetFitness();
+            double distance = current.GetFitness();
             Random rnd = new Random();
             //while the temperature did not reach epsilon
             while (temperature > epsilon)
@@ -32,10 +30,10 @@ namespace ConsoleApp1
                 iteration++;
                 Console.WriteLine("iteration \t" + iteration);
                 //get the next random permutation of distances 
-                computeNext(current, next);
+                computeNext(next);
                 //compute the distance of the new permuted configuration
-                if (distance < 0 && next.GetFitness()<0)
-                    delta = - distance - next.GetFitness();
+                if (distance < 0 && next.GetFitness() < 0)
+                    delta = -distance + next.GetFitness();
                 else
                     delta = distance - next.GetFitness();
                 //if the new distance is better accept it and assign it
@@ -79,7 +77,7 @@ namespace ConsoleApp1
         /// </summary>
         /// <param name="c">current configuration</param>
         /// <param name="n">next configuration</param>
-        static void computeNext(ScheduleGenetic cu, ScheduleGenetic change)
+        static void computeNext(ScheduleGenetic change)
         {
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int numClasses = c.Rows.Count;
@@ -89,14 +87,14 @@ namespace ConsoleApp1
             int rc;
             int rt;
             bool containsValueTS = true;
-            //int randomTSClassId;
             int randomClassId;
             int classIndexInDict;
-            // int randomTSClass = -1;
-            DataRow courseRow;//
+            DataRow courseRow;
             Dictionary<int, int> _classesId = change._classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()),
-                       p => p.Value);
+               p => p.Value);
+            int numberOfNewRandomClases = 0;
             newRandomClass:
+            numberOfNewRandomClases++;
             rc = RandomNumbers.NextNumber() % numClasses;
             var attempt = change._classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()));
             var listClasses = change._classes.Keys.ToList();
@@ -114,7 +112,10 @@ namespace ConsoleApp1
             for (int d = 0; d < 5; d++)
                 crit[d] = _criteria[classIndexInDict * 9 + d];
             if (!crit.Contains(false))
-                goto newRandomClass;
+                if (numberOfNewRandomClases < 5)
+                    goto newRandomClass;
+                else
+                    return;
             int nr = Counts.GetInstance().GetNumberOfRooms();
             int daySize = DefineConstants.DAY_HOURS * nr;
             int pos = randomClassOldTS;
@@ -227,18 +228,6 @@ namespace ConsoleApp1
                                         sameTimeClassCurriculums.Columns.Remove("courseId");
                                         int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
                                         int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
-                                        //int count = 0;
-                                        //foreach (DataRow id in curClassCurriculums.Rows)
-                                        //{
-                                        //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                        //    count++;
-                                        //}
-                                        //count = 0;
-                                        //foreach (DataRow id in sameTimeClassCurriculums.Rows)
-                                        //{
-                                        //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                        //    count++;
-                                        //}
                                         var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
                                         if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
                                         {
@@ -337,6 +326,18 @@ namespace ConsoleApp1
                                         sameTimeClassCurriculums.Columns.Remove("courseId");
                                         int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
                                         int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                        //int count = 0;
+                                        //foreach (DataRow id in curClassCurriculums.Rows)
+                                        //{
+                                        //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                        //    count++;
+                                        //}
+                                        //count = 0;
+                                        //foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                        //{
+                                        //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                        //    count++;
+                                        //}
                                         var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
                                         if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
                                         {
@@ -375,9 +376,7 @@ namespace ConsoleApp1
             }
             change._classes[courseRow] = rt;
             change.CalculateFitness();
-      
         }
-}
 
-
+    }
 }

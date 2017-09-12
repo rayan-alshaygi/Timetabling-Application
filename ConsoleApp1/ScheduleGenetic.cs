@@ -168,7 +168,10 @@ namespace ConsoleApp1
             _mutationProbability = c._mutationProbability;
         }
 
-
+        public ScheduleGenetic makeValueCopy()
+        {
+             return (ScheduleGenetic) this.MemberwiseClone();
+        }
         // Makes copy of chromosome
 
         public ScheduleGenetic MakeCopy(bool setupOnly)
@@ -1381,8 +1384,9 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
-                   // Console.WriteLine("produce offepsing: Simulated Annealling");
-                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
+                    Console.WriteLine("produce offepsing: Simulated Annealling");
+                    ScheduleGenetic change= offspring[j].makeValueCopy();
+                    SimulatedAnnealing.StartAnnealing(change, offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
