@@ -396,7 +396,7 @@ namespace ConsoleApp1
             }
 
             //n.CalculateFitness();
-            //Console.WriteLine("hill climbing");
+            Console.WriteLine("hill climbing");
             n.CalculateFitness();
             ScheduleGenetic change = (ScheduleGenetic)n.MemberwiseClone();
             change = HillClimbing.solve(change,n.GetFitness());
@@ -474,7 +474,58 @@ namespace ConsoleApp1
                     if (time % 2 != 0) time -= 1;
                     pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                     counter++;
-                    if (_slots[pos2] == null ) break;
+                    if (_slots[pos2] == null)
+                        break;
+                    if (_slots[pos2].Count == 0)
+                        break;
+                    if (pos2 < _slots.Count - 7)
+                    {
+                        if (_slots[pos2 + 4] == null)
+                        {
+                            if (time + 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 4;
+                                pos2 = pos2 + 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 > 4 && time > 4)
+                    {
+                        if (_slots[pos2 - 4] == null)
+                        {
+                            if (time - 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 4;
+                                pos2 = pos2 - 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 < _slots.Count - 5)
+                    {
+                        if (_slots[pos2 + 2] == null)
+                        {
+                            if (time + 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 2;
+                                pos2 = pos2 + 2;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 > 2 && time > 2)
+                    {
+                        if (_slots[pos2 - 2] == null)
+                        {
+                            if (time - 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 2;
+                                pos2 = pos2 - 2;
+                                break;
+                            }
+                        }
+                    }
                 } while (counter < 4);
                 //int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
 
@@ -1384,9 +1435,9 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
-                    Console.WriteLine("produce offepsing: Simulated Annealling");
-                    ScheduleGenetic change= offspring[j].makeValueCopy();
-                    SimulatedAnnealing.StartAnnealing(change, offspring[j]);
+                    //Console.WriteLine(" Simulated Annealling");
+                    //ScheduleGenetic change = offspring[j].makeValueCopy();
+                    //SimulatedAnnealing.StartAnnealing(change, offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
@@ -1407,8 +1458,25 @@ namespace ConsoleApp1
                     _chromosomes[ci] = offspring[j];
 
                     // try to add new chromosomes in best chromosome group
-                    AddToBest(ci);
+                    AddToBest(ci);                     
                 }
+                int count;
+                do
+                {
+                    // select chromosome for replacement randomly
+                    count = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
+
+                    // protect best chromosomes from replacement
+                } while (IsInBest(count));
+                Console.WriteLine(" Simulated Annealling");
+                ScheduleGenetic oneOfBest = _chromosomes[_bestChromosomes[RandomNumbers.NextNumber() % _bestChromosomes.Count]].makeValueCopy();
+                ScheduleGenetic change = oneOfBest.makeValueCopy();
+                SimulatedAnnealing.StartAnnealing(change, oneOfBest);
+                // replace chromosomes
+                if (_chromosomes[count] != null)
+                    _chromosomes[count] = null;
+                _chromosomes[count] = oneOfBest;
+
 
                 // algorithm has found new best chromosome
                 if (best != GetBestChromosome() && _observer != null)

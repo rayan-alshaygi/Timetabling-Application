@@ -28,8 +28,10 @@ namespace ConsoleApp1
             int classIndexInDict;
             // int randomTSClass = -1;
             DataRow courseRow;// = _classes.ElementAt(classIndexInDict).Key;
-            for (int i = 0; i < 5 && hcIdle < 3; i++)
+            for (int i = 0; hcIdle > 3; i++)
             {
+                if (i >= 5)
+                    break;
                 hcIdle++;
                 Dictionary<int, int> _classesId = change._classes.ToDictionary(p => Int32.Parse(p.Key["Id"].ToString()),
                    p => p.Value);
@@ -57,7 +59,7 @@ namespace ConsoleApp1
                         goto newRandomClass;
                     else
                         continue;
-                        int nr = Counts.GetInstance().GetNumberOfRooms();
+                int nr = Counts.GetInstance().GetNumberOfRooms();
                 int daySize = DefineConstants.DAY_HOURS * nr;
                 int pos = randomClassOldTS;
                 int day = pos / daySize;
@@ -76,10 +78,11 @@ namespace ConsoleApp1
                         int[] satsisfyingRooms = Counts.GetInstance().GetRoomWithSeats(classSeats, classLab);
                         int roomId = satsisfyingRooms[RandomNumbers.NextNumber() % satsisfyingRooms.Count()];
                         int randroom = rooms.Rows.IndexOf(rooms.Rows.Find(roomId));
+                        int attemptsToFindEmptyTimeslot = 0;
                         newTimeSlot:
                         do
                         {
-
+                            attemptsToFindEmptyTimeslot++;
                             day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                             time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                             if (time % 2 != 0) time -= 1;
@@ -139,68 +142,72 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                        } while (true);
+                        } while (attemptsToFindEmptyTimeslot < 5);
                         //cc = _classes.ElementAt(classIndexInDict).Key;
-                        bool go = false;
-                        for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
+                        if (attemptsToFindEmptyTimeslot != 5)
                         {
-                            // for each hour of class
-                            for (int j = dur - 1; j >= 0; j--)
+                            bool go = false;
+                            for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
                             {
-                                // check for overlapping with other classes at same time
-                                List<DataRow> cl = change._slots[t + j];
-                                if (cl != null)
+                                // for each hour of class
+                                for (int j = dur - 1; j >= 0; j--)
                                 {
-                                    foreach (DataRow crow in cl)
+                                    // check for overlapping with other classes at same time
+                                    List<DataRow> cl = change._slots[t + j];
+                                    if (cl != null)
                                     {
-                                        if (courseRow != crow)
+                                        foreach (DataRow crow in cl)
                                         {
-                                            // professor overlaps?
-                                            if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                            if (courseRow != crow)
                                             {
-                                                goto newTimeSlot;
+                                                // professor overlaps?
+                                                if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
+                                                // student group overlaps?
+
+                                                DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
+                                                DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
+                                                curClassCurriculums.Columns.Remove("courseId");
+                                                sameTimeClassCurriculums.Columns.Remove("courseId");
+                                                int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
+                                                int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                                //int count = 0;
+                                                //foreach (DataRow id in curClassCurriculums.Rows)
+                                                //{
+                                                //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                //count = 0;
+                                                //foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                                //{
+                                                //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
+                                                if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
                                             }
-
-                                            // student group overlaps?
-
-                                            DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
-                                            DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
-                                            curClassCurriculums.Columns.Remove("courseId");
-                                            sameTimeClassCurriculums.Columns.Remove("courseId");
-                                            int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
-                                            int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
-                                            //int count = 0;
-                                            //foreach (DataRow id in curClassCurriculums.Rows)
-                                            //{
-                                            //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                            //    count++;
-                                            //}
-                                            //count = 0;
-                                            //foreach (DataRow id in sameTimeClassCurriculums.Rows)
-                                            //{
-                                            //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                            //    count++;
-                                            //}
-                                            var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
-                                            if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
-                                            {
-                                                goto newTimeSlot;
-                                            }
-
                                         }
                                     }
                                 }
                             }
-
-                            goto cont;
                         }
-
+                        goto cont;
                     }
+
                     if (crit[1] == true)
                     {
+                        int attemptOfnewTimeslots = 0;
                         newTimeSlot:
                         do
                         {
+                            attemptOfnewTimeslots++;
                             if (pos < change._slots.Count - 7)
                             {
                                 if (change._slots[pos + 4] == null)
@@ -249,58 +256,62 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                        } while (true);
-                        //cc = _classes.ElementAt(classIndexInDict).Key;
-                        bool go = false;
-                        for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
+                        } while (attemptOfnewTimeslots < 5);
+                        if (attemptOfnewTimeslots != 5)
                         {
-                            // for each hour of class
-                            for (int j = dur - 1; j >= 0; j--)
+                            //cc = _classes.ElementAt(classIndexInDict).Key;
+                            bool go = false;
+                            for (int e = rooms.Rows.Count, t = day * daySize + time; e > 0; e--, t += DefineConstants.DAY_HOURS)
                             {
-                                // check for overlapping with other classes at same time
-                                List<DataRow> cl = change._slots[rt + j];
-                                if (cl != null)
+                                // for each hour of class
+                                for (int j = dur - 1; j >= 0; j--)
                                 {
-                                    foreach (DataRow crow in cl)
+                                    // check for overlapping with other classes at same time
+                                    List<DataRow> cl = change._slots[rt + j];
+                                    if (cl != null)
                                     {
-                                        if (courseRow != crow)
+                                        foreach (DataRow crow in cl)
                                         {
-                                            // professor overlaps?
-                                            if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                            if (courseRow != crow)
                                             {
-                                                goto newTimeSlot;
+                                                // professor overlaps?
+                                                if (Counts.GetInstance().GetClassInstructor(Int32.Parse(courseRow["courseId"].ToString())) == Counts.GetInstance().GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
+                                                // student group overlaps?
+
+                                                DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
+                                                DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
+                                                curClassCurriculums.Columns.Remove("courseId");
+                                                sameTimeClassCurriculums.Columns.Remove("courseId");
+                                                int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
+                                                int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                                //int count = 0;
+                                                //foreach (DataRow id in curClassCurriculums.Rows)
+                                                //{
+                                                //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                //count = 0;
+                                                //foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                                //{
+                                                //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                                //    count++;
+                                                //}
+                                                var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
+                                                if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
+                                                {
+                                                    goto newTimeSlot;
+                                                }
+
                                             }
-
-                                            // student group overlaps?
-
-                                            DataTable curClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(courseRow["courseId"].ToString()));
-                                            DataTable sameTimeClassCurriculums = Counts.GetInstance().GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
-                                            curClassCurriculums.Columns.Remove("courseId");
-                                            sameTimeClassCurriculums.Columns.Remove("courseId");
-                                            int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
-                                            int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
-                                            //int count = 0;
-                                            //foreach (DataRow id in curClassCurriculums.Rows)
-                                            //{
-                                            //    curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                            //    count++;
-                                            //}
-                                            //count = 0;
-                                            //foreach (DataRow id in sameTimeClassCurriculums.Rows)
-                                            //{
-                                            //    sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
-                                            //    count++;
-                                            //}
-                                            var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
-                                            if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
-                                            {
-                                                goto newTimeSlot;
-                                            }
-
                                         }
                                     }
                                 }
                             }
+
                         }
                         goto cont;
                     }

@@ -40,9 +40,10 @@ namespace ConsoleApp1
                 //if (delta < 0)
                 if (next.GetFitness() > distance)
                 {
-                    current = next;
+                    current = next.makeValueCopy();
                     current.CalculateFitness();
                     distance = current.GetFitness();
+                    Console.WriteLine("better :) ");
                     //distance = delta + distance;
                 }
                 else
@@ -55,7 +56,7 @@ namespace ConsoleApp1
                     //otherwise the old value is kept
                     if (proba < Math.Exp(-delta / temperature))
                     {
-                        current = next;
+                        current = next.makeValueCopy();
                         current.CalculateFitness();
                         distance = current.GetFitness();
                         //distance = delta + distance;
