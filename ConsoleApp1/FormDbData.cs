@@ -11,7 +11,7 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
-        public static string conString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static string conString = @"Data Source=LENOVO-PC\TIMETABLE;Initial Catalog=db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         //public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
@@ -564,7 +564,7 @@ namespace ConsoleApp1
         }
         public DataTable GetCourseIdandName(string code)
         {
-            return coursesTA.GetCourseNameAndId(code);
+            return coursesTA.GetDataByCode(code);
         }
         public DataTable combolab()
         {

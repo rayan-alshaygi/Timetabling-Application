@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 string classname;
                 bool lab = false;
                 bool tut = false;
-                string n ="";
+                string n = "";
                 DataTable dt = c.GetCourseIdandName(tbcode.Text);
                 int?[] x = new int?[2];
                 if (dt.Rows.Count != 0)
@@ -40,8 +40,8 @@ namespace ConsoleApp1
                     cid = Int32.Parse(dt.Rows[0]["Id"].ToString());
                     n = dt.Rows[0].Field<string>(1).ToString();
                 }
-                    
-                
+
+
                 if (chbLecture.Checked == true)
                 {
                     int numCheckedItems = chbLectureInstructores.CheckedItems.Count;
@@ -101,12 +101,19 @@ namespace ConsoleApp1
         }
         private void Add_Course_Class_Load(object sender, EventArgs e)
         {
-            
+
             label5.Visible = false;
             label6.Visible = false;
+            chbLectureInstructores.Visible = true;
+            chbLectureInstructores.DisplayMember = "Text";
+            chbLectureInstructores.ValueMember = "Value";
             DataTable dt2 = c.ComboInstructorName();
-            for (int j = 0; j < dt2.Rows.Count; j++)
-                chbLectureInstructores.Items.Add(dt2.Rows[j].Field<string>(1));
+            int z = 0;
+            for (int i = 0; i < dt2.Rows.Count; i++)
+            {
+                chbLectureInstructores.Items.Insert(z, new MyListBoxItem { Text = dt2.Rows[i].Field<string>(1), Value = Int32.Parse(dt2.Rows[i]["Id"].ToString()) });
+                z++;
+            }
             chbLabInstrucctores.Visible = false;
             chbLectureInstructores.Visible = true;
             chbTutorialInstructors.Visible = false;
@@ -117,6 +124,8 @@ namespace ConsoleApp1
         private void chbLab_CheckedChanged(object sender, EventArgs e)
         {
             chbLabInstrucctores.Visible = true;
+            chbLabInstrucctores.DisplayMember = "Text";
+            chbLabInstrucctores.ValueMember = "Value";
             label3.Visible = true;
             DataTable dt = c.ComboInstructorName();
             int z = 0;
@@ -124,8 +133,10 @@ namespace ConsoleApp1
             {
                 if (!dt.Rows[i]["TA"].Equals(false))
                 {
-                    chbLabInstrucctores.Items.Add(dt.Rows[i].Field<string>(1));
+                    chbLabInstrucctores.Items.Insert(z, new MyListBoxItem { Text = dt.Rows[i].Field<string>(1), Value = Int32.Parse(dt.Rows[i]["Id"].ToString()) });
                     z++;
+
+
                 }
             }
         }
@@ -157,7 +168,7 @@ namespace ConsoleApp1
 
         private void tbClassDuration_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void tbClassDuration_KeyPress(object sender, KeyPressEventArgs e)
