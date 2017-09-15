@@ -339,5 +339,10 @@ namespace ConsoleApp1
             c.insertRoom(name, seats, lab);
 
         }
+
+        private void gbAddCurriculm_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -320,6 +320,7 @@ namespace ConsoleApp1
                 {
                     fitness = change.GetFitness();
                     hcIdle--;
+                    Console.WriteLine("Better is found");
                 }
             }
             return change;

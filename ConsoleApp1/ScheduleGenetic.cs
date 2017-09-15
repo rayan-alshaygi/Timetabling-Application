@@ -566,7 +566,7 @@ namespace ConsoleApp1
 
         public void CalculateFitness()
         {
-            Console.WriteLine(" In the fitness function");
+           // Console.WriteLine(" In the fitness function");
             // chromosome's score
             int score = 0;
 
@@ -1154,7 +1154,7 @@ namespace ConsoleApp1
             }
             CalculateFitness();
             float score = GetFitness();
-            Console.WriteLine("The fitness is " + score);
+           // Console.WriteLine("The fitness is " + score);
 
         }
         // Returns fitness value of chromosome
@@ -1421,6 +1421,7 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
+                    Console.WriteLine("produce offepsing: Simulated Annealing");
                     ScheduleGenetic sim = offspring[j].makeValueCopy();
                     offspring[j] = SimulatedAnnealing.StartAnnealing(sim, offspring[j]);
                 }
@@ -1453,7 +1454,7 @@ namespace ConsoleApp1
 
                     // protect best chromosomes from replacement
                 } while (IsInBest(count));
-                Console.WriteLine(" Simulated Annealling");
+                Console.WriteLine(" Simulated Annealling To one of the best");
                 ScheduleGenetic oneOfBest = _chromosomes[_bestChromosomes[RandomNumbers.NextNumber() % _bestChromosomes.Count]].makeValueCopy();
                 ScheduleGenetic change = oneOfBest.makeValueCopy();
                 oneOfBest = SimulatedAnnealing.StartAnnealing(change, oneOfBest);

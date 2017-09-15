@@ -16,5 +16,14 @@ namespace ConsoleApp1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Algorithm s = Algorithm.GetInstance();
+            //textBox2.Text = s.start();
+            s.Start();
+            s.Stop();
+            Algorithm.FreeInstance();
+        }
     }
 }

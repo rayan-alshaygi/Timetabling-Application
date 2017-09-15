@@ -11,8 +11,8 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
-        public static string conString = @"Data Source=LENOVO-PC\TIMETABLE;Initial Catalog=db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //public static string conString = @"Data Source=LENOVO-PC\TIMETABLE;Initial Catalog=db;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
         CurriculumTableAdapter curTA = new CurriculumTableAdapter();
@@ -176,7 +176,6 @@ namespace ConsoleApp1
         public int?[] courseYDprepare (int y,string[] dv)
         {
             int?[] dev = new int?[6];
-            Console.WriteLine(dev[0]);
             foreach (string z in dv)
             {
                 if (z == "cs")

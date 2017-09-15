@@ -39,6 +39,7 @@ namespace ConsoleApp1
                 {
                     current = next.makeValueCopy();
                     distance = current.GetFitness();
+                    Console.WriteLine("Better is found");
                 }
                 else
                 {
