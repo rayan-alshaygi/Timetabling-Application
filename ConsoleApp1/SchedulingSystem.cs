@@ -66,5 +66,18 @@ namespace ConsoleApp1
         {
 
         }
+
+        private void btAddCourse_Click(object sender, EventArgs e)
+        {
+
+            Add_Cource frm = new Add_Cource();
+            frm.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Add_Course_Class frm = new Add_Course_Class();
+            frm.Show();
+        }
     }
 }

@@ -63,7 +63,7 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.label13.Location = new System.Drawing.Point(34, 83);
+            this.label13.Location = new System.Drawing.Point(36, 110);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(220, 23);
             this.label13.TabIndex = 45;
@@ -71,14 +71,14 @@
             // 
             // tbCourseCodeArabic
             // 
-            this.tbCourseCodeArabic.Location = new System.Drawing.Point(305, 83);
+            this.tbCourseCodeArabic.Location = new System.Drawing.Point(305, 113);
             this.tbCourseCodeArabic.Name = "tbCourseCodeArabic";
             this.tbCourseCodeArabic.Size = new System.Drawing.Size(181, 20);
             this.tbCourseCodeArabic.TabIndex = 44;
             // 
             // tbCourseCodeEnglish
             // 
-            this.tbCourseCodeEnglish.Location = new System.Drawing.Point(305, 49);
+            this.tbCourseCodeEnglish.Location = new System.Drawing.Point(305, 70);
             this.tbCourseCodeEnglish.Name = "tbCourseCodeEnglish";
             this.tbCourseCodeEnglish.Size = new System.Drawing.Size(181, 20);
             this.tbCourseCodeEnglish.TabIndex = 43;
@@ -88,7 +88,7 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.label11.Location = new System.Drawing.Point(34, 49);
+            this.label11.Location = new System.Drawing.Point(36, 65);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 23);
             this.label11.TabIndex = 42;
@@ -97,17 +97,18 @@
             // cbNumberOfLevels
             // 
             this.cbNumberOfLevels.FormattingEnabled = true;
-            this.cbNumberOfLevels.Location = new System.Drawing.Point(305, 122);
+            this.cbNumberOfLevels.Location = new System.Drawing.Point(305, 152);
             this.cbNumberOfLevels.Name = "cbNumberOfLevels";
             this.cbNumberOfLevels.Size = new System.Drawing.Size(181, 21);
             this.cbNumberOfLevels.TabIndex = 41;
+            this.cbNumberOfLevels.SelectedIndexChanged += new System.EventHandler(this.cbNumberOfLevels_SelectedIndexChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(36, 120);
+            this.label10.Location = new System.Drawing.Point(36, 147);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(180, 23);
             this.label10.TabIndex = 40;
@@ -117,7 +118,7 @@
             // 
             this.btAddLevel.BackgroundImage = global::ConsoleApp1.Properties.Resources.add_level1;
             this.btAddLevel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btAddLevel.Location = new System.Drawing.Point(166, 154);
+            this.btAddLevel.Location = new System.Drawing.Point(166, 179);
             this.btAddLevel.Name = "btAddLevel";
             this.btAddLevel.Size = new System.Drawing.Size(212, 63);
             this.btAddLevel.TabIndex = 39;
@@ -126,7 +127,7 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(305, 21);
+            this.tbName.Location = new System.Drawing.Point(305, 26);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(181, 20);
             this.tbName.TabIndex = 38;
@@ -136,7 +137,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(36, 21);
+            this.label1.Location = new System.Drawing.Point(36, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 23);
             this.label1.TabIndex = 37;
@@ -151,9 +152,9 @@
             this.gbOneLevel.Controls.Add(this.clbDivisions);
             this.gbOneLevel.Controls.Add(this.label4);
             this.gbOneLevel.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.gbOneLevel.Location = new System.Drawing.Point(75, 223);
+            this.gbOneLevel.Location = new System.Drawing.Point(126, 272);
             this.gbOneLevel.Name = "gbOneLevel";
-            this.gbOneLevel.Size = new System.Drawing.Size(303, 280);
+            this.gbOneLevel.Size = new System.Drawing.Size(307, 280);
             this.gbOneLevel.TabIndex = 46;
             this.gbOneLevel.TabStop = false;
             this.gbOneLevel.Text = "Level";
@@ -167,6 +168,7 @@
             this.btAddLevelAS.Size = new System.Drawing.Size(164, 61);
             this.btAddLevelAS.TabIndex = 20;
             this.btAddLevelAS.UseVisualStyleBackColor = true;
+            this.btAddLevelAS.Click += new System.EventHandler(this.btAddLevelAS_Click_1);
             // 
             // cbYears
             // 
@@ -217,12 +219,13 @@
             this.gbTwoLevels.Controls.Add(this.clbDivisions1);
             this.gbTwoLevels.Controls.Add(this.label14);
             this.gbTwoLevels.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Bold);
-            this.gbTwoLevels.Location = new System.Drawing.Point(12, 223);
+            this.gbTwoLevels.Location = new System.Drawing.Point(12, 248);
             this.gbTwoLevels.Name = "gbTwoLevels";
-            this.gbTwoLevels.Size = new System.Drawing.Size(538, 368);
+            this.gbTwoLevels.Size = new System.Drawing.Size(538, 393);
             this.gbTwoLevels.TabIndex = 47;
             this.gbTwoLevels.TabStop = false;
             this.gbTwoLevels.Text = "Level";
+            this.gbTwoLevels.Enter += new System.EventHandler(this.gbTwoLevels_Enter);
             // 
             // button2
             // 
@@ -230,7 +233,7 @@
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Location = new System.Drawing.Point(183, 310);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(149, 52);
+            this.button2.Size = new System.Drawing.Size(149, 62);
             this.button2.TabIndex = 21;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -238,7 +241,7 @@
             // cbyears1
             // 
             this.cbyears1.FormattingEnabled = true;
-            this.cbyears1.Location = new System.Drawing.Point(77, 24);
+            this.cbyears1.Location = new System.Drawing.Point(71, 29);
             this.cbyears1.Name = "cbyears1";
             this.cbyears1.Size = new System.Drawing.Size(121, 31);
             this.cbyears1.TabIndex = 15;
@@ -312,7 +315,7 @@
             this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.BackgroundImage = global::ConsoleApp1.Properties.Resources.add_level2;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(166, 597);
+            this.button1.Location = new System.Drawing.Point(166, 647);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(240, 91);
             this.button1.TabIndex = 22;
@@ -325,10 +328,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ConsoleApp1.Properties.Resources.background_1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(562, 698);
+            this.ClientSize = new System.Drawing.Size(562, 737);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gbTwoLevels);
-            this.Controls.Add(this.gbOneLevel);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.tbCourseCodeArabic);
             this.Controls.Add(this.tbCourseCodeEnglish);
@@ -336,6 +338,7 @@
             this.Controls.Add(this.cbNumberOfLevels);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.btAddLevel);
+            this.Controls.Add(this.gbOneLevel);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbAddRoom = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.chbLab = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbSeats = new System.Windows.Forms.TextBox();
@@ -41,6 +43,8 @@
             // gbAddRoom
             // 
             this.gbAddRoom.BackColor = System.Drawing.Color.Transparent;
+            this.gbAddRoom.Controls.Add(this.label2);
+            this.gbAddRoom.Controls.Add(this.label1);
             this.gbAddRoom.Controls.Add(this.chbLab);
             this.gbAddRoom.Controls.Add(this.label7);
             this.gbAddRoom.Controls.Add(this.tbSeats);
@@ -54,6 +58,26 @@
             this.gbAddRoom.TabIndex = 25;
             this.gbAddRoom.TabStop = false;
             this.gbAddRoom.Enter += new System.EventHandler(this.gbAddRoom_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(305, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "*";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(142, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "please enter digit only";
             // 
             // chbLab
             // 
@@ -83,7 +107,7 @@
             this.tbSeats.Size = new System.Drawing.Size(154, 20);
             this.tbSeats.TabIndex = 3;
             this.tbSeats.TextChanged += new System.EventHandler(this.tbSeats_TextChanged);
-            this.tbSeats.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSeats_KeyPress);
+            this.tbSeats.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSeats_KeyPress_1);
             // 
             // btAddRoomAS
             // 
@@ -115,6 +139,7 @@
             this.tbRoomName.Name = "tbRoomName";
             this.tbRoomName.Size = new System.Drawing.Size(154, 20);
             this.tbRoomName.TabIndex = 0;
+            this.tbRoomName.TextChanged += new System.EventHandler(this.tbRoomName_TextChanged);
             // 
             // Rooms
             // 
@@ -129,6 +154,7 @@
             this.Name = "Rooms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Room";
+            this.Load += new System.EventHandler(this.Rooms_Load);
             this.gbAddRoom.ResumeLayout(false);
             this.gbAddRoom.PerformLayout();
             this.ResumeLayout(false);
@@ -144,5 +170,7 @@
         private System.Windows.Forms.Button btAddRoomAS;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbRoomName;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

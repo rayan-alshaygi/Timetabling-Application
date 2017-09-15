@@ -49,8 +49,7 @@ namespace ConsoleApp1
             //cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[0].Value);
             //     }
             //  }
-            courses course = new courses();
-            course.Show();
+            
         }
 
         private void btAddStudent_Click(object sender, EventArgs e)

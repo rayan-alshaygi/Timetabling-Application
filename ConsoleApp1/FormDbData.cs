@@ -11,8 +11,8 @@ namespace ConsoleApp1
 {
     class FormDbData
     {
-        //public static string conString = "Data Source = DESKTOP-BC1VAP6;Initial Catalog=FixingInsert;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static string conString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //public static string conString = "Data Source=DESKTOP-BC1VAP6;Initial Catalog=timetableDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         TimetableDBDataSet timetableDBDS = new TimetableDBDataSet();
         InstructorsTableAdapter insTA = new InstructorsTableAdapter();
         CurriculumTableAdapter curTA = new CurriculumTableAdapter();
@@ -546,19 +546,25 @@ namespace ConsoleApp1
             insertIntoCourseCurriculums(coid, couCurIds);
         }
 
-        public void InsertCourseClass(string name, int duration, bool lab,bool tut, int Instructor, int CourseId)
+        public void InsertCourseClass(string name, int duration, bool lab, bool tut, int[] Instructor, int CourseId)
         {
             //int instructorId = getInstructorId(Instructor);
-            int ccid= Int32.Parse(ccTA.InsertQuery(name, duration, lab, CourseId,tut).ToString());
-            ccInst.Insert(ccid, Instructor);
+            int ccid = Int32.Parse(ccTA.InsertQuery(name, duration, lab, CourseId, tut).ToString());
+            foreach (int Id in Instructor)
+                ccInst.Insert(ccid, Id);
         }
-        public void insertLabsOrTutorial(string name, int duration, bool lab, bool tut, int[] instructor, int courseId)
+        public int insertLabsOrTutorial(string name, int duration, bool lab, bool tut, int[] instructor, int courseId)
         {
             int courseClassId = Int32.Parse(ccTA.InsertQuery(name, duration, lab, courseId, tut).ToString());
             foreach (int instructorId in instructor)
             {
-                    ccInst.Insert(courseClassId, instructorId);
+                ccInst.Insert(courseClassId, instructorId);
             }
+            return courseClassId;
+        }
+        public DataTable GetCourseIdandName(string code)
+        {
+            return coursesTA.GetCourseNameAndId(code);
         }
         public DataTable combolab()
         {

@@ -109,6 +109,7 @@
             this.button1.Size = new System.Drawing.Size(250, 100);
             this.button1.TabIndex = 33;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btAddDivisionSize
             // 
@@ -156,6 +157,7 @@
             this.btAddCourse.Size = new System.Drawing.Size(250, 100);
             this.btAddCourse.TabIndex = 28;
             this.btAddCourse.UseVisualStyleBackColor = false;
+            this.btAddCourse.Click += new System.EventHandler(this.btAddCourse_Click);
             // 
             // btAddTeacher
             // 

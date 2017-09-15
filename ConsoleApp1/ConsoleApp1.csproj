@@ -65,6 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add Cource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add Cource.Designer.cs">
+      <DependentUpon>Add Cource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Add Course Class.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add Course Class.Designer.cs">
+      <DependentUpon>Add Course Class.cs</DependentUpon>
+    </Compile>
     <Compile Include="add division size.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,12 +85,6 @@
     </Compile>
     <Compile Include="ChildView.cs" />
     <Compile Include="Counts.cs" />
-    <Compile Include="Courses.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Courses.Designer.cs">
-      <DependentUpon>Courses.cs</DependentUpon>
-    </Compile>
     <Compile Include="DefineConstants.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -175,11 +181,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Add Cource.resx">
+      <DependentUpon>Add Cource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add Course Class.resx">
+      <DependentUpon>Add Course Class.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="add division size.resx">
       <DependentUpon>add division size.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Courses.resx">
-      <DependentUpon>Courses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -240,6 +249,72 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\if_free-20_463008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FMS IT 012 20170911_102418.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background 1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\teacher.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add teacher.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add room.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add course.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\generate.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\generate1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add division.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add level.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add level1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add level2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add division1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add teacher1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add room1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add room.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add course class.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
