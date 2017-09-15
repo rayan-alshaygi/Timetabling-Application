@@ -79,5 +79,10 @@ namespace ConsoleApp1
             Add_Course_Class frm = new Add_Course_Class();
             frm.Show();
         }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
