@@ -116,11 +116,11 @@ namespace ConsoleApp1
         private List<bool> _criteria = new List<bool>();
 
         // Time-space slots, one entry represent one hour in one classroom
-        private List<List<DataRow>> _slots = new List<List<DataRow>>(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
+        public List<List<DataRow>> _slots = new List<List<DataRow>>(DefineConstants.DAYS_NUM * DefineConstants.DAY_HOURS * Counts.GetInstance().GetNumberOfRooms());
 
         // Class table for chromosome
         // Used to determine first time-space slot used by class
-        private Dictionary<DataRow, int> _classes = new Dictionary<DataRow, int>();
+        public Dictionary<DataRow, int> _classes = new Dictionary<DataRow, int>();
 
 
         // Initializes chromosomes with configuration block (setup of chromosome)
@@ -168,7 +168,10 @@ namespace ConsoleApp1
             _mutationProbability = c._mutationProbability;
         }
 
-
+        public ScheduleGenetic makeValueCopy()
+        {
+            return (ScheduleGenetic)this.MemberwiseClone();
+        }
         // Makes copy of chromosome
 
         public ScheduleGenetic MakeCopy(bool setupOnly)
@@ -183,26 +186,17 @@ namespace ConsoleApp1
             // number of time-space slots
             int size = _slots.Count;
             ScheduleGenetic newChromosome = new ScheduleGenetic(this, true);
-            // DataTable rooms = Counts.GetInstance().GetLectureRooms();
-            //DataTable labs = Counts.GetInstance().GetLabRooms();
             DataTable rooms = Counts.GetInstance().GetRooms();
             DataTable lectureRooms = Counts.GetInstance().GetLectureRooms();
             DataTable labRooms = Counts.GetInstance().GetLabRooms();
             int numLabRooms = Counts.GetInstance().GetNumberOfLabRooms();
             int numLectureRooms = Counts.GetInstance().GetNumberOfLectureRooms();
-            // place classes at random position
-            //SqlConnection con = new SqlConnection(FormDbData.conString);
-            //con.Open();
-            //SqlCommand cmd = new SqlCommand("Select * from  CourseClass", con);
-            //cmd.CommandType = CommandType.Text;
-            //DataTable c = new DataTable();
-            //c.Load(cmd.ExecuteReader());
+            // DataTable c = Counts.GetInstance().getCourseClassesWithNullValues();
             DataTable c = Counts.GetInstance().GetCourseClasses();
             int nr = Counts.GetInstance().GetNumberOfRooms();
-            //int nl = Counts.GetInstance().GetNumberOfLabRooms();
-            //variable needed in searching for instructors and curriculums over lap
             int daySize = DefineConstants.DAY_HOURS * nr;
             Console.WriteLine("New Chromosome");
+            Counts counts = new Counts();
             foreach (DataRow courseRow in c.Rows)
             {
                 // determine random position of class
@@ -210,29 +204,90 @@ namespace ConsoleApp1
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int room;
                 int randroom;
-                if (!courseRow["preferredRoom"].Equals(null))
+                if (courseRow["preferredRoom"] != DBNull.Value)// .Equals(null))
                 {
                     room = Int32.Parse(courseRow["preferredRoom"].ToString());
                     randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
-                    // if (courseRow["lab"].Equals(true))
-                    //     randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
-                    // //randroom = room % numLabRooms;
-                    // else
-                    //     randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
-                    //// randroom = room % numLectureRooms;
                 }
                 else
                 {
                     randroom = RandomNumbers.NextNumber() % nr;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        randroom = RandomNumbers.NextNumber() % nr;
+                        if (courseRow["lab"].Equals(true))
+                            room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
+                        else
+                            room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
+                        int roomSeats = counts.GetRoomMaxCapicityById(room);
+                        int classSeats = counts.GetCourseStudents(Int32.Parse(courseRow["courseId"].ToString()));
+                        if (roomSeats >= classSeats) break;
+                    }
 
-                    if (courseRow["lab"].Equals(true))
-                        room = Int32.Parse(labRooms.Rows[randroom % numLabRooms]["id"].ToString());
-                    else
-                        room = Int32.Parse(lectureRooms.Rows[randroom % numLectureRooms]["id"].ToString());
                 }
-                int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
-                if (time % 2 != 0) time -= 1;
-                int pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                int counter = 0;
+                int time;
+                int pos;
+                do
+                {
+                    time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                    if (time % 2 != 0) time -= 1;
+                    pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                    counter++;
+                    if (newChromosome._slots[pos] == null)
+                        break;
+                    if (newChromosome._slots[pos].Count == 0)
+                        break;
+                    if (pos < _slots.Count - 7)
+                    {
+                        if (newChromosome._slots[pos + 4] == null)
+                        {
+                            if (time + 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 4;
+                                pos = pos + 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos > 4 && time > 4)
+                    {
+                        if (newChromosome._slots[pos - 4] == null)
+                        {
+                            if (time - 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 4;
+                                pos = pos - 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos < _slots.Count - 5)
+                    {
+                        if (newChromosome._slots[pos + 2] == null)
+                        {
+                            if (time + 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 2;
+                                pos = pos + 2;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos > 2 && time > 2)
+                    {
+                        if (newChromosome._slots[pos - 2] == null)
+                        {
+                            if (time - 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 2;
+                                pos = pos - 2;
+                                break;
+                            }
+                        }
+                    }
+                } while (counter < 6);
+                //pos = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
                 // fill time-space slots, for each hour of class
                 // List<DataRow> l = new List<DataRow>();
                 for (int i = dur - 1; i >= 0; i--)
@@ -342,10 +397,12 @@ namespace ConsoleApp1
             }
 
             //n.CalculateFitness();
-            //n= HillClimbing.solve(n);
-            //n = SimulatedAnnealing.StartAnnealing(n);
+            Console.WriteLine("hill climbing");
             n.CalculateFitness();
-            // return smart pointer to offspring
+            ScheduleGenetic change = (ScheduleGenetic)n.MemberwiseClone();
+            change = HillClimbing.solve(change, n.GetFitness());
+            if (change.GetFitness() > n.GetFitness())
+                n = change;
             return n;
         }
 
@@ -365,7 +422,7 @@ namespace ConsoleApp1
             // move selected number of classes at random position
             for (int j = _mutationSize; j > 0; j--)
             {
-                // select ranom chromosome for movement
+                // select random chromosome for movement
                 int mpos = RandomNumbers.NextNumber() % numberOfClasses;
                 int pos1 = 0;
                 int d = 0;
@@ -385,10 +442,91 @@ namespace ConsoleApp1
                 int dur = Int32.Parse(cc1["duration"].ToString());
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int randroom = RandomNumbers.NextNumber() % nr;
-                int room = Int32.Parse(rooms.Rows[randroom]["id"].ToString());
-                int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
-                if (time % 2 != 0) time -= 1;
-                int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                int room;//= Int32.Parse(rooms.Rows[randroom]["id"].ToString());
+                if (cc1["preferredRoom"] != DBNull.Value)// .Equals(null))
+                {
+                    room = Int32.Parse(cc1["preferredRoom"].ToString());
+                    randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
+                }
+                else
+                {
+                    randroom = RandomNumbers.NextNumber() % nr;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        randroom = RandomNumbers.NextNumber() % nr;
+                        if (cc1["lab"].Equals(true))
+                            room = Int32.Parse(rooms.Rows[randroom % rooms.Rows.Count]["id"].ToString());
+                        else
+                            room = Int32.Parse(rooms.Rows[randroom % rooms.Rows.Count]["id"].ToString());
+                        int roomSeats = counts.GetRoomMaxCapicityById(room);
+                        int classSeats = counts.GetCourseStudents(Int32.Parse(cc1["courseId"].ToString()));
+                        if (roomSeats >= classSeats) break;
+                    }
+                }
+                int time;
+                int pos2;
+                int counter = 0;// = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                //if (time % 2 != 0) time -= 1;
+                do
+                {
+                    time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
+                    if (time % 2 != 0) time -= 1;
+                    pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
+                    counter++;
+                    if (_slots[pos2] == null)
+                        break;
+                    if (_slots[pos2].Count == 0)
+                        break;
+                    if (pos2 < _slots.Count - 7)
+                    {
+                        if (_slots[pos2 + 4] == null)
+                        {
+                            if (time + 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 4;
+                                pos2 = pos2 + 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 > 4 && time > 4)
+                    {
+                        if (_slots[pos2 - 4] == null)
+                        {
+                            if (time - 4 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 4;
+                                pos2 = pos2 - 4;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 < _slots.Count - 5)
+                    {
+                        if (_slots[pos2 + 2] == null)
+                        {
+                            if (time + 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time + 2;
+                                pos2 = pos2 + 2;
+                                break;
+                            }
+                        }
+                    }
+                    if (pos2 > 2 && time > 2)
+                    {
+                        if (_slots[pos2 - 2] == null)
+                        {
+                            if (time - 2 < DefineConstants.DAY_HOURS + 1 - dur)
+                            {
+                                time = time - 2;
+                                pos2 = pos2 - 2;
+                                break;
+                            }
+                        }
+                    }
+                } while (counter < 4);
+                //int pos2 = day * nr * DefineConstants.DAY_HOURS + randroom * DefineConstants.DAY_HOURS + time;
 
                 // move all time-space slots
                 for (int i = dur - 1; i >= 0; i--)
@@ -428,6 +566,7 @@ namespace ConsoleApp1
 
         public void CalculateFitness()
         {
+            Console.WriteLine(" In the fitness function");
             // chromosome's score
             int score = 0;
 
@@ -479,7 +618,6 @@ namespace ConsoleApp1
             //for (Dictionary<DataRow, int>.Enumerator it = _classes.GetEnumerator(); !it.Equals(_classes.Last()); it.MoveNext(), ci += 8)
             foreach (KeyValuePair<DataRow, int> it in _classes)
             {
-
                 // coordinate of time-space slot
                 int p = it.Value;
                 int day = p / daySize;
@@ -491,7 +629,7 @@ namespace ConsoleApp1
 
                 time = time % DefineConstants.DAY_HOURS;
                 int dur = Int32.Parse(it.Key["duration"].ToString());
-
+                int currentClassId = Int32.Parse(it.Key["courseId"].ToString());
                 // check for room overlapping of classes
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
@@ -507,13 +645,13 @@ namespace ConsoleApp1
                 //if (!ro)
                 //    score++;
                 if (ro)
-                    score -= 16;
+                    score -= 200;
                 _criteria[ci + 0] = !ro;
 
                 DataRow cc = it.Key;
                 DataRow r = Counts.GetInstance().GetRoomById(classRoom);
                 int roomSeats = counts.GetRoomMaxCapicityById(classRoom);
-                int classSeats = counts.GetCourseStudents(Int32.Parse(cc["courseId"].ToString()));
+                int classSeats = counts.GetCourseStudents(currentClassId);
 
                 // does current room have enough seats
                 _criteria[ci + 1] = roomSeats >= classSeats;
@@ -521,16 +659,16 @@ namespace ConsoleApp1
                 //if (_criteria[ci + 1])
                 //    score++;
                 if (!_criteria[ci + 1])
-                    score -= 16;
+                    score -= 200;
                 // does current room have computers if they are required
                 Boolean roomLab = Convert.ToBoolean(rooms.Rows[randroom]["lab"].ToString().ToLower());
                 Boolean classLab = Boolean.Parse(cc["lab"].ToString());
-                _criteria[ci + 2] = classLab || (classLab && roomLab);
+                _criteria[ci + 2] = !classLab || (classLab && roomLab);
                 // Hard constraint when satisfied nothing happens nothing happens
                 //if (_criteria[ci + 2])
                 //    score++;
-                if (_criteria[ci + 2])
-                    score -= 16;
+                if (!_criteria[ci + 2])
+                    score -= 200;
                 bool po = false;
                 bool go = false;
                 // check overlapping of classes for professors and student groups
@@ -548,7 +686,7 @@ namespace ConsoleApp1
                                 if (cc != crow)
                                 {
                                     // professor overlaps?
-                                    if (cc["instructorId"] == crow["instructorId"])
+                                    if (counts.GetClassInstructor(Int32.Parse(cc["courseId"].ToString())) == counts.GetClassInstructor(Int32.Parse(crow["courseId"].ToString())))
                                     {
                                         po = true;
                                     }
@@ -559,7 +697,22 @@ namespace ConsoleApp1
                                     DataTable sameTimeClassCurriculums = counts.GetCourseCurriculums(Int32.Parse(crow["courseId"].ToString()));
                                     curClassCurriculums.Columns.Remove("courseId");
                                     sameTimeClassCurriculums.Columns.Remove("courseId");
-                                    if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()) != null)
+                                    int[] curClassCurriculumsIds = new int[curClassCurriculums.Rows.Count];
+                                    int[] sameTimeClassCurriculumsIds = new int[sameTimeClassCurriculums.Rows.Count];
+                                    int count = 0;
+                                    foreach (DataRow id in curClassCurriculums.Rows)
+                                    {
+                                        curClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                        count++;
+                                    }
+                                    count = 0;
+                                    foreach (DataRow id in sameTimeClassCurriculums.Rows)
+                                    {
+                                        sameTimeClassCurriculumsIds[count] = Int32.Parse(id["curriculumId"].ToString());
+                                        count++;
+                                    }
+                                    var intersection = curClassCurriculumsIds.Intersect(sameTimeClassCurriculumsIds);
+                                    if (!go && curClassCurriculums.AsEnumerable().Intersect(sameTimeClassCurriculums.AsEnumerable()).Count() != 0) //intersection.Count() !=0)//
                                     {
                                         go = true;
                                     }
@@ -583,7 +736,7 @@ namespace ConsoleApp1
                     //    score++;
 
                     if (po)
-                        score -= 16;
+                        score -= 200;
                     _criteria[ci + 3] = !po;
 
                     // student groups has no overlaping classes?
@@ -591,11 +744,12 @@ namespace ConsoleApp1
                     //if (!go)
                     //    score++;
                     if (go)
-                        score -= 16;
+                        score -= 200;
                     _criteria[ci + 4] = !go;
                 }
                 // instructors preferred time
-                DataTable dt = counts.GetInstructorPreferredTime(Int32.Parse(cc["instructorId"].ToString()));
+                int[] instructorId = counts.GetClassInstructor(currentClassId);
+                DataTable dt = counts.GetInstructorPreferredTime(instructorId);
                 bool insPrefTime = false;
                 foreach (DataRow t in dt.Rows)
                 {
@@ -622,14 +776,14 @@ namespace ConsoleApp1
                 //Lab and Lecture morning or evening sessions
                 bool labeven = false;
                 bool lectMorn = false;
-                if (Boolean.Parse(cc["lab"].ToString()))
+                if (Convert.ToBoolean(cc["lab"]))
                 {
-                    if (time >= 12)
+                    if (time >= 5)
                         labeven = true;
                 }
                 else
                 {
-                    if (time < 12)
+                    if (time < 5)
                         lectMorn = true;
                 }
                 if (labeven) score++;
@@ -639,7 +793,7 @@ namespace ConsoleApp1
                 //To know the max hours per day and if a specific group have a day off
                 // they must be grouped, insert the data in arrays
                 int h;
-                if (cc["lab"].ToString() == null)
+                if (Convert.ToBoolean(cc["lab"]) == false)
                     h = 1;
                 else h = 2;
                 DataTable yd = counts.GetClassYandD(Int32.Parse(cc["courseId"].ToString()));
@@ -842,45 +996,48 @@ namespace ConsoleApp1
                     //    fifit[day, timeBlock] = h;
                 }
 
-
                 ci += 9;
             }
 
             //then call a function and send it all the years and devisions
             //then for each devision of a year whom don't have an off day
-            //or consecutive hours more than 6 increment the score
-            List<int[,]> data = new List<int[,]> { fm, fmcs, fs, fit, fcs, sm, smcs, ss, sit, scs, tm, tmcs, ts, tit, tcs, fom, fomcs, fos, foit, focs, fifm, fifmcs, fifs, fifit, fifcs };
-            score += CheckPref(data);
+            //or consecutive hours more than 6 increment the score 
+            List<int[,]> data = new List<int[,]> { fm/*, fmcs, fs, fscs, fcs, */, fit, sm, /*smcs, ss, sscs, scs,*/sit, tm/*, tmcs, ts, tscs, tcs*/, tit, fom, fomcs, fos, foscs, focs, foit, fifm, fifmcs, fifs, fifscs, fifcs, fifit };
+            List<string> dataNames = new List<string> { "first", "firstIT", "second", "secondIT", "third", "thirdIT", "fourthMATH", "fourthMATHCS", "fourthSTAT", "fourthSTATCS", "fourthCS", "fourthIT", "fifthMATH", "fifthMATHCS", "fifthSTAT", "fifthSTATCS", "fifthCS", "fifthIT" };
+            score += CheckPref(data, dataNames);
             //calculate fitess value based on score
             _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
-        private int CheckPref(List<int[,]> allData)
+        private int CheckPref(List<int[,]> allData, List<string> allDataNames)
         {
             int score = 0;
-            foreach (int[,] yd in allData)
-            {
-                score += CheckSoftPref(yd);
-            }
+            for (int i = 0; i < allData.Count; i++)
+                score += CheckSoftPref(allData[i], allDataNames[i]);
             return score;
         }
         //see if the they have a day off + see the maximum hours they are working in
-        private int CheckSoftPref(int[,] yd)
+        private int CheckSoftPref(int[,] yd, string name)
         {
             //work here get the day off preferences for each year
-
+            DataTable pref = Counts.GetInstance().GetStudentsPrefrences(name);
+            string prefDay = pref.Rows[0]["DayOff"].ToString();
+            bool labLectureSameDay = Convert.ToBoolean(pref.Rows[0]["LabLectureSameDay"]);
+            bool lectureMorningSession = Convert.ToBoolean(pref.Rows[0]["LectureMorningSession"]);
             //work here see if the lab and days on same day or not;
             int score = 0;
             int consectiveHours = 0;
-            bool consHours = false;
+            bool consHours6 = false;
+            bool consHours4 = false;
             bool[] days = new bool[7];
             bool prefDayOff = false;
             bool dayOff = false;
+            bool labsAndLecturesSameDay = false;
             //calculate the number of lectures and labs in a single day
             int numOfLectures = 0;
             int numOfLabs = 0;
             for (int d = 0; d <= 4; d++)
             {
-
+                consectiveHours = 0;
                 for (int t = 0; t <= 4; t++)
                 {
                     //1 for lectures
@@ -890,18 +1047,23 @@ namespace ConsoleApp1
                         days[d] = true;
                         numOfLectures++;
                     }
-                    if (yd[d, t] != 0)
+                    else if (yd[d, t] == 2)
                     {
                         consectiveHours += 2;
                         days[d] = true;
                         numOfLabs++;
                     }
+                    else
+                        consectiveHours = 0;
+
                 }
                 if (consectiveHours >= 6)
-                    consHours = true;
+                    consHours6 = true;
+                if (consectiveHours >= 4)
+                    consHours4 = true;
                 //work if day have both
                 if (numOfLectures != 0 && numOfLabs != 0)
-                    score++;
+                    labsAndLecturesSameDay = true;
             }
             //off day
             if (days.Contains(false))
@@ -910,28 +1072,38 @@ namespace ConsoleApp1
                 //get the indexes of all off days if any 
                 var result = Enumerable.Range(0, days.Count()).Where(i => days[i] == false).ToList();
                 //check if the off day is the preferred one or not !
-                //if(result.Contains(integer index of the preffered day))  prefDayOff=true; ;
+                int intIndexOfPrefDay = 8;
+                if (Enum.IsDefined(typeof(DayOfWeek), prefDay))
+                {
+                    DayOfWeek x = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), prefDay, true);
+                    intIndexOfPrefDay = (int)x;
+                }
+                if (result.Contains(intIndexOfPrefDay)) prefDayOff = true; ;
             }
 
-            bool[] hoursDays = new bool[] { consHours, dayOff, prefDayOff };
             //consecetive hourse
-            if (consHours == true)
+            if (consHours4 == false)
                 score++;
+            else
+            {
+                if (consHours6 == false)
+                    score++;
+            }
             //checkForOffDay
-            if (dayOff == false)
+            if (dayOff == true)
                 score++;
             //check if the day off is the preferred day
-            if (prefDayOff == false)
+            if (prefDayOff == true)
                 score++;
-
+            if (labsAndLecturesSameDay == labLectureSameDay)
+                score++;
             return score;
         }
-        // Returns fitness value of chromosome
 
         //get the current timetables and evaluate
         public void evaluate()
         {
-            ScheduleTableAdapter sched = new ScheduleTableAdapter();
+            _2ndTermUniversityScheduleTableAdapter sched = new _2ndTermUniversityScheduleTableAdapter();
             DataTable sem = sched.GetData();
             DataRow classDR;
             Counts counts = new Counts();
@@ -945,17 +1117,17 @@ namespace ConsoleApp1
                 int curClassId = Int32.Parse(r["courseClassId"].ToString());
                 classDR = counts.GetClassById(curClassId);
                 int startTime = Int32.Parse(r["time start"].ToString());
-                int time = startTime-8;
+                int time = startTime - 8;
                 int dur = Int32.Parse(classDR["duration"].ToString());
                 String d = r["day"].ToString();
                 int room = Int32.Parse(r["roomId"].ToString());
                 int randroom;
                 randroom = rooms.Rows.IndexOf(rooms.Rows.Find(room));
                 //if (classDR["lab"].Equals(true))
-                  //  randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
+                //  randroom = labRooms.Rows.IndexOf(labRooms.Rows.Find(room));
                 //randroom = room % numLabRooms;
-               // else
-                  //  randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
+                // else
+                //  randroom = lectureRooms.Rows.IndexOf(lectureRooms.Rows.Find(room));
                 int t = randroom * DefineConstants.DAY_HOURS;
                 int day = 8;
                 if (Enum.IsDefined(typeof(DayOfWeek), d))
@@ -985,6 +1157,7 @@ namespace ConsoleApp1
             Console.WriteLine("The fitness is " + score);
 
         }
+        // Returns fitness value of chromosome
         public float GetFitness()
         {
             return _fitness;
@@ -1152,28 +1325,21 @@ namespace ConsoleApp1
         {
             if (_prototype == null)
                 return;
-
             //CSingleLock @lock = new CSingleLock(_stateSect, 1);
             @lock = new SemaphoreSlim(1);
             @lock.Wait();
             // do not run already running algorithm
             if (_state == AlgorithmState.AS_RUNNING)
                 return;
-
             _state = AlgorithmState.AS_RUNNING;
-
             @lock.Release();
-            //@lock.Close();
-
             if (_observer != null)
             {
                 // notify observer that execution of algorithm has changed it state
                 _observer.EvolutionStateChanged(_state);
             }
-
             // clear best chromosome group from previous execution
             ClearBest();
-
             // initialize new population with chromosomes randomly built using prototype
             List<ScheduleGenetic> it = _chromosomes.ToList();
             ScheduleGenetic snew;
@@ -1187,10 +1353,10 @@ namespace ConsoleApp1
                         it[i] = null;
                     }
                 }
-
                 // add new chromosome to population
                 //if population empty inser if into _chromosomes
                 snew = _prototype.MakeNewFromPrototype();
+                Console.WriteLine(i);
                 if (_chromosomes[i] == null)
                     _chromosomes[i] = snew;
                 it[i] = snew;
@@ -1198,7 +1364,6 @@ namespace ConsoleApp1
                 AddToBest(i);
             }
             _currentGeneration = 0;
-
             while (true)
             {
                 @lock.Wait();
@@ -1208,18 +1373,15 @@ namespace ConsoleApp1
                     @lock.Release();
                     break;
                 }
-
                 ScheduleGenetic best = GetBestChromosome();
                 Console.WriteLine("check if best found" + best.GetFitness());
-                // work algorithm has reached criteria?
+                // work algorithm has reached feasible result? save it to the database and exit
                 if (best.GetFitness() >= 0)
                 {
                     Counts counts = new Counts();
                     ScheduleTableAdapter sched = new ScheduleTableAdapter();
                     DataTable rooms = counts.GetRooms();
                     _state = AlgorithmState.AS_CRITERIA_STOPPED;
-                    //for (Dictionary<DataRow, int>.Enumerator x = best.GetClasses().GetEnumerator(); !it.Equals(best.GetClasses().Last()); x.MoveNext())
-                    //{
                     foreach (KeyValuePair<DataRow, int> x in best.GetClasses())
                     {
                         // coordinate of time-space slot
@@ -1245,7 +1407,6 @@ namespace ConsoleApp1
                     @lock.Release();
                     break;
                 }
-
                 @lock.Release();
                 Console.WriteLine("produce offepsing");
                 // produce offepsing
@@ -1260,7 +1421,8 @@ namespace ConsoleApp1
                     offspring[j] = p1.Crossover(p2);
                     Console.WriteLine("produce offepsing: Mutation");
                     offspring[j].Mutation();
-                    //offspring[j] = SimulatedAnnealing.StartAnnealing(offspring[j]);
+                    ScheduleGenetic sim = offspring[j].makeValueCopy();
+                    offspring[j] = SimulatedAnnealing.StartAnnealing(sim, offspring[j]);
                 }
                 Console.WriteLine("replace chromosomes of current operation with offspring");
                 // replace chromosomes of current operation with offspring
@@ -1282,6 +1444,27 @@ namespace ConsoleApp1
 
                     // try to add new chromosomes in best chromosome group
                     AddToBest(ci);
+                }
+                int count;
+                do
+                {
+                    // select chromosome for replacement randomly
+                    count = RandomNumbers.NextNumber() % (int)_chromosomes.Count;
+
+                    // protect best chromosomes from replacement
+                } while (IsInBest(count));
+                Console.WriteLine(" Simulated Annealling");
+                ScheduleGenetic oneOfBest = _chromosomes[_bestChromosomes[RandomNumbers.NextNumber() % _bestChromosomes.Count]].makeValueCopy();
+                ScheduleGenetic change = oneOfBest.makeValueCopy();
+                oneOfBest = SimulatedAnnealing.StartAnnealing(change, oneOfBest);
+                // replace chromosomes
+
+                if (_chromosomes[count].GetFitness() < oneOfBest.GetFitness())
+                {
+                    if (_chromosomes[count] != null)
+                        _chromosomes[count] = null;
+                    _chromosomes[count] = oneOfBest;
+                    AddToBest(count);
                 }
 
                 // algorithm has found new best chromosome

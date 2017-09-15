@@ -18,7 +18,7 @@ namespace ConsoleApp1
         CoursesTableAdapter courses = new CoursesTableAdapter();
         CourseCurriculumsTableAdapter courseCur = new CourseCurriculumsTableAdapter();
         CoursesYDTableAdapter courseYD = new CoursesYDTableAdapter();
-    
+        StudentsPreferencesTableAdapter studentsPreferencesTableAdapter = new StudentsPreferencesTableAdapter();
 
         // Global instance
         private static Counts _instance = new Counts();
@@ -33,28 +33,26 @@ namespace ConsoleApp1
             return _instance;
         }
 
-        public int GetCourseStudents(int courseId)   {
-            DataTable dt =courses.GetSizeById(courseId);
+        public int GetCourseStudents(int courseId)
+        {
+            DataTable dt = courses.GetSizeById(courseId);
             return Int32.Parse(dt.Rows[0]["numberOfStudents"].ToString());
         }
 
-        // Returns number of parsed Instructor
+        // get soft prefernces
+        public DataTable GetStudentsPrefrences(string name)
+        {
+            return studentsPreferencesTableAdapter.GetPrefrencesByName(name);
+        }
+        // Returns number of Instructor
 
         public int GetNumberOfInstructor()
         {
-           
-            return (int) ins.Count();
-        }
 
-        // Returns pointer to student group with specified ID
-        // If there is no student group with such ID method returns NULL
-        public void GetCurriculumById(int id)
-        {
-            
+            return (int)ins.Count();
         }
+        // Returns number of student groups
 
-        // Returns number of parsed student groups
-        
         public int GetNumberOfCurriculums()
         {
 
@@ -66,27 +64,34 @@ namespace ConsoleApp1
 
             return courseCur.GetCourseCurriculums(id);
         }
-        public DataTable GetInstructorPreferredTime(int id)
+        public DataTable GetInstructorPreferredTime(int[] ids)
         {
-            return insTime.GetDataById(id);
+            DataTable toReturn = new DataTable();
+            DataTable temp;
+            foreach (int id in ids)
+            {
+                temp = insTime.GetDataById(id);
+                toReturn.Merge(temp);
+            }
+            return toReturn;
         }
         public int GetNumberOfCourses()
         {
-            return (int) cc.Count();
+            return (int)cc.Count();
         }
 
         public DataTable GetClassYandD(int cid)
         {
             return courseYD.GetYDById(cid);// .GetYDByCourseId(cid);
         }
-        // Returns pointer to room with specified ID
+        // Returns row of room with specified ID
         // If there is no room with such ID method returns NULL
         public DataRow GetRoomById(int id)
         {
-            DataTable dt=room.GetDataById(id);
-            if (dt.Rows.Count!=0)
+            DataTable dt = room.GetDataById(id);
+            if (dt.Rows.Count != 0)
             {
-               return dt.Rows[0];
+                return dt.Rows[0];
             }
             return null;
         }
@@ -112,10 +117,10 @@ namespace ConsoleApp1
             return 0;
         }
 
-        // Returns number of parsed rooms
-
-        public int GetNumberOfRooms() { 
-            return (int) room.Count();
+        // Returns number of rooms
+        public int GetNumberOfRooms()
+        {
+            return (int)room.Count();
         }
         public int GetNumberOfLectureRooms()
         {
@@ -142,21 +147,56 @@ namespace ConsoleApp1
         {
             DataTable dt = cc.GetData();
             return dt;
-            
-        }
 
+        }
+        public int[] GetClassInstructor(int classId)
+        {
+            CoursecClassInstructorsTableAdapter coursecClassInstructorsTableAdapter = new CoursecClassInstructorsTableAdapter();
+            DataTable dt = coursecClassInstructorsTableAdapter.GetInstructorId(classId);
+            int[] ids = new int[dt.Rows.Count];
+            int c = 0;
+            foreach (DataRow id in dt.Rows)
+            {
+                ids[c] = Int32.Parse(id["instructorId"].ToString());
+                c++;
+            }
+            return ids;
+        }
+        public DataTable getCourseClassesWithNullValues()
+        {
+            SqlConnection con = new SqlConnection(FormDbData.conString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select * from  CourseClass", con);
+            cmd.CommandType = CommandType.Text;
+            DataTable d = new DataTable();
+            d.Load(cmd.ExecuteReader());
+            return d;
+        }
         public TimetableDBDataSet.CourseClassDataTable HCGetCourseClasses()
         {
-            TimetableDBDataSet.CourseClassDataTable c=cc.GetData();
+            TimetableDBDataSet.CourseClassDataTable c = cc.GetData();
             return c;
 
         }
 
-        // Returns number of parsed classes
+        // Returns number of classes
 
         public int GetNumberOfCourseClasses()
         {
-            return (int) cc.Count();
+            return (int)cc.Count();
+        }
+
+        public int[] GetRoomWithSeats(int numSeats, bool lab)
+        {
+            DataTable d = room.GetRoomEnoughSeats(numSeats, lab);
+            int[] ids = new int[d.Rows.Count];
+            int c = 0;
+            foreach (DataRow x in d.Rows)
+            {
+                ids[c] = Int32.Parse(x["Id"].ToString());
+                c++;
+            }
+            return ids;
         }
 
     }
